@@ -7,6 +7,7 @@ import java.util.Scanner;
         private static final Scanner scanner = new Scanner(System.in);
         private static User loggedInUser = null;
 
+
         protected static Scanner getScanner() {
             return Menu.scanner;
         }

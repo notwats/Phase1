@@ -10,12 +10,22 @@ public abstract class User {
     int id;
     String username;
     private String password;
-    int[] followersID;
-    int[] followingsID;
-    int[] postsID;
-    int[] chatsID;
-    int[] groupsID;
-    LocalDate creatDate;
+    ArrayList<Integer> followersID;
+    ArrayList<Integer> followingsID;
+    ArrayList<Integer> postsID;
+    ArrayList<Integer> chatsID;
+    ArrayList<Integer> groupsID;
+    ArrayList<Integer> suggestionsID;
+
+    public ArrayList<Integer> getSuggestionsID() {
+        return suggestionsID;
+    }
+
+    public void setSuggestionsID(ArrayList<Integer> suggestionsID) {
+        this.suggestionsID = suggestionsID;
+    }
+
+    LocalDate createDate;
 
     String Bio;
 
@@ -34,7 +44,7 @@ public abstract class User {
         this.securityAnswer = securityAnswer;
         this.securityQuestion = securityQuestion;
 
-        this.creatDate = LocalDate.now();
+        this.createDate = LocalDate.now();
         User.allUsers.add(this);
     }
     public static User getUserByUsername(String username) {
@@ -43,6 +53,16 @@ public abstract class User {
                 return user;
             }
 
+        }
+        return null;
+    }
+
+    public static User getUserByID(int id){
+        for (User user:
+             User.allUsers) {
+            if(user.id == id){
+                return user;
+            }
         }
         return null;
     }
@@ -92,28 +112,28 @@ public abstract class User {
         return password;
     }
 
-    public int[] getFollowersID() {
+    public ArrayList<Integer> getFollowersID() {
         return followersID;
     }
 
-    public int[] getFollowingsID() {
+    public ArrayList<Integer> getFollowingsID() {
         return followingsID;
     }
 
-    public int[] getPostsID() {
+    public ArrayList<Integer> getPostsID() {
         return postsID;
     }
 
-    public int[] getChatsID() {
+    public ArrayList<Integer> getChatsID() {
         return chatsID;
     }
 
-    public int[] getGroupsID() {
+    public ArrayList<Integer> getGroupsID() {
         return groupsID;
     }
 
-    public LocalDate getCreatDate() {
-        return creatDate;
+    public LocalDate getCreateDate() {
+        return createDate;
     }
 
     public String getBio() {
@@ -144,28 +164,28 @@ public abstract class User {
         this.password = password;
     }
 
-    public void setFollowersID(int[] followersID) {
+    public void setFollowersID(ArrayList<Integer> followersID) {
         this.followersID = followersID;
     }
 
-    public void setFollowingsID(int[] followingsID) {
+    public void setFollowingsID(ArrayList<Integer> followingsID) {
         this.followingsID = followingsID;
     }
 
-    public void setPostsID(int[] postsID) {
+    public void setPostsID(ArrayList<Integer> postsID) {
         this.postsID = postsID;
     }
 
-    public void setChatsID(int[] chatsID) {
+    public void setChatsID(ArrayList<Integer> chatsID) {
         this.chatsID = chatsID;
     }
 
-    public void setGroupsID(int[] groupsID) {
+    public void setGroupsID(ArrayList<Integer> groupsID) {
         this.groupsID = groupsID;
     }
 
-    public void setCreatDate(LocalDate creatDate) {
-        this.creatDate = creatDate;
+    public void setCreateDate(LocalDate createDate) {
+        this.createDate = createDate;
     }
 
     public void setBio(String bio) {

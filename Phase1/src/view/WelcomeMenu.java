@@ -94,8 +94,8 @@ public class WelcomeMenu extends Menu {
 
     private void login() {
         System.out.println("Forget password?");
-        String yesno = this.getChoice();
-        if (yesno.equalsIgnoreCase("yes")) {
+        String yesNo = this.getChoice();
+        if (yesNo.equalsIgnoreCase("yes")) {
             String username = this.getInput("enter username");
             Message message = this.forgetPass(username);
             if (message!=Message.SUCCESS){
