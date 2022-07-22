@@ -3,7 +3,7 @@ package view;
 import controller.WelcomeController;
 import enums.Message;
 import enums.Security;
-import models.User;
+import models.*;
 
 public class WelcomeMenu extends Menu {
 
@@ -92,42 +92,6 @@ public class WelcomeMenu extends Menu {
         }
     }
 
-    private void login() {
-        System.out.println("Forget password?");
-        String yesNo = this.getChoice();
-        if (yesNo.equalsIgnoreCase("yes")) {
-            String username = this.getInput("enter username");
-            Message message = this.forgetPass(username);
-            if (message!=Message.SUCCESS){
-            System.out.println(message);
-            login();
-            }
-            else {
-                String password = this.getInput("enter new password");
-                String repeatedPassword = this.getInput("repeat password");
-                while ((message = this.validatePassword(password, repeatedPassword)) != Message.SUCCESS) {
-                    System.out.println(message);
-                    password = this.getInput("enter new password");
-                    repeatedPassword = this.getInput("repeat password");
-                }
-                    this.controller.handleChangingPass(username, password);
-                    System.out.println("Password changed");
-            }
-        }
-        String username = this.getInput("enter username");
-        String password = this.getInput("enter password");
-        Message message = this.controller.handleLogin(username, password);
-        //Don't have an account? Sign up
-        if (message == Message.SUCCESS) {
-            System.out.println("Logged in successfully");
-            MainProfileView.getInstance().run(); //aval mire to mainmenu safhe profile
-        } else {
-            System.out.println(message);
-        }
-        this.run();
-
-    }
-
     private Message forgetPass(String username) {
         User user = User.getUserByUsername(username);
         if (user != null) {
@@ -150,6 +114,41 @@ public class WelcomeMenu extends Menu {
         if (!this.isAlphaNumeric(password))
             return Message.NON_ALPHA_NUMERIC_PASSWORD;
         return Message.SUCCESS;
+    }
+
+    private void login() {
+        System.out.println("Forget password?");
+        String yesNo = this.getChoice();
+        if (yesNo.equalsIgnoreCase("yes")) {
+            String username = this.getInput("enter username");
+            Message message = this.forgetPass(username);
+            if (message!=Message.SUCCESS){
+                System.out.println(message);
+                login();
+            }
+            else {
+                String password = this.getInput("enter new password");
+                String repeatedPassword = this.getInput("repeat password");
+                while ((message = this.validatePassword(password, repeatedPassword)) != Message.SUCCESS) {
+                    System.out.println(message);
+                    password = this.getInput("enter new password");
+                    repeatedPassword = this.getInput("repeat password");
+                }
+                this.controller.handleChangingPass(username, password);
+                System.out.println("Password changed");
+            }
+        }
+        String username = this.getInput("enter username");
+        String password = this.getInput("enter password");
+        Message message = this.controller.handleLogin(username, password);
+        //Don't have an account? Sign up
+        if (message == Message.SUCCESS) {
+            System.out.println("Logged in successfully");
+            MainProfileView.getInstance().run(); //aval mire to mainmenu safhe profile
+        } else {
+            System.out.println(message);
+        }
+        this.run();
     }
 
     private void exit() {

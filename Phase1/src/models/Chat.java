@@ -21,26 +21,3 @@ abstract class Chat {
 
 }
 
-class Group extends Chat {
-
-    int [] membersID ;
-    int [] messagesID ;
-
-    public void addMember(int userID){
-        // add to data base
-    }
-  public void banning(int userID){
-
-  }
-}
-
-class Personal extends Chat {
-    int user1ID;
-    int user2ID;
-    boolean secretChat;
-    boolean blockStatus;
-
-    public void block(int userID){
-
-    }
-}

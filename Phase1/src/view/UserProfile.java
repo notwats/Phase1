@@ -3,7 +3,9 @@ package view;
 
 import controller.UserProfileController;
 import enums.Message;
-import models.User;
+import controller.*;
+import models.Post;
+import models.*;
 
 import javax.jws.soap.SOAPBinding;
 

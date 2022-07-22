@@ -1,11 +1,10 @@
 package models;
-
 import enums.Security;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public abstract class User {
-    private final static ArrayList<User> allUsers = new ArrayList<>();
+    public static ArrayList<User> allUsers = new ArrayList<>();
 
     int id;
     String username;
@@ -33,7 +32,7 @@ public abstract class User {
     Security securityQuestion;
 
 
-    static private int mainID = 0;
+    private static int mainID = 0;
 
     public User(String username, String password, String securityAnswer, Security securityQuestion) {
 
@@ -45,7 +44,7 @@ public abstract class User {
         this.securityQuestion = securityQuestion;
 
         this.createDate = LocalDate.now();
-        User.allUsers.add(this);
+        allUsers.add(this);
     }
     public static User getUserByUsername(String username) {
         for (User user : User.allUsers) {

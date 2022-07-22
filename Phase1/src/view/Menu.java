@@ -1,5 +1,5 @@
 package view;
-import models.User;
+import models.*;
 import java.util.Scanner;
 
 
@@ -13,11 +13,11 @@ import java.util.Scanner;
         }
 
         public static User getLoggedInUser() {
-            return Menu.loggedInUser;
+            return loggedInUser;
         }
 
         public static void setLoggedInUser(User user) {
-            Menu.loggedInUser = user;
+            loggedInUser = user;
         }
 
         protected String getInput(String message) {
