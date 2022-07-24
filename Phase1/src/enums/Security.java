@@ -27,9 +27,10 @@ public enum Security {
 
     public static Security randomQuestion() {
 
-        int pick = new Random().nextInt(Security.values().length);
+        /*int pick = new Random().nextInt(Security.values().length);
 
-        return Security.values()[pick];
+        return Security.values()[pick];*/
+        return null;
 
     }
 

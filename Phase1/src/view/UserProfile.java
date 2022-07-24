@@ -7,7 +7,6 @@ import controller.*;
 import models.Post;
 import models.*;
 
-import javax.jws.soap.SOAPBinding;
 
 // link
 public class UserProfile extends Menu {
