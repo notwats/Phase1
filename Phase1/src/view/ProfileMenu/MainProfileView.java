@@ -1,9 +1,10 @@
-package view;
+package view.ProfileMenu;
 
 import controller.MainProfileController;
 import enums.Message;
+import view.MainMenu;
 
-public class MainProfileView extends MainMenu{
+public class MainProfileView extends MainMenu {
 // singleton
 
     private static MainProfileView instance = null;
@@ -32,13 +33,13 @@ public class MainProfileView extends MainMenu{
         String choice = this.getChoice();
 
         if ("1".equals(choice) || "info".equals(choice)) {
-          //  this.showUserInfo();
+           this.showInfo();
         } else if ("2".equals(choice) || "settings".equals(choice)) {
-           // this.settings();
+            this.settings();
         } else if ("3".equals(choice) || "all posts".equals(choice)) {
-          //  this.posts();
+            this.allPosts();
         }else if ("4".equals(choice) || "new post".equals(choice)) {
-          //  this.others();
+            this.newPost();
         }else if ("5".equals(choice) || "back".equals(choice)) {
             return;
         }else {
@@ -48,8 +49,23 @@ public class MainProfileView extends MainMenu{
         // 1--> bio , username , followings , followers , posts' num
         // 2--> log out , private account,
         // 3-->
+    }
+
+    private void newPost() {
+    }
+
+    private void allPosts() {
+    }
+
+    private void settings() {
 
 
+
+    }
+
+    private void showInfo() {
+
+MainProfileController.showInfo() ;
     }
 
     @Override

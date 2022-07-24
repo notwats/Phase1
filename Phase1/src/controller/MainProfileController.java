@@ -21,5 +21,7 @@ public class MainProfileController extends Controller {
     }
 
 
+    public static void showInfo() {
 
+    }
 }

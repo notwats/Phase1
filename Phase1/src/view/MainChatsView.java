@@ -25,4 +25,8 @@ public class MainChatsView extends MainMenu{
         return MainChatsView.instance;
     }
 
+
+
+
+
 }

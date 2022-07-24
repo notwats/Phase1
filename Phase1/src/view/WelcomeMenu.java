@@ -1,5 +1,6 @@
 package view;
 
+import controller.Controller;
 import controller.WelcomeController;
 import enums.Message;
 import enums.Security;
@@ -145,6 +146,7 @@ public class WelcomeMenu extends Menu {
         if (message == Message.SUCCESS) {
             System.out.println("Logged in successfully");
             setLoggedInUser(User.getUserByUsername(username));
+            Controller.setLoggedInUser(User.getUserByUsername(username));
             MainMenu.getInstance().run(); //aval mire to mainmenu safhe profile
         } else {
             System.out.println(message);

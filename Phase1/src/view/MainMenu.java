@@ -1,6 +1,7 @@
 package view;
 
 import enums.Message;
+import view.ProfileMenu.MainProfileView;
 
 // where user can choose 4 option!?
 public class MainMenu extends Menu{
@@ -18,7 +19,6 @@ public class MainMenu extends Menu{
         if (MainMenu.instance == null) {
             MainMenu.setInstance(new MainMenu());
         }
-
         return MainMenu.instance;
     }
 
@@ -30,7 +30,7 @@ public class MainMenu extends Menu{
         if ("1".equals(choice) || "profile".equals(choice)) {
             MainProfileView.getInstance().run();
         } else if ("2".equals(choice) || "chats".equals(choice)) {
-          //  this.settings();
+         MainChatsView.getInstance().run();
         } else if ("3".equals(choice) || "posts".equals(choice)) {
           //  this.posts();
         } else if ("4".equals(choice) || "search".equals(choice)) {
