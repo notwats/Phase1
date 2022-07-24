@@ -1,5 +1,7 @@
 package models;
+
 import enums.Security;
+
 import java.util.ArrayList;
 
 public class NormalAcc extends User {

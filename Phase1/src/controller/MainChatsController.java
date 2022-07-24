@@ -1,6 +1,7 @@
 package controller;
+import controller.Controller;
 
-public class MainChatsController extends Controller{
+public class MainChatsController  extends Controller{
 
 
 }

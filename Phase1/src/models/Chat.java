@@ -1,6 +1,6 @@
 package models;
 
-abstract class Chat {
+public abstract class Chat {
     int chatID;
     int notificationType;//mute,and frequency of being mute
     int [] pinned;

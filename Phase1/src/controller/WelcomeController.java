@@ -7,8 +7,6 @@ import models.NormalAcc;
 import models.User;
 import view.Menu;
 
-import javax.jws.soap.SOAPBinding;
-
 public class WelcomeController extends Controller {
     //singleton
     private static void setInstance(WelcomeController instance) {
@@ -30,7 +28,7 @@ public class WelcomeController extends Controller {
     }
 
 
-    public Message handleRegistration(String username, String password, String repeatedPassword, Security question, String answerS , Boolean isNormal) {
+    public Message handleRegistration(String username, String password, String repeatedPassword, enums.Security question, String answerS , Boolean isNormal) {
         if (this.doesUsernameExist(username)) {
             return Message.USER_EXIST;
         }

@@ -5,7 +5,6 @@ import controller.UserProfileController;
 import enums.Message;
 import models.User;
 
-import javax.jws.soap.SOAPBinding;
 
 // link
 public class UserProfile extends Menu {
