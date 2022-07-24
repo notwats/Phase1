@@ -102,7 +102,7 @@ public class UserProfile extends Menu {
     }
 
     private void others(){
-        //block and restrict and all
+        //block and mute and restrict and all
     }
 
     private boolean isFollowing(){

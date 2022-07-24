@@ -144,7 +144,8 @@ public class WelcomeMenu extends Menu {
         //Don't have an account? Sign up
         if (message == Message.SUCCESS) {
             System.out.println("Logged in successfully");
-            MainProfileView.getInstance().run(); //aval mire to mainmenu safhe profile
+            setLoggedInUser(User.getUserByUsername(username));
+            MainMenu.getInstance().run(); //aval mire to mainmenu safhe profile
         } else {
             System.out.println(message);
         }

@@ -5,7 +5,7 @@ import java.util.Scanner;
 
     public abstract class Menu {
         private static final Scanner scanner = new Scanner(System.in);
-        private static User loggedInUser = null;
+        public static User loggedInUser = null;
 
 
         protected static Scanner getScanner() {
