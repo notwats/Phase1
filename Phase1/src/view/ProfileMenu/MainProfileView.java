@@ -4,14 +4,18 @@ import controller.MainProfileController;
 import enums.Message;
 import view.MainMenu;
 
+import java.util.Set;
+
 public class MainProfileView extends MainMenu {
 // singleton
 
     private static MainProfileView instance = null;
 
     private final MainProfileController controller;
+    private final Settings settings;
 
     private MainProfileView() {
+        this.settings = Settings.getInstance();
         this.controller = MainProfileController.getInstance();
     }
 
@@ -33,16 +37,16 @@ public class MainProfileView extends MainMenu {
         String choice = this.getChoice();
 
         if ("1".equals(choice) || "info".equals(choice)) {
-           this.showInfo();
+            this.showInfo();
         } else if ("2".equals(choice) || "settings".equals(choice)) {
-            this.settings();
+            settings.run();
         } else if ("3".equals(choice) || "all posts".equals(choice)) {
             this.allPosts();
-        }else if ("4".equals(choice) || "new post".equals(choice)) {
+        } else if ("4".equals(choice) || "new post".equals(choice)) {
             this.newPost();
-        }else if ("5".equals(choice) || "back".equals(choice)) {
+        } else if ("5".equals(choice) || "back".equals(choice)) {
             return;
-        }else {
+        } else {
             System.out.println(Message.INVALID_CHOICE);
             this.run();
         }
@@ -52,20 +56,15 @@ public class MainProfileView extends MainMenu {
     }
 
     private void newPost() {
+        NewPost.run();
     }
 
     private void allPosts() {
-    }
-
-    private void settings() {
-
-
-
+        controller.showAllPost();
     }
 
     private void showInfo() {
-
-MainProfileController.showInfo() ;
+        System.out.println( MainProfileController.showInfo());
     }
 
     @Override

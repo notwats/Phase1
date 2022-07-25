@@ -20,12 +20,12 @@ import java.util.Scanner;
             loggedInUser = user;
         }
 
-        protected String getInput(String message) {
+        public static String getInput(String message) {
             System.out.println(message + ":");
             return Menu.getScanner().nextLine().trim();
         }
 
-        protected String getChoice() {
+        public static String getChoice() {
             return Menu.getScanner().nextLine().trim().toLowerCase();
         }
 
@@ -33,5 +33,7 @@ import java.util.Scanner;
 
         protected abstract void showOptions();
 
+       // public static void start(){};
+      //  public static void options(){};
     }
 
