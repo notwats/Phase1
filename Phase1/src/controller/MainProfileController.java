@@ -38,6 +38,13 @@ public class MainProfileController extends Controller {
     public static void changeInfo() {
     }
 
+    public static void deletePost(String postNum) {
+    }
+
+    public static void changePost(String postNum) {
+    }
+
+
     public void showAllPost() {
     }
 

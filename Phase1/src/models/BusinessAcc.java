@@ -13,6 +13,6 @@ public class BusinessAcc extends User {
 
     public BusinessAcc(String username, String password, String securityAnswer, Security securityQuestion) {
         super(username, password, securityAnswer, securityQuestion);
-       // BusinessAcc.list.add(this);
+        BusinessAcc.list.add(this);
     }
 }

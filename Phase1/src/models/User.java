@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public abstract class User {
-    public static ArrayList<User> allUsers = new ArrayList<>();
+    public static ArrayList<User> allUsers = new ArrayList<>(); // not needed that much
 
     int id;
     String username;

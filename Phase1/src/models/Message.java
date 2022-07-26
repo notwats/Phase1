@@ -1,25 +1,40 @@
 package models;
 
+import database.ConnectionLink;
+
+import java.util.Date;
+
 public class Message {
     int chatID;
-    int messageID;
-    int reactions;
+    int senderID;
+    public final int messageID;
     String messageText;
     int inReplyTo;
-    //the message ID of the replied message
-    //will be saved here if it's null then
-    //the message isn't replying to anything
-    boolean seen;
-    boolean sent;
-    boolean forwarded;
-    String date;
+    Date date;
+    int forwardedFrom;
+
+    public Message(int chatID, int senderID, int messageID, String messageText, int inReplyTo, Date date, int forwardedFrom) {
+        this.chatID = chatID;
+        this.messageID = messageID;
+        this.messageText = messageText;
+        this.inReplyTo = inReplyTo;
+        this.date = date;
+        this.forwardedFrom = forwardedFrom;
+    }
+
+    public String getMessageText() {
+        return messageText;
+    }
 
     //-----
     public String copy(){return"";}
 
     public void edit(){}
 
-    public void show(){} //graphic function
+    public void show(){
+        User user = ConnectionLink.findUserByUserNumberID(senderID);
+        System.out.println(user.username+" : " +messageText);
+    } //graphic function
 
     public void forward(){}
 

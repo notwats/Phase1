@@ -45,7 +45,7 @@ public class MainProfileView extends MainMenu {
         } else if ("4".equals(choice) || "new post".equals(choice)) {
             this.newPost();
         } else if ("5".equals(choice) || "back".equals(choice)) {
-            return;
+           MainMenu.getInstance().run();
         } else {
             System.out.println(Message.INVALID_CHOICE);
             this.run();
@@ -60,7 +60,7 @@ public class MainProfileView extends MainMenu {
     }
 
     private void allPosts() {
-        controller.showAllPost();
+       PostsEdit.run();
     }
 
     private void showInfo() {

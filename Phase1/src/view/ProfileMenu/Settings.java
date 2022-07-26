@@ -39,7 +39,7 @@ public class Settings extends Menu {
         }else if ("4".equals(choice) || "delete".equals(choice)) {
             MainProfileController.deleteAcc();
         }else if ("5".equals(choice) || "back".equals(choice)) {
-            return;
+            MainProfileView.getInstance().run();
         }else {
             System.out.println(Message.INVALID_CHOICE);
             this.run();

@@ -1,6 +1,4 @@
 package view;
-
-
 import controller.UserProfileController;
 import enums.Message;
 import controller.*;
@@ -10,6 +8,11 @@ import models.*;
 
 // link
 public class UserProfile extends Menu {
+
+    private User currentProfile;
+   // public UserProfile(String username) {
+   //     this.currentProfile = ;
+   // }
 
     private int id ;
     private UserProfileController userProfileController = new UserProfileController(id);
@@ -97,7 +100,7 @@ public class UserProfile extends Menu {
     }
 
     private void posts(){
-
+        //
     }
 
     private void others(){

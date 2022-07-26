@@ -11,6 +11,6 @@ public class NormalAcc extends User {
 
     public NormalAcc(String username, String password, String securityAnswer, Security securityQuestion) {
         super(username, password, securityAnswer, securityQuestion);
-       // list.add(this);
+        list.add(this);
     }
 }
