@@ -1,13 +1,14 @@
 package models;
-import enums.Security;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public abstract class User {
     public static ArrayList<User> allUsers = new ArrayList<>(); // not needed that much
 
-    int id;
+    int numberID;
     String username;
+    String userID;
     private String password;
     ArrayList<Integer> followersID;
     ArrayList<Integer> followingsID;
@@ -29,15 +30,15 @@ public abstract class User {
     String Bio;
 
     String securityAnswer;
-    Security securityQuestion;
+    Integer securityQuestion;
 
 
     private static int mainID = 0;
 
-    public User(String username, String password, String securityAnswer, Security securityQuestion) {
+    public User(String userID, String username, String password, String securityAnswer, Integer securityQuestion) {
 
-        this.id = mainID++;
-
+       // this.id = mainID++;
+        this.userID = userID;
         this.username = username;
         this.password = password;
         this.securityAnswer = securityAnswer;
@@ -46,25 +47,28 @@ public abstract class User {
         this.createDate = LocalDate.now();
         allUsers.add(this);
     }
-    public static User getUserByUsername(String username) {
-        for (User user : User.allUsers) {
-            if (user.username.equals(username)) {
-                return user;
-            }
 
-        }
-        return null;
-    }
-
-    public static User getUserByID(int id){
-        for (User user:
-             User.allUsers) {
-            if(user.id == id){
-                return user;
-            }
-        }
-        return null;
-    }
+//
+//
+//    public static User getUserByUsername(String username) {
+//        for (User user : User.allUsers) {
+//            if (user.username.equals(username)) {
+//                return user;
+//            }
+//
+//        }
+//        return null;
+//    }
+//
+//    public static User findUserByUserNumberID(int id) {
+//        for (User user :
+//                User.allUsers) {
+//            if (user.id == id) {
+//                return user;
+//            }
+//        }
+//        return null;
+//    }
 
     public void follow(int followingID) {
         //add id to database;
@@ -100,7 +104,7 @@ public abstract class User {
 
 
     public int getId() {
-        return id;
+        return numberID;
     }
 
     public String getUsername() {
@@ -143,7 +147,7 @@ public abstract class User {
         return securityAnswer;
     }
 
-    public Security getSecurityQuestion() {
+    public Integer getSecurityQuestion() {
         return securityQuestion;
     }
 
@@ -152,7 +156,7 @@ public abstract class User {
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.numberID = id;
     }
 
     public void setUsername(String username) {
@@ -195,11 +199,19 @@ public abstract class User {
         this.securityAnswer = securityAnswer;
     }
 
-    public void setSecurityQuestion(Security securityQuestion) {
+    public void setSecurityQuestion(Integer securityQuestion) {
         this.securityQuestion = securityQuestion;
     }
 
     public static void setMainID(int mainID) {
         User.mainID = mainID;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", userID='" + userID + '\'' +
+                '}';
     }
 }

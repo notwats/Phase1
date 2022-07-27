@@ -1,9 +1,11 @@
 package controller;
 
-public class UserProfileController extends Controller {
- private int id ;
+import models.User;
 
-    public UserProfileController(int id) {
-        this.id = id;
+public class UserProfileController extends Controller {
+ private User currentUser ;
+
+    public UserProfileController(User user) {
+        this.currentUser = user;
     }
 }

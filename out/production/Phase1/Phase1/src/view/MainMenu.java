@@ -25,7 +25,7 @@ public class MainMenu extends Menu{
     @Override
     public void run() {
         this.showOptions();
-        String choice = this.getChoice();
+        String choice = getChoice();
 
         if ("1".equals(choice) || "profile".equals(choice)) {
             MainProfileView.getInstance().run();

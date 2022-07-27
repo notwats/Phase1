@@ -2,6 +2,7 @@ package view;
 
 import controller.Controller;
 import controller.WelcomeController;
+import database.DBGetter;
 import enums.Message;
 import enums.Security;
 import models.*;
@@ -32,58 +33,88 @@ public class WelcomeMenu extends Menu {
     }
 
     @Override
+//    public void run() {
+//        this.showOptions();
+//
+//        String choice = this.getChoice();
+//
+//        if ("1".equals(choice) || "register".equals(choice)) {
+//            this.registerOptions();
+//        } else if ("2".equals(choice) || "login".equals(choice)) {
+//            this.login();
+//        } else if ("3".equals(choice) || "exit".equals(choice)) {
+//            this.exit();
+//        } else {
+//            System.out.println(Message.INVALID_CHOICE);
+//            this.run();
+//        }
+//
+//    }
+
     public void run() {
-        this.showOptions();
+        boolean bool = true;
+        while(bool) {
+            this.showOptions();
 
-        String choice = this.getChoice();
-
-        if ("1".equals(choice) || "register".equals(choice)) {
-            this.registerOptions();
-        } else if ("2".equals(choice) || "login".equals(choice)) {
-            this.login();
-        } else if ("3".equals(choice) || "exit".equals(choice)) {
-            this.exit();
-        } else {
-            System.out.println(Message.INVALID_CHOICE);
-            this.run();
+            String choice = getChoice();
+            switch (choice) {
+                case "1", "register" -> this.registerOptions();
+                case "2", "login" -> this.login();
+                case "3", "exit" ->{
+                    Menu.getScanner().close();
+                    bool = false;
+                }
+                default -> System.out.println(Message.INVALID_CHOICE);
+            }
         }
-
     }
 
+
     private void registerOptions() {
+        boolean bool = true;
+        while(bool) {
+            System.out.println("enter register as 1. business account or 2. normal account ");
+            String choice = getChoice();
 
-        System.out.println("enter register as 1. business account or 2. normal account ");
-        String choice = this.getChoice();
+            switch (choice) {
+                case "1", "business account" -> {
+                    this.register(false);
+                    bool = false;
+                }
+                case "2", "normal account" -> {
+                    this.register(true);
+                    bool = false;
+                }
+                default -> System.out.println(Message.INVALID_CHOICE);
 
-        switch (choice) {
-            case "1":
-            case "business account":
-                this.register(false);
-                break;
-            case "2":
-            case "normal account":
-                this.register(true);
-                break;
-            default:
-                System.out.println(Message.INVALID_CHOICE);
-                registerOptions();
-                break;
+            }
         }
-        this.run();
     }
 
     private void register(Boolean isNormal) {
-        String username = this.getInput("enter username");
-        String password = this.getInput("enter password");
-        String repeatedPassword = this.getInput("repeat password");
+        String userID = null;
+        boolean bool= true;
+        while (bool){
+             userID= getInput("enter userID");
+            if (DBGetter.findUserByUserID(userID)!= null){
+                System.out.println("this userID exist try something else pls");
+            }
+            else if(userID==null){
+                System.out.println("userID can't be null");
+            }
+            else bool=false;
+        }
+        String username = getInput("enter username");
+        String password = getInput("enter password");
+        String repeatedPassword = getInput("repeat password");
         Message message;
         if ((message = this.validatePassword(password, repeatedPassword)) != Message.SUCCESS) {
             System.out.println(message);
             register(isNormal);
         } else {
-            Security question = Security.randomQuestion();
-            String answerS = getInput(question.toString());
-           message = this.controller.handleRegistration(username, password, repeatedPassword, question, answerS, isNormal);
+            Integer questionNum = Security.randomQuestion();
+            String answerS = getInput(Security.values()[questionNum].toString());
+            message = this.controller.handleRegistration(userID , username, password, repeatedPassword, questionNum , answerS, isNormal);
             if (message != Message.SUCCESS) {
                 System.out.println(message);
                 register(isNormal);
@@ -94,7 +125,7 @@ public class WelcomeMenu extends Menu {
     }
 
     private Message forgetPass(String username) {
-        User user = User.getUserByUsername(username);
+        User user = DBGetter.findUserByUserID(username);
         if (user != null) {
             String answer = getInput(user.getSecurityQuestion().toString());
             if (answer.equalsIgnoreCase(user.getSecurityAnswer()))
@@ -119,44 +150,42 @@ public class WelcomeMenu extends Menu {
 
     private void login() {
         System.out.println("Forget password?");
-        String yesNo = this.getChoice();
+        String yesNo = getChoice();
         if (yesNo.equalsIgnoreCase("yes")) {
-            String username = this.getInput("enter username");
-            Message message = this.forgetPass(username);
-            if (message!=Message.SUCCESS){
+            String userID = getInput("enter userID");
+            Message message = this.forgetPass(userID);
+            if (message != Message.SUCCESS) {
                 System.out.println(message);
                 login();
-            }
-            else {
-                String password = this.getInput("enter new password");
-                String repeatedPassword = this.getInput("repeat password");
+            } else {
+                String password = getInput("enter new password");
+                String repeatedPassword = getInput("repeat password");
                 while ((message = this.validatePassword(password, repeatedPassword)) != Message.SUCCESS) {
                     System.out.println(message);
-                    password = this.getInput("enter new password");
-                    repeatedPassword = this.getInput("repeat password");
+                    password = getInput("enter new password");
+                    repeatedPassword = getInput("repeat password");
                 }
-                this.controller.handleChangingPass(username, password);
+                this.controller.handleChangingPass(userID, password);
                 System.out.println("Password changed");
             }
         }
-        String username = this.getInput("enter username");
-        String password = this.getInput("enter password");
-        Message message = this.controller.handleLogin(username, password);
+        String userID = getInput("enter userID");
+        String password = getInput("enter password");
+        Message message = this.controller.handleLogin(userID, password);
         //Don't have an account? Sign up
         if (message == Message.SUCCESS) {
             System.out.println("Logged in successfully");
-            setLoggedInUser(User.getUserByUsername(username));
-            Controller.setLoggedInUser(User.getUserByUsername(username));
+            setLoggedInUser(DBGetter.findUserByUserID(userID));
+            Controller.setLoggedInUser(DBGetter.findUserByUserID(userID));
             MainMenu.getInstance().run(); //aval mire to mainmenu safhe profile
         } else {
             System.out.println(message);
         }
-        this.run();
     }
 
-    private void exit() {
-        Menu.getScanner().close();
-    }
+//    private void exit() {
+//        Menu.getScanner().close();
+//    }
 
     @Override
     protected void showOptions() {

@@ -1,17 +1,17 @@
-package view;
+package view.ChatsMenu;
 
 import controller.MainChatsController;
-import database.ConnectionLink;
+import enums.Message;
 import models.Group;
+import view.MainMenu;
+
 import java.util.ArrayList;
 
-public class MainChatsView extends MainMenu{
+public class MainChatsView extends MainMenu {
 
     private static MainChatsView instance = null;
 
-    private MainChatsView() {
-        MainChatsController controller = MainChatsController.getInstance();
-    }
+    private MainChatsController controller;
 
     private static void setInstance(MainChatsView instance) {
         MainChatsView.instance = instance;
@@ -37,8 +37,7 @@ public class MainChatsView extends MainMenu{
                 case "1", "private chats" -> showPrivate();
                 case "2", "groups" -> showGroups();
                 case "3", "return to main menu" -> bool = false;
-                default -> {
-                }
+                default -> System.out.println(Message.INVALID_CHOICE);
             }
         }
 
@@ -51,7 +50,7 @@ public class MainChatsView extends MainMenu{
     }
 
     private void showGroups(){
-        ArrayList<Group> groupNames = ConnectionLink.findGroupsWithMemberID(loggedInUser.getId());
+        ArrayList<Group> groupNames = controller.handleShowGroups(loggedInUser.getId());
 
         for (int i = 0; i < groupNames.size(); i++) {
             System.out.println(i +". " +groupNames.get(i).getGroupName());
@@ -69,10 +68,11 @@ public class MainChatsView extends MainMenu{
 
     @Override
     protected void showOptions(){
-        System.out.println("which kind of chat do you want ?");
-        System.out.println("1.private chats");
-        System.out.println("2. groups");
-        System.out.println("3. return to main menu");
+        System.out.println("""
+                which kind of chat do you want \s
+                1.private chats\s
+                2. groups\s
+                3. return to main menu""");
     }
 
 }

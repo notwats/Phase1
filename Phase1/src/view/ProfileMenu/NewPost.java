@@ -12,5 +12,4 @@ public class NewPost {
         MainProfileController.handleNewPost(context);
         System.out.println("Post added successfully");
     }
-
 }

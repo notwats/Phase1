@@ -3,6 +3,7 @@ package view.ProfileMenu;
 import controller.MainProfileController;
 import enums.Message;
 import view.MainMenu;
+import view.Menu;
 
 import java.util.Set;
 
@@ -34,7 +35,7 @@ public class MainProfileView extends MainMenu {
     @Override
     public void run() {
         this.showOptions();
-        String choice = this.getChoice();
+        String choice = getChoice();
 
         if ("1".equals(choice) || "info".equals(choice)) {
             this.showInfo();
@@ -45,7 +46,7 @@ public class MainProfileView extends MainMenu {
         } else if ("4".equals(choice) || "new post".equals(choice)) {
             this.newPost();
         } else if ("5".equals(choice) || "back".equals(choice)) {
-            return;
+           MainMenu.getInstance().run();
         } else {
             System.out.println(Message.INVALID_CHOICE);
             this.run();
@@ -60,7 +61,7 @@ public class MainProfileView extends MainMenu {
     }
 
     private void allPosts() {
-        controller.showAllPost();
+       PostsEdit.run();
     }
 
     private void showInfo() {

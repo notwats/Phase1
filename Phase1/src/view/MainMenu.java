@@ -1,6 +1,7 @@
 package view;
 
 import enums.Message;
+import view.ChatsMenu.MainChatsView;
 import view.ProfileMenu.MainProfileView;
 
 // where user can choose 4 option!?
@@ -9,7 +10,7 @@ public class MainMenu extends Menu{
 
     private static MainMenu instance = null;
 
-   // private final MainProfileController controller;
+    // private final MainProfileController controller;
 
     private static void setInstance(MainMenu instance) {
         MainMenu.instance = instance;
@@ -19,33 +20,38 @@ public class MainMenu extends Menu{
         if (MainMenu.instance == null) {
             MainMenu.setInstance(new MainMenu());
         }
+
         return MainMenu.instance;
     }
 
     @Override
     public void run() {
-        this.showOptions();
-        String choice = this.getChoice();
+        boolean bool = true;
+        while(bool) {
+            this.showOptions();
+            String choice = getChoice();
 
-        if ("1".equals(choice) || "profile".equals(choice)) {
-            MainProfileView.getInstance().run();
-        } else if ("2".equals(choice) || "chats".equals(choice)) {
-         MainChatsView.getInstance().run();
-        } else if ("3".equals(choice) || "posts".equals(choice)) {
-          //  this.posts();
-        } else if ("4".equals(choice) || "search".equals(choice)) {
-           // this.others();
-        } else {
-            System.out.println(Message.INVALID_CHOICE);
-            this.run();
+            switch (choice) {
+                case "1", "profile" -> MainProfileView.getInstance().run();
+                case "2", "chats" -> MainChatsView.getInstance().run();
+                case "3", "posts" -> {}//this.posts();
+                case "4", "search" -> MainSearchView.run();
+                case "5", "exit" -> bool = false;
+                default -> System.out.println(Message.INVALID_CHOICE);
+
+            }
         }
     }
+
     @Override
     protected void showOptions() {
-        System.out.println("enter one of the options");
-        System.out.println("1. profile");
-        System.out.println("2. chats"); //
-        System.out.println("3. posts");
-        System.out.println("4. search");
+        System.out.println("""
+                enter one of the options\s
+                1. profile\s
+                2. chats\s
+                3. posts\s
+                4. search\s
+                5. exit
+                """);
     }
 }

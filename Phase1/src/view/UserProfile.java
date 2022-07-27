@@ -1,50 +1,55 @@
 package view;
 import controller.UserProfileController;
+import database.DBGetter;
 import enums.Message;
-import controller.*;
-import models.Post;
 import models.*;
+import view.ChatsMenu.MainChatsView;
+import view.ProfileMenu.MainProfileView;
 
 
 // link
 public class UserProfile extends Menu {
 
     private User currentProfile;
-   // public UserProfile(String username) {
-   //     this.currentProfile = ;
-   // }
+    public UserProfile(String userID) {
+        this.currentProfile = DBGetter.findUserByUserID(userID) ;
+    }
 
-    private int id ;
-    private UserProfileController userProfileController = new UserProfileController(id);
+    public UserProfile(User user){
+        currentProfile=user;
+    }
+    private UserProfileController userProfileController = new UserProfileController(currentProfile);
 
     public UserProfile(int id) {
-        this.id = id;
+       this.currentProfile= DBGetter.findUserByUserNumberID(id);
     }
 
     @Override
     public void run() {
-        this.showOptions();
 
-        String choice = this.getChoice();
+        boolean bool = true;
+        while(bool) {
+            this.showOptions();
+            String choice = getChoice();
+            if ("1".equals(choice) || "show user info".equals(choice)) {
+                this.showUserInfo();
+            } else if ("2".equals(choice) || "operations".equals(choice)) {
+                this.operations();
+            } else if ("3".equals(choice) || "posts".equals(choice)) {
+                this.posts();
+            } else if ("4".equals(choice) || "others".equals(choice)) {
+                this.others();
+            } else if ("5".equals(choice) || "back".equals(choice)) {
+                bool = false;
+            } else {
+                System.out.println(Message.INVALID_CHOICE);
+            }
 
-        if ("1".equals(choice) || "show user info".equals(choice)) {
-            this.showUserInfo();
-        } else if ("2".equals(choice) || "operations".equals(choice)) {
-            this.operations();
-        } else if ("3".equals(choice) || "posts".equals(choice)) {
-            this.posts();
-        }else if ("4".equals(choice) || "others".equals(choice)) {
-            this.others();
-        }else if ("5".equals(choice) || "back".equals(choice)) {
-            return;
-        }else {
-            System.out.println(Message.INVALID_CHOICE);
-            this.run();
-        }
         // 1--> bio , username , followings , followers , posts' num
         // 2--> follow , message , suggestion
         // 3-->
 
+        }
     }
 
     @Override
@@ -58,15 +63,13 @@ public class UserProfile extends Menu {
     }
 
     private void showUserInfo(){
-        User thisUser = User.getUserByID(id);
-        assert thisUser != null;
-        if(thisUser.getBio() != null) {
-            System.out.println(thisUser.getBio());
+        if(currentProfile.getBio() != null) {
+            System.out.println(currentProfile.getBio());
         } else{
             System.out.println("I have no bio :_\" ");
         }
-        System.out.println(thisUser.getUsername());
-        System.out.println("followings = " + thisUser.getFollowingsID().size() + " followers = " + thisUser.getFollowingsID().size());
+        System.out.println(currentProfile.getUsername());
+        System.out.println("followings = " + currentProfile.getFollowingsID().size() + " followers = " + currentProfile.getFollowingsID().size());
         if(isFollowing()){
             System.out.print("you are following this account");
         } else {
@@ -76,7 +79,7 @@ public class UserProfile extends Menu {
         } else {
             System.out.print("you are not follower of this account");
         }
-        System.out.println("posts = " + thisUser.getPostsID().size());
+        System.out.println("posts = " + currentProfile.getPostsID().size());
     }
 
     private void operations(){
@@ -85,7 +88,7 @@ public class UserProfile extends Menu {
         System.out.println("2. Message");
         System.out.println("3. Show suggestion");
 
-        String choice = this.getChoice();
+        String choice = getChoice();
 
         if ("1".equals(choice) || "follow".equals(choice)) {
             this.follow();
@@ -108,13 +111,11 @@ public class UserProfile extends Menu {
     }
 
     private boolean isFollowing(){
-        assert User.getUserByID(id) != null;
-        return User.getUserByID(id).getFollowingsID().contains(Menu.getLoggedInUser().getId());
+        return currentProfile.getFollowingsID().contains(Menu.getLoggedInUser().getId());
     }
 
     private boolean isFollower(){
-        assert User.getUserByID(id) != null;
-        return User.getUserByID(id).getFollowersID().contains(Menu.getLoggedInUser().getId());
+        return currentProfile.getFollowersID().contains(Menu.getLoggedInUser().getId());
 
     }
 
@@ -134,9 +135,9 @@ public class UserProfile extends Menu {
     private void showSuggestions(){
         int i = 1;
         for (int thisId :
-            User.getUserByID(id).getSuggestionsID()) {
-            assert User.getUserByID(thisId) != null;
-            System.out.println(i + User.getUserByID(thisId).getUsername());
+                currentProfile.getSuggestionsID()) {
+            assert DBGetter.findUserByUserNumberID(thisId) != null;
+            System.out.println(i + DBGetter.findUserByUserNumberID(thisId).getUsername());
             i++;
         }
         System.out.println("Enter The Number of The Page You Want to Visit");
@@ -146,7 +147,7 @@ public class UserProfile extends Menu {
             this.run();
         } else{
             try {
-                new UserProfile(User.getUserByID(id).getSuggestionsID().get(Integer.parseInt(choice))).run();
+                new UserProfile(currentProfile.getSuggestionsID().get(Integer.parseInt(choice))).run();
             }catch(Exception e){
                 System.out.println(Message.INVALID_CHOICE);
                 this.operations();

@@ -5,7 +5,10 @@ public class Group extends Chat {
     String groupName;
     String groupID;
     int groupAdminID;
-    String description;
+
+    public int getGroupAdminNumberID() {
+        return groupAdminID;
+    }
 
     public void setGroupNumberID(int groupNumberID) {
         this.groupNumberID = groupNumberID;
@@ -19,6 +22,7 @@ public class Group extends Chat {
         this.groupID = groupID;
     }
 
+
     public String getGroupName() {
         return groupName;
     }
@@ -27,9 +31,6 @@ public class Group extends Chat {
         this.groupAdminID = groupAdminID;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public void addMember(int userID) {
         // add to data base
@@ -39,7 +40,19 @@ public class Group extends Chat {
 
     }
 
-    public int getGroupID() {
+    public int getGroupNumberID() {
         return groupNumberID;
+    }
+
+    public String getGroupID(){
+        return groupID;
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "groupName='" + groupName + '\'' +
+                ", groupID='" + groupID + '\'' +
+                '}';
     }
 }

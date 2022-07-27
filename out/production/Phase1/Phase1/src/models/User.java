@@ -1,10 +1,12 @@
 package models;
+
 import enums.Security;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public abstract class User {
-    public static ArrayList<User> allUsers = new ArrayList<>();
+    public static ArrayList<User> allUsers = new ArrayList<>(); // not needed that much
 
     int id;
     String username;
@@ -29,12 +31,12 @@ public abstract class User {
     String Bio;
 
     String securityAnswer;
-    Security securityQuestion;
+    Integer securityQuestion;
 
 
     private static int mainID = 0;
 
-    public User(String username, String password, String securityAnswer, Security securityQuestion) {
+    public User(String username, String password, String securityAnswer, Integer securityQuestion) {
 
         this.id = mainID++;
 
@@ -46,6 +48,7 @@ public abstract class User {
         this.createDate = LocalDate.now();
         allUsers.add(this);
     }
+
     public static User getUserByUsername(String username) {
         for (User user : User.allUsers) {
             if (user.username.equals(username)) {
@@ -56,10 +59,10 @@ public abstract class User {
         return null;
     }
 
-    public static User getUserByID(int id){
-        for (User user:
-             User.allUsers) {
-            if(user.id == id){
+    public static User getUserByID(int id) {
+        for (User user :
+                User.allUsers) {
+            if (user.id == id) {
                 return user;
             }
         }
@@ -143,7 +146,7 @@ public abstract class User {
         return securityAnswer;
     }
 
-    public Security getSecurityQuestion() {
+    public Integer getSecurityQuestion() {
         return securityQuestion;
     }
 
@@ -195,7 +198,7 @@ public abstract class User {
         this.securityAnswer = securityAnswer;
     }
 
-    public void setSecurityQuestion(Security securityQuestion) {
+    public void setSecurityQuestion(Integer securityQuestion) {
         this.securityQuestion = securityQuestion;
     }
 

@@ -16,7 +16,7 @@ public class ConnectionLink {
 
     public static void connecting() {
         try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/finaldb", "root", "");
 
             Statement statement = connection.createStatement();
 
@@ -38,7 +38,7 @@ public class ConnectionLink {
         ArrayList<Group> groups = new ArrayList<>();
 
         try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/finaldb", "root", "");
 
             Statement statement = connection.createStatement();
 
@@ -67,7 +67,7 @@ public class ConnectionLink {
         // have to include time of sending the message too
 
         try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/finaldb", "root", "");
 
             Statement statement = connection.createStatement();
             if(forwardedFromID == -1 && repliedToID == -1 )
@@ -84,7 +84,7 @@ public class ConnectionLink {
         ArrayList<Message> messages = new ArrayList<>();
 
         try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/finaldb", "root", "");
 
             Statement statement = connection.createStatement();
 
@@ -110,7 +110,7 @@ public class ConnectionLink {
     public static User findUserByUserNumberID(int senderID) {
         User user = null;
         try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/finaldb", "root", "");
 
             Statement statement = connection.createStatement();
 
@@ -125,3 +125,9 @@ public class ConnectionLink {
 
 }
 
+/*
+    ALTER TABLE `finaldb`.`user`
+        ADD COLUMN `security_num` TINYINT(4) NULL AFTER `login_time`,
+        ADD COLUMN `security_answer` VARCHAR(30) NULL AFTER `security_num`;
+
+ */

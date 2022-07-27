@@ -27,17 +27,17 @@ public class WelcomeController extends Controller {
     }
 
 
-    public Message handleRegistration(String username, String password, String repeatedPassword, enums.Security question, String answerS , Boolean isNormal) {
+    public Message handleRegistration(String username, String password, String repeatedPassword, Integer questionNum, String answerS , Boolean isNormal) {
         if (this.doesUsernameExist(username)) {
             return Message.USER_EXIST;
         }
 
        if (isNormal){
-           NormalAcc nwUser= new NormalAcc(username , password , answerS , question );
+           NormalAcc nwUser= new NormalAcc(username , password , answerS , questionNum );
            //NormalAcc.list.add(nwUser);
        }
        else {
-           BusinessAcc nwUser = new BusinessAcc(username, password, answerS, question);
+           BusinessAcc nwUser = new BusinessAcc(username, password, answerS, questionNum );
            //BusinessAcc.list.add(nwUser);
        }
         return Message.SUCCESS;

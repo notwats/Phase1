@@ -9,8 +9,6 @@ public class PostsEdit {
 
 
     public static void run(){
-
-
         System.out.println("enter the number of post if you want edit it or type back");
       String postNum= Menu.getChoice() ;
       if (postNum.equalsIgnoreCase("back"))

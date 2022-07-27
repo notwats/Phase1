@@ -9,8 +9,8 @@ public class NormalAcc extends User {
     public static ArrayList<NormalAcc> list;
 
 
-    public NormalAcc(String username, String password, String securityAnswer, Security securityQuestion) {
-        super(username, password, securityAnswer, securityQuestion);
+    public NormalAcc(String userID ,  String username, String password, String securityAnswer, Integer securityQuestion) {
+        super(userID , username, password, securityAnswer, securityQuestion);
         list.add(this);
     }
 }

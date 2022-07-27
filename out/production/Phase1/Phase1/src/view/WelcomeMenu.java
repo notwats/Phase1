@@ -73,17 +73,17 @@ public class WelcomeMenu extends Menu {
     }
 
     private void register(Boolean isNormal) {
-        String username = this.getInput("enter username");
-        String password = this.getInput("enter password");
-        String repeatedPassword = this.getInput("repeat password");
+        String username = getInput("enter username");
+        String password = getInput("enter password");
+        String repeatedPassword = getInput("repeat password");
         Message message;
         if ((message = this.validatePassword(password, repeatedPassword)) != Message.SUCCESS) {
             System.out.println(message);
             register(isNormal);
         } else {
-            Security question = Security.randomQuestion();
-            String answerS = getInput(question.toString());
-           message = this.controller.handleRegistration(username, password, repeatedPassword, question, answerS, isNormal);
+            Integer questionNum = Security.randomQuestion();
+            String answerS = getInput(Security.values()[questionNum].toString());
+            message = this.controller.handleRegistration(username, password, repeatedPassword, questionNum , answerS, isNormal);
             if (message != Message.SUCCESS) {
                 System.out.println(message);
                 register(isNormal);
@@ -123,11 +123,10 @@ public class WelcomeMenu extends Menu {
         if (yesNo.equalsIgnoreCase("yes")) {
             String username = this.getInput("enter username");
             Message message = this.forgetPass(username);
-            if (message!=Message.SUCCESS){
+            if (message != Message.SUCCESS) {
                 System.out.println(message);
                 login();
-            }
-            else {
+            } else {
                 String password = this.getInput("enter new password");
                 String repeatedPassword = this.getInput("repeat password");
                 while ((message = this.validatePassword(password, repeatedPassword)) != Message.SUCCESS) {

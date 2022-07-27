@@ -11,8 +11,8 @@ public class BusinessAcc extends User {
     public HashMap<LocalDate, Integer> profileViews = new HashMap<>();
 
 
-    public BusinessAcc(String username, String password, String securityAnswer, Security securityQuestion) {
+    public BusinessAcc(String username, String password, String securityAnswer, Integer securityQuestion) {
         super(username, password, securityAnswer, securityQuestion);
-       // BusinessAcc.list.add(this);
+        BusinessAcc.list.add(this);
     }
 }

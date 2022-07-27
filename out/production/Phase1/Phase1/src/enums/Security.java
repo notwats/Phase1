@@ -25,13 +25,28 @@ public enum Security {
         return this.question;
     }
 
-    public static Security randomQuestion() {
+    public static Integer randomQuestion() {
 
         int pick = new Random().nextInt(Security.values().length);
 
-        return Security.values()[pick];
+        return pick ;
        // return null;
 
     }
+//  public static Security getSecurityNum (Integer securityNum){
+//        switch (securityNum){
+//            case 1 : return CITY;
+//            case 2 : return EXAM;
+//            case 3 : return NICKNAME;
+//            case 4 : return FRIEND;
+//            case 5 : return TEACHER;
+//            case 6 : return PET;
+//            case 7 : return SCHOOL;
+//            case 8 : return BORN;
+//            case 9 : return NAME;
+//
+//        }
+//
+//  }
 
 }
