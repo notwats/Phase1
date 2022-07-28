@@ -2,6 +2,7 @@ package controller;
 
 import database.DBGetter;
 import database.UpdateDB;
+import models.User;
 
 import java.util.Date;
 
@@ -19,5 +20,20 @@ public class PrivateChatController {
 
         UpdateDB.messageCreationInPrivateChat(message, userID, friendID, dateOfNow, forwardedFrom, inReplyTo);
 
+    }
+
+    public void handleBlockUser(int ID, String userID) {
+        User newMember = DBGetter.findUserByUserID(userID);
+        if(newMember == null){
+            System.out.println("the member id doesn't belong to any user");
+            return;
+        }
+        // check whether the member isn't already in the chat
+        if(DBGetter.BlockedByBLocker(newMember.getId(), ID)){
+            System.out.println("user is already blocked");
+            return;
+        }
+
+        UpdateDB.blockerBlocks(ID, newMember.getId());
     }
 }

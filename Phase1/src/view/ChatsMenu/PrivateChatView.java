@@ -2,13 +2,16 @@ package view.ChatsMenu;
 
 import controller.PrivateChatController;
 import database.DBGetter;
+import database.UpdateDB;
 import enums.Message;
-import models.PrivateMessage;
-import models.User;
+import models.*;
 import view.Menu;
 
+import java.awt.image.MemoryImageSource;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static view.Menu.loggedInUser;
 
 public class PrivateChatView {
     public static User user;
@@ -30,7 +33,7 @@ public class PrivateChatView {
             switch(choice){
                 case "1", "send message" -> sendPrivateMessage(-1);
                 case "2", "check friend profile" ->  checkFriendProfile();
-                case "3", "select a message" -> {} //selectPrivateMessage();
+                case "3", "select a message" ->  selectPrivateMessage();
                 case "4", "return to main chats view" -> bool = false;
                 default -> System.out.println(Message.INVALID_CHOICE);
             }
@@ -38,7 +41,30 @@ public class PrivateChatView {
         }
     }
 
-    private static void checkFriendProfile() {
+    private static void checkFriendProfile(){
+        boolean bool = true;
+
+        while(bool){
+            System.out.println("""
+                    what do you want to do?\s
+                    1. block user\s
+                    2. search user with id\s
+                    3. return to chat view
+                    """);
+
+            String choice = Menu.getChoice();
+
+            switch(choice){
+
+                case "1", "block user" -> {
+                    String userID = Menu.getInput("who do you want to block? (Enter ID)");
+                    controller.handleBlockUser(user.getId(), userID);
+                }
+            }
+        }
+
+    }
+    private static void selectPrivateMessage() {
         System.out.println("please enter the number of the selected message");
         ArrayList<PrivateMessage> messages = DBGetter.findPrivateMessagesWithBothMembersID(friend.getId(), user.getId());
         int counter = 0;
@@ -79,7 +105,7 @@ public class PrivateChatView {
                 }
                 case "3", "edit message" -> {
                     String editedText = Menu.getInput("Please Enter Edited Text");
-                    //editMessage( editedText, message.messageID);
+                    editMessage( editedText, message.messageID);
                     bool = false;}
                 case "4", "discard" -> bool = false;
                 default -> System.out.println("invalid command");
@@ -88,6 +114,27 @@ public class PrivateChatView {
     }
 
     private static void forwardMessage(PrivateMessage message) {
+        ArrayList<Personal> contactNames = DBGetter.findChatsWithMemberID(user.getId());
+        //this has to change to chat
+        for (int i = 0; i < contactNames.size(); i++) {
+            if(contactNames.get(i).getUser1ID() == user.getId())
+                System.out.println(i +". " +contactNames.get(i).getUser2ID());
+            else if(contactNames.get(i).getUser2ID() == user.getId())
+                System.out.println(i +". " +contactNames.get(i).getUser1ID());
+        }
+
+        String choice = Menu.getChoice();
+
+        for (int i = 0; i < contactNames.size(); i++) {
+            if( i == Integer.parseInt(choice) && contactNames.get(i).getUser1ID() == user.getId()){
+                User contact = DBGetter.findUserByUserNumberID(contactNames.get(i).getUser2ID());
+                sendForwardedMessage( contact, message);
+            }
+            if( i == Integer.parseInt(choice) || contactNames.get(i).getUser2ID() == user.getId()){
+                User contact = DBGetter.findUserByUserNumberID(contactNames.get(i).getUser1ID());
+                sendForwardedMessage( contact, message);
+            }
+        }
     }
 
     private static void sendPrivateMessage(int inReplyTo) {
@@ -98,5 +145,11 @@ public class PrivateChatView {
                 message);
     }
 
+    private static void sendForwardedMessage(User receiver, PrivateMessage  message){
+        String message2 = message.getMessageText();
+        Date dateOfNow = new Date();
+        UpdateDB.messageCreationInPrivateChat(message2, loggedInUser.getId(), receiver.getId(), dateOfNow,  message.messageID, -1 );
+        System.out.println("forwarded to username " + receiver.getUsername() + " successfully " );
+    }
 
 }

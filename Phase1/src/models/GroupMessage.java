@@ -44,7 +44,7 @@ public class GroupMessage {
             System.out.println(user.username + " : " + messageText);
         } else{
             GroupMessage repMessage = DBGetter.findMessageByMessageID(inReplyTo);
-            if(repMessage != null)
+            if(repMessage != null )
                 System.out.println(user.username + " : " + messageText + " in rep to " + repMessage.getMessageText().substring(0, 10));
             else
                 System.out.println(user.username + " : " + messageText + " in rep to deleted message ");

@@ -203,4 +203,16 @@ public class UpdateDB {
         }
     }
 
+    public static void blockerBlocks(int blocker, int blocked) {
+        try{
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
+
+            Statement statement = connection.createStatement();
+
+            statement.executeQuery("INSERT INTO block_list( sender_id, group_id, text, creation_time, is_replied)  VALUES( "+senderID+","+groupID+","+message+","+senderID+","+creationDate+","+groupID+", FALSE)");
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
