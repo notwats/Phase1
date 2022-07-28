@@ -1,6 +1,5 @@
 package models;
 
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -16,15 +15,30 @@ public class Post {
      */
     int likeNumber;
 
-    String caption; // main for phase 1
+    String context; // main for phase 1
 
     LocalDateTime creationDate;
     ArrayList<Comment> comments= new ArrayList<>();
     ArrayList<User> likedUsers= new ArrayList<>();
 
 
-
     ArrayList<Tag> tags;
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public ArrayList<User> getLikedUsers() {
+        return likedUsers;
+    }
+
+    public void setLikedUsers(ArrayList<User> likedUsers) {
+        this.likedUsers = likedUsers;
+    }
 
     public int getPostID() {
         return postID;
@@ -50,12 +64,12 @@ public class Post {
         this.likeNumber = likeNumber;
     }
 
-    public String getCaption() {
-        return caption;
+    public String getContext() {
+        return context;
     }
 
-    public void setCaption(String caption) {
-        this.caption = caption;
+    public void setContext(String context) {
+        this.context = context;
     }
 
     public LocalDateTime getCreationDate() {
