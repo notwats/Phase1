@@ -1,11 +1,21 @@
 package controller;
 
+import models.Post;
 import models.User;
 
-public class UserProfileController extends Controller {
- private User currentUser ;
+import java.util.ArrayList;
 
-    public UserProfileController(User user) {
-        this.currentUser = user;
+public class UserProfileController extends Controller {
+
+
+
+    public static void block(User currentUser){
+        // logged in user do with current user
     }
+
+    public static void mute(User currenUser){
+
+    }
+   // public static ArrayList<Post> showAllPost(User )
+
 }

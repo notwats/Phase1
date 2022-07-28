@@ -18,7 +18,6 @@ public class UserProfile extends Menu {
     public UserProfile(User user){
         currentProfile=user;
     }
-    private UserProfileController userProfileController = new UserProfileController(currentProfile);
 
     public UserProfile(int id) {
        this.currentProfile= DBGetter.findUserByUserNumberID(id);
@@ -103,7 +102,9 @@ public class UserProfile extends Menu {
     }
 
     private void posts(){
-        //
+    // show array   UserProfileController
+
+
     }
 
     private void others(){

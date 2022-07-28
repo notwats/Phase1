@@ -6,8 +6,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,7 +13,7 @@ public class DBGetter {
 
 //    public static void connecting() {
 //        try{
-//            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/finaldb", "root", "");
+//            DBInfo connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/finaldb", "root", "");
 //
 //            Statement statement = connection.createStatement();
 //
@@ -36,8 +34,7 @@ public class DBGetter {
     public static User findUserByUserNumberID(int senderID) {
         User user = null;
         try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/finaldb", "root", "");
-
+            Connection connection = DBInfo.getConnection();
             Statement statement = connection.createStatement();
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM `user` WHERE user_number_id = " + senderID);
@@ -79,13 +76,6 @@ public class DBGetter {
         return user;
     }
 
-
-/*
-    ALTER TABLE `finaldb`.`user`
-        ADD COLUMN `security_num` TINYINT(4) NULL AFTER `login_time`,
-        ADD COLUMN `security_answer` VARCHAR(30) NULL AFTER `security_num`;
-
- */
 
 
     public static  ArrayList<Group> findGroupsWithMemberID(int memberID){

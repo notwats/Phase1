@@ -1,12 +1,12 @@
 package database;
 
 import models.Group;
+import models.Post;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class UpdateDB {
@@ -203,6 +203,7 @@ public class UpdateDB {
         }
     }
 
+<<<<<<< Updated upstream
     public static void blockerBlocks(int blocker, int blocked) {
         try{
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
@@ -215,4 +216,26 @@ public class UpdateDB {
             e.printStackTrace();
         }
     }
+=======
+    public static ArrayList<Post> getPostByID(long sender_id) throws SQLException {
+        ArrayList<Post> ret = new ArrayList<>();
+        Connection con = DBInfo.getConnection();
+        Statement st = con.createStatement();
+        String query = "select * form post where sender_id = " + sender_id;
+        ResultSet rs = st.executeQuery(query);
+        while (rs.next()) {
+            Post ps = new Post();
+            ps.setPostID(rs.getInt(1));
+            ps.setCreationDate(LocalDateTime.parse(rs.getString("creation_time")));
+            ps.setSender(DBGetter.findUserByUserNumberID(rs.getInt(2)));
+          //  ps.setRepliedPost(getPostbyPostID(rs.getLong(5)));
+       //     ps.setLikes(rs.getInt(6));
+        //    ps.setViews(rs.getInt(7));
+        //    ps.setComments(rs.getInt(8));
+        }
+        return ret;
+    }
+
+
+>>>>>>> Stashed changes
 }

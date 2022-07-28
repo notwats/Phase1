@@ -1,12 +1,13 @@
 package models;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Post {
 
     int postID;
-    int senderID;
+    User sender;
 
     /*
     int imageID;
@@ -17,7 +18,12 @@ public class Post {
 
     String caption; // main for phase 1
 
-    LocalDateTime date;
+    LocalDateTime creationDate;
+    ArrayList<Comment> comments= new ArrayList<>();
+    ArrayList<User> likedUsers= new ArrayList<>();
+
+
+
     ArrayList<Tag> tags;
 
     public int getPostID() {
@@ -28,12 +34,12 @@ public class Post {
         this.postID = postID;
     }
 
-    public int getSenderID() {
-        return senderID;
+    public User getSender() {
+        return sender;
     }
 
-    public void setSenderID(int senderID) {
-        this.senderID = senderID;
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 
     public int getLikeNumber() {
@@ -52,12 +58,12 @@ public class Post {
         this.caption = caption;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
     public ArrayList<Tag> getTags() {
