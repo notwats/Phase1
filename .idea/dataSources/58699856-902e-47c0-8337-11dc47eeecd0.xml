@@ -1169,594 +1169,645 @@ test\\_%|schema||&apos;&apos;||UPDATE|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="333" parent="324" name="followship">
+    <table id="333" parent="324" name="comment">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="334" parent="324" name="group">
+    <table id="334" parent="324" name="followship">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="335" parent="324" name="group_message">
+    <table id="335" parent="324" name="group">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="336" parent="324" name="membership">
+    <table id="336" parent="324" name="group_message">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="337" parent="324" name="post">
+    <table id="337" parent="324" name="membership">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="338" parent="324" name="post_reaction">
+    <table id="338" parent="324" name="post">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="339" parent="324" name="post_view">
+    <table id="339" parent="324" name="post_reaction">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="340" parent="324" name="private_chat">
+    <table id="340" parent="324" name="post_view">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="341" parent="324" name="private_message">
+    <table id="341" parent="324" name="private_chat">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="342" parent="324" name="user">
+    <table id="342" parent="324" name="private_message">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <column id="343" parent="332" name="blocked_id">
+    <table id="343" parent="324" name="user">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </table>
+    <column id="344" parent="332" name="blocked_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="344" parent="332" name="blocked_by_id">
+    <column id="345" parent="332" name="blocked_by_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="345" parent="332" name="block_date">
+    <column id="346" parent="332" name="block_date">
       <DataType>datetime|0s</DataType>
       <Position>3</Position>
     </column>
-    <foreign-key id="346" parent="332" name="block_list_ibfk_2">
+    <foreign-key id="347" parent="332" name="block_list_ibfk_2">
       <ColNames>blocked_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>user_number_id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <foreign-key id="347" parent="332" name="block_list_ibfk_1">
+    <foreign-key id="348" parent="332" name="block_list_ibfk_1">
       <ColNames>blocked_by_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>user_number_id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <index id="348" parent="332" name="blocked_by_id">
+    <index id="349" parent="332" name="blocked_by_id">
       <ColNames>blocked_by_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="349" parent="332" name="PRIMARY">
+    <key id="350" parent="332" name="PRIMARY">
       <ColNames>blocked_id
 blocked_by_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="350" parent="333" name="is_following_id">
+    <column id="351" parent="333" name="comment_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="351" parent="333" name="is_followed_id">
+    <column id="352" parent="333" name="post_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <foreign-key id="352" parent="333" name="followship_ibfk_1">
+    <column id="353" parent="333" name="sender_id">
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="354" parent="333" name="like_num">
+      <DataType>int(11)|0s</DataType>
+      <Position>4</Position>
+    </column>
+    <column id="355" parent="333" name="replied_comment_id">
+      <DataType>int(11)|0s</DataType>
+      <Position>5</Position>
+    </column>
+    <column id="356" parent="333" name="text">
+      <DataType>varchar(45)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+    </column>
+    <key id="357" parent="333" name="PRIMARY">
+      <ColNames>comment_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <column id="358" parent="334" name="is_following_id">
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="359" parent="334" name="is_followed_id">
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <foreign-key id="360" parent="334" name="followship_ibfk_1">
       <ColNames>is_following_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>user_number_id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <foreign-key id="353" parent="333" name="followship_ibfk_2">
+    <foreign-key id="361" parent="334" name="followship_ibfk_2">
       <ColNames>is_followed_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>user_number_id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <index id="354" parent="333" name="is_followed_id">
+    <index id="362" parent="334" name="is_followed_id">
       <ColNames>is_followed_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="355" parent="333" name="PRIMARY">
+    <key id="363" parent="334" name="PRIMARY">
       <ColNames>is_following_id
 is_followed_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="356" parent="334" name="group_number_id">
+    <column id="364" parent="335" name="group_number_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="357" parent="334" name="group_id">
+    <column id="365" parent="335" name="group_id">
       <DataType>varchar(25)|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="358" parent="334" name="group_name">
+    <column id="366" parent="335" name="group_name">
       <DataType>varchar(25)|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="359" parent="334" name="group_admin_id">
+    <column id="367" parent="335" name="group_admin_id">
       <DataType>int(11)|0s</DataType>
       <Position>4</Position>
     </column>
-    <foreign-key id="360" parent="334" name="group_ibfk_1">
+    <foreign-key id="368" parent="335" name="group_ibfk_1">
       <ColNames>group_admin_id</ColNames>
       <OnDelete>set-null</OnDelete>
       <RefColNames>user_number_id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <index id="361" parent="334" name="group_number_id">
+    <index id="369" parent="335" name="group_number_id">
       <ColNames>group_number_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="362" parent="334" name="group_id">
+    <index id="370" parent="335" name="group_id">
       <ColNames>group_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="363" parent="334" name="group_admin_id">
+    <index id="371" parent="335" name="group_admin_id">
       <ColNames>group_admin_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="364" parent="334" name="PRIMARY">
+    <key id="372" parent="335" name="PRIMARY">
       <ColNames>group_number_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="365" parent="334" name="group_number_id">
+    <key id="373" parent="335" name="group_number_id">
       <ColNames>group_number_id</ColNames>
       <UnderlyingIndexName>group_number_id</UnderlyingIndexName>
     </key>
-    <key id="366" parent="334" name="group_id">
+    <key id="374" parent="335" name="group_id">
       <ColNames>group_id</ColNames>
       <UnderlyingIndexName>group_id</UnderlyingIndexName>
     </key>
-    <key id="367" parent="334" name="group_admin_id">
+    <key id="375" parent="335" name="group_admin_id">
       <ColNames>group_admin_id</ColNames>
       <UnderlyingIndexName>group_admin_id</UnderlyingIndexName>
     </key>
-    <column id="368" parent="335" name="message_id">
+    <column id="376" parent="336" name="message_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="369" parent="335" name="sender_id">
+    <column id="377" parent="336" name="sender_id">
       <DataType>int(11)|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="370" parent="335" name="group_id">
+    <column id="378" parent="336" name="group_id">
       <DataType>int(11)|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="371" parent="335" name="text">
+    <column id="379" parent="336" name="text">
       <DataType>varchar(50)|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="372" parent="335" name="creation_time">
+    <column id="380" parent="336" name="creation_time">
       <DataType>datetime|0s</DataType>
       <Position>5</Position>
     </column>
-    <column id="373" parent="335" name="forwarded_from">
+    <column id="381" parent="336" name="forwarded_from">
       <DataType>int(11)|0s</DataType>
       <Position>6</Position>
     </column>
-    <column id="374" parent="335" name="replied_to">
+    <column id="382" parent="336" name="replied_to">
       <DataType>int(11)|0s</DataType>
       <Position>7</Position>
     </column>
-    <column id="375" parent="335" name="is_replied">
+    <column id="383" parent="336" name="is_replied">
       <DataType>tinyint(1)|0s</DataType>
       <Position>8</Position>
     </column>
-    <foreign-key id="376" parent="335" name="group_message_ibfk_2">
+    <foreign-key id="384" parent="336" name="group_message_ibfk_2">
       <ColNames>sender_id</ColNames>
       <OnDelete>set-null</OnDelete>
       <RefColNames>user_number_id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <foreign-key id="377" parent="335" name="group_message_ibfk_4">
+    <foreign-key id="385" parent="336" name="group_message_ibfk_4">
       <ColNames>group_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>group_number_id</RefColNames>
       <RefTableName>group</RefTableName>
     </foreign-key>
-    <foreign-key id="378" parent="335" name="group_message_ibfk_1">
+    <foreign-key id="386" parent="336" name="group_message_ibfk_1">
       <ColNames>forwarded_from</ColNames>
       <OnDelete>set-null</OnDelete>
       <RefColNames>message_id</RefColNames>
       <RefTableName>group_message</RefTableName>
     </foreign-key>
-    <foreign-key id="379" parent="335" name="group_message_ibfk_3">
+    <foreign-key id="387" parent="336" name="group_message_ibfk_3">
       <ColNames>replied_to</ColNames>
       <OnDelete>set-null</OnDelete>
       <RefColNames>message_id</RefColNames>
       <RefTableName>group_message</RefTableName>
     </foreign-key>
-    <index id="380" parent="335" name="message_id">
+    <index id="388" parent="336" name="message_id">
       <ColNames>message_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="381" parent="335" name="sender_id">
+    <index id="389" parent="336" name="sender_id">
       <ColNames>sender_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="382" parent="335" name="group_id">
+    <index id="390" parent="336" name="group_id">
       <ColNames>group_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="383" parent="335" name="forwarded_from">
+    <index id="391" parent="336" name="forwarded_from">
       <ColNames>forwarded_from</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="384" parent="335" name="replied_to">
+    <index id="392" parent="336" name="replied_to">
       <ColNames>replied_to</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="385" parent="335" name="PRIMARY">
+    <key id="393" parent="336" name="PRIMARY">
       <ColNames>message_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="386" parent="335" name="message_id">
+    <key id="394" parent="336" name="message_id">
       <ColNames>message_id</ColNames>
       <UnderlyingIndexName>message_id</UnderlyingIndexName>
     </key>
-    <key id="387" parent="335" name="sender_id">
+    <key id="395" parent="336" name="sender_id">
       <ColNames>sender_id</ColNames>
       <UnderlyingIndexName>sender_id</UnderlyingIndexName>
     </key>
-    <key id="388" parent="335" name="group_id">
+    <key id="396" parent="336" name="group_id">
       <ColNames>group_id</ColNames>
       <UnderlyingIndexName>group_id</UnderlyingIndexName>
     </key>
-    <column id="389" parent="336" name="group_id">
+    <column id="397" parent="337" name="group_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="390" parent="336" name="user_id">
+    <column id="398" parent="337" name="user_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="391" parent="336" name="join_time">
+    <column id="399" parent="337" name="join_time">
       <DataType>datetime|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="392" parent="336" name="left_time">
+    <column id="400" parent="337" name="left_time">
       <DataType>datetime|0s</DataType>
       <Position>4</Position>
     </column>
-    <foreign-key id="393" parent="336" name="membership_ibfk_1">
+    <foreign-key id="401" parent="337" name="membership_ibfk_1">
       <ColNames>group_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>group_number_id</RefColNames>
       <RefTableName>group</RefTableName>
     </foreign-key>
-    <foreign-key id="394" parent="336" name="membership_ibfk_2">
+    <foreign-key id="402" parent="337" name="membership_ibfk_2">
       <ColNames>user_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>user_number_id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <index id="395" parent="336" name="user_id">
+    <index id="403" parent="337" name="user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="396" parent="336" name="PRIMARY">
+    <key id="404" parent="337" name="PRIMARY">
       <ColNames>group_id
 user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="397" parent="337" name="post_id">
+    <column id="405" parent="338" name="post_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="398" parent="337" name="sender_id">
+    <column id="406" parent="338" name="sender_id">
       <DataType>int(11)|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="399" parent="337" name="text">
+    <column id="407" parent="338" name="text">
       <DataType>varchar(50)|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="400" parent="337" name="creation_time">
+    <column id="408" parent="338" name="creation_time">
       <DataType>datetime|0s</DataType>
       <Position>4</Position>
     </column>
-    <foreign-key id="401" parent="337" name="post_ibfk_1">
+    <foreign-key id="409" parent="338" name="post_ibfk_1">
       <ColNames>sender_id</ColNames>
       <OnDelete>set-null</OnDelete>
       <RefColNames>user_number_id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <index id="402" parent="337" name="post_id">
+    <index id="410" parent="338" name="post_id">
       <ColNames>post_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="403" parent="337" name="sender_id">
+    <index id="411" parent="338" name="sender_id">
       <ColNames>sender_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="404" parent="337" name="PRIMARY">
+    <key id="412" parent="338" name="PRIMARY">
       <ColNames>post_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="405" parent="337" name="post_id">
+    <key id="413" parent="338" name="post_id">
       <ColNames>post_id</ColNames>
       <UnderlyingIndexName>post_id</UnderlyingIndexName>
     </key>
-    <key id="406" parent="337" name="sender_id">
+    <key id="414" parent="338" name="sender_id">
       <ColNames>sender_id</ColNames>
       <UnderlyingIndexName>sender_id</UnderlyingIndexName>
     </key>
-    <column id="407" parent="338" name="post_id">
+    <column id="415" parent="339" name="post_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="408" parent="338" name="reacter_id">
+    <column id="416" parent="339" name="reacter_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <foreign-key id="409" parent="338" name="post_reaction_ibfk_1">
+    <foreign-key id="417" parent="339" name="post_reaction_ibfk_1">
       <ColNames>post_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>post_id</RefColNames>
       <RefTableName>post</RefTableName>
     </foreign-key>
-    <foreign-key id="410" parent="338" name="post_reaction_ibfk_2">
+    <foreign-key id="418" parent="339" name="post_reaction_ibfk_2">
       <ColNames>reacter_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>user_number_id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <index id="411" parent="338" name="reacter_id">
+    <index id="419" parent="339" name="reacter_id">
       <ColNames>reacter_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="412" parent="338" name="PRIMARY">
+    <key id="420" parent="339" name="PRIMARY">
       <ColNames>post_id
 reacter_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="413" parent="339" name="post_id">
+    <column id="421" parent="340" name="post_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="414" parent="339" name="viewer_id">
+    <column id="422" parent="340" name="viewer_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="415" parent="339" name="view_time">
+    <column id="423" parent="340" name="view_time">
       <DataType>datetime|0s</DataType>
       <Position>3</Position>
     </column>
-    <foreign-key id="416" parent="339" name="post_view_ibfk_1">
+    <foreign-key id="424" parent="340" name="post_view_ibfk_1">
       <ColNames>post_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>post_id</RefColNames>
       <RefTableName>post</RefTableName>
     </foreign-key>
-    <foreign-key id="417" parent="339" name="post_view_ibfk_2">
+    <foreign-key id="425" parent="340" name="post_view_ibfk_2">
       <ColNames>viewer_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>user_number_id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <index id="418" parent="339" name="viewer_id">
+    <index id="426" parent="340" name="viewer_id">
       <ColNames>viewer_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="419" parent="339" name="PRIMARY">
+    <key id="427" parent="340" name="PRIMARY">
       <ColNames>post_id
 viewer_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="420" parent="340" name="first_user_id">
+    <column id="428" parent="341" name="first_user_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="421" parent="340" name="second_user_id">
+    <column id="429" parent="341" name="second_user_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="422" parent="340" name="creation_date">
+    <column id="430" parent="341" name="creation_date">
       <DataType>date|0s</DataType>
       <Position>3</Position>
     </column>
-    <foreign-key id="423" parent="340" name="private_chat_ibfk_1">
+    <foreign-key id="431" parent="341" name="private_chat_ibfk_1">
       <ColNames>first_user_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>user_number_id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <foreign-key id="424" parent="340" name="private_chat_ibfk_2">
+    <foreign-key id="432" parent="341" name="private_chat_ibfk_2">
       <ColNames>second_user_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>user_number_id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <index id="425" parent="340" name="second_user_id">
+    <index id="433" parent="341" name="second_user_id">
       <ColNames>second_user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="426" parent="340" name="PRIMARY">
+    <key id="434" parent="341" name="PRIMARY">
       <ColNames>first_user_id
 second_user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="427" parent="341" name="message_id">
+    <column id="435" parent="342" name="message_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="428" parent="341" name="sender_id">
+    <column id="436" parent="342" name="sender_id">
       <DataType>int(11)|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="429" parent="341" name="reciever_id">
+    <column id="437" parent="342" name="reciever_id">
       <DataType>int(11)|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="430" parent="341" name="text">
+    <column id="438" parent="342" name="text">
       <DataType>varchar(50)|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="431" parent="341" name="creation_time">
+    <column id="439" parent="342" name="creation_time">
       <DataType>datetime|0s</DataType>
       <Position>5</Position>
     </column>
-    <column id="432" parent="341" name="forwarded_from">
+    <column id="440" parent="342" name="forwarded_from">
       <DataType>int(11)|0s</DataType>
       <Position>6</Position>
     </column>
-    <column id="433" parent="341" name="replied_to">
+    <column id="441" parent="342" name="replied_to">
       <DataType>int(11)|0s</DataType>
       <Position>7</Position>
     </column>
-    <column id="434" parent="341" name="is_replied">
+    <column id="442" parent="342" name="is_replied">
       <DataType>tinyint(1)|0s</DataType>
       <Position>8</Position>
     </column>
-    <foreign-key id="435" parent="341" name="private_message_ibfk_2">
+    <foreign-key id="443" parent="342" name="private_message_ibfk_2">
       <ColNames>sender_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>user_number_id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <foreign-key id="436" parent="341" name="private_message_ibfk_3">
+    <foreign-key id="444" parent="342" name="private_message_ibfk_3">
       <ColNames>reciever_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>user_number_id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <foreign-key id="437" parent="341" name="private_message_ibfk_1">
+    <foreign-key id="445" parent="342" name="private_message_ibfk_1">
       <ColNames>forwarded_from</ColNames>
       <OnDelete>set-null</OnDelete>
       <RefColNames>message_id</RefColNames>
       <RefTableName>private_message</RefTableName>
     </foreign-key>
-    <foreign-key id="438" parent="341" name="private_message_ibfk_4">
+    <foreign-key id="446" parent="342" name="private_message_ibfk_4">
       <ColNames>replied_to</ColNames>
       <OnDelete>set-null</OnDelete>
       <RefColNames>message_id</RefColNames>
       <RefTableName>private_message</RefTableName>
     </foreign-key>
-    <index id="439" parent="341" name="message_id">
+    <index id="447" parent="342" name="message_id">
       <ColNames>message_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="440" parent="341" name="sender_id">
+    <index id="448" parent="342" name="sender_id">
       <ColNames>sender_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="441" parent="341" name="reciever_id">
+    <index id="449" parent="342" name="reciever_id">
       <ColNames>reciever_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="442" parent="341" name="forwarded_from">
+    <index id="450" parent="342" name="forwarded_from">
       <ColNames>forwarded_from</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="443" parent="341" name="replied_to">
+    <index id="451" parent="342" name="replied_to">
       <ColNames>replied_to</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="444" parent="341" name="PRIMARY">
+    <key id="452" parent="342" name="PRIMARY">
       <ColNames>message_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="445" parent="341" name="message_id">
+    <key id="453" parent="342" name="message_id">
       <ColNames>message_id</ColNames>
       <UnderlyingIndexName>message_id</UnderlyingIndexName>
     </key>
-    <key id="446" parent="341" name="sender_id">
+    <key id="454" parent="342" name="sender_id">
       <ColNames>sender_id</ColNames>
       <UnderlyingIndexName>sender_id</UnderlyingIndexName>
     </key>
-    <column id="447" parent="342" name="user_number_id">
+    <column id="455" parent="343" name="user_number_id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="448" parent="342" name="user_id">
+    <column id="456" parent="343" name="user_id">
       <DataType>varchar(25)|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="449" parent="342" name="username">
+    <column id="457" parent="343" name="username">
       <DataType>varchar(25)|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="450" parent="342" name="password">
+    <column id="458" parent="343" name="password">
       <DataType>varchar(25)|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="451" parent="342" name="login_time">
+    <column id="459" parent="343" name="login_time">
       <DataType>datetime|0s</DataType>
       <Position>5</Position>
     </column>
-    <index id="452" parent="342" name="user_number_id">
+    <column id="460" parent="343" name="security_answer">
+      <DataType>varchar(30)|0s</DataType>
+      <Position>6</Position>
+    </column>
+    <column id="461" parent="343" name="security_num">
+      <DataType>tinyint(4)|0s</DataType>
+      <Position>7</Position>
+    </column>
+    <column id="462" parent="343" name="type">
+      <DataType>tinyint(4)|0s</DataType>
+      <DefaultExpression>1</DefaultExpression>
+      <Position>8</Position>
+    </column>
+    <index id="463" parent="343" name="user_number_id">
       <ColNames>user_number_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="453" parent="342" name="user_id">
+    <index id="464" parent="343" name="user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="454" parent="342" name="PRIMARY">
+    <key id="465" parent="343" name="PRIMARY">
       <ColNames>user_number_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="455" parent="342" name="user_number_id">
+    <key id="466" parent="343" name="user_number_id">
       <ColNames>user_number_id</ColNames>
       <UnderlyingIndexName>user_number_id</UnderlyingIndexName>
     </key>
-    <key id="456" parent="342" name="user_id">
+    <key id="467" parent="343" name="user_id">
       <ColNames>user_id</ColNames>
       <UnderlyingIndexName>user_id</UnderlyingIndexName>
     </key>

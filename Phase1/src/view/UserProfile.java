@@ -113,29 +113,31 @@ public class UserProfile extends Menu {
         // show array   UserProfileController
         ArrayList<Post> posts = new ArrayList<>();
         posts = PostDB.getPostByUserID(currentProfile.getId());
-        Menu.showArray(posts);
-        System.out.println("1. select");
-        System.out.println("2. back (user profile)");
-        String cc = Menu.getChoice();
-        switch (cc) {
-            case "select": {
-                Integer num = Integer.valueOf(getInput("enter the number of the post"));
-                if (num > posts.size()) {
-                    System.out.println(Message.INVALID_CHOICE);
-                } else {
-                    Post wanted = posts.get(num);
-                    ShowPost showPost = new ShowPost(wanted);
-                    showPost.run();
 
+        boolean bool = true;
+        while (bool) {
+            Menu.showArray(posts);
+            System.out.println("1. select");
+            System.out.println("2. back (user profile)");
+            String cc = Menu.getChoice();
+            switch (cc) {
+                case "select": {
+                    Integer num = Integer.valueOf(getInput("enter the number of the post"));
+                    if (num > posts.size()) {
+                        System.out.println(Message.INVALID_CHOICE);
+                    } else {
+                        Post wanted = posts.get(num);
+                        ShowPost showPost = new ShowPost(wanted);
+                        showPost.run();
+                    }
                 }
+                case "back": {
+                    bool = false;
+                }
+                default:
+                    System.out.println(Message.INVALID_CHOICE);
             }
-            case "back": {
-                return;
-            }
-            default:
-                System.out.println(Message.INVALID_CHOICE);
         }
-
 
     }
 

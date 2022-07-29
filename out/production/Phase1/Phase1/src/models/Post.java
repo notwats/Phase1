@@ -6,8 +6,9 @@ import java.util.ArrayList;
 public class Post {
 
     int postID;
-    int senderID;
+    User sender;
 
+    Boolean isAdPost = false ;
     /*
     int imageID;
     int voiceID;
@@ -15,10 +16,39 @@ public class Post {
      */
     int likeNumber;
 
-    String caption; // main for phase 1
+    String context; // main for phase 1
 
-    LocalDateTime date;
+    LocalDateTime creationDate;
+    ArrayList<Comment> comments= new ArrayList<>();
+    ArrayList<User> likedUsers= new ArrayList<>();
+
+
     ArrayList<Tag> tags;
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public Boolean getAdPost() {
+
+        return isAdPost;
+    }
+
+    public void setAdPost(Boolean adPost) {
+        isAdPost = adPost;
+    }
+
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public ArrayList<User> getLikedUsers() {
+        return likedUsers;
+    }
+
+    public void setLikedUsers(ArrayList<User> likedUsers) {
+        this.likedUsers = likedUsers;
+    }
 
     public int getPostID() {
         return postID;
@@ -28,12 +58,12 @@ public class Post {
         this.postID = postID;
     }
 
-    public int getSenderID() {
-        return senderID;
+    public User getSender() {
+        return sender;
     }
 
-    public void setSenderID(int senderID) {
-        this.senderID = senderID;
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 
     public int getLikeNumber() {
@@ -44,20 +74,20 @@ public class Post {
         this.likeNumber = likeNumber;
     }
 
-    public String getCaption() {
-        return caption;
+    public String getContext() {
+        return context;
     }
 
-    public void setCaption(String caption) {
-        this.caption = caption;
+    public void setContext(String context) {
+        this.context = context;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
     public ArrayList<Tag> getTags() {

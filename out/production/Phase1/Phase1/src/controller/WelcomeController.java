@@ -1,6 +1,7 @@
 package controller;
+import database.DBGetter;
+import database.UserDB;
 import enums.Message;
-import enums.Security;
 import models.BusinessAcc;
 import models.NormalAcc;
 import models.User;
@@ -27,30 +28,30 @@ public class WelcomeController extends Controller {
     }
 
 
-    public Message handleRegistration(String username, String password, String repeatedPassword, Integer questionNum, String answerS , Boolean isNormal) {
+    public Message handleRegistration(String userID ,String username , String password, String repeatedPassword, Integer questionNum, String answerS , Boolean isNormal) {
         if (this.doesUsernameExist(username)) {
             return Message.USER_EXIST;
         }
 
        if (isNormal){
-           NormalAcc nwUser= new NormalAcc(username , password , answerS , questionNum );
-           //NormalAcc.list.add(nwUser);
+           NormalAcc nwUser= new NormalAcc(userID ,username , password , answerS , questionNum );
+           UserDB.addUser(nwUser);
        }
        else {
-           BusinessAcc nwUser = new BusinessAcc(username, password, answerS, questionNum );
-           //BusinessAcc.list.add(nwUser);
+           BusinessAcc nwUser = new BusinessAcc( userID ,username, password, answerS, questionNum );
+           UserDB.addUser(nwUser);
        }
         return Message.SUCCESS;
     }
 
 
-    private Boolean doesUsernameExist(String username) {
-        return User.getUserByUsername(username) != null;
+    private Boolean doesUsernameExist(String userID) {
+        return DBGetter.findUserByUserID(userID) != null;
     }
 
-    public Message handleLogin(String username, String password) {
+    public Message handleLogin(String userID, String password) {
 
-        User user = User.getUserByUsername(username);
+        User user = DBGetter.findUserByUserID(userID);
         if (user != null ) {
             if (user.getPassword().equals(password)){
                 Menu.setLoggedInUser(user);
@@ -63,7 +64,9 @@ public class WelcomeController extends Controller {
 
 
     public void handleChangingPass(String username, String password) {
-        User user = User.getUserByUsername(username);
+        User user = DBGetter.findUserByUserID(username);
         user.setPassword(password);
+        UserDB.updateUser(user);
+
     }
 }

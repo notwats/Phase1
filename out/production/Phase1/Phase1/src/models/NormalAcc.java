@@ -6,11 +6,12 @@ import java.util.ArrayList;
 
 public class NormalAcc extends User {
 
-    public static ArrayList<NormalAcc> list;
 
 
-    public NormalAcc(String username, String password, String securityAnswer, Integer securityQuestion) {
-        super(username, password, securityAnswer, securityQuestion);
-        list.add(this);
+
+    public NormalAcc(String userID ,  String username, String password, String securityAnswer, Integer securityQuestion) {
+
+        super(userID , username, password, securityAnswer, securityQuestion);
+        this.isNormal= true;
     }
 }

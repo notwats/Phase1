@@ -3,6 +3,7 @@ package view;
 import controller.Controller;
 import controller.WelcomeController;
 import database.DBGetter;
+import database.UserDB;
 import enums.Message;
 import enums.Security;
 import models.*;
@@ -127,7 +128,7 @@ public class WelcomeMenu extends Menu {
     private Message forgetPass(String username) {
         User user = DBGetter.findUserByUserID(username);
         if (user != null) {
-            String answer = getInput(user.getSecurityQuestion().toString());
+            String answer = getInput(String.valueOf(Security.values()[user.getSecurityQuestion()]));
             if (answer.equalsIgnoreCase(user.getSecurityAnswer()))
                 return Message.SUCCESS;
             else return Message.WRONG_CREDENTIALS;

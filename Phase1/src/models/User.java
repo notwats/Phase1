@@ -1,6 +1,7 @@
 package models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public abstract class User {
@@ -25,13 +26,14 @@ public abstract class User {
         this.suggestionsID = suggestionsID;
     }
 
-    LocalDate createDate;
+    LocalDateTime createDate;
 
     String Bio;
 
     String securityAnswer;
     Integer securityQuestion;
 
+    Boolean isNormal ; // actually boolean
 
     private static int mainID = 0;
 
@@ -44,7 +46,7 @@ public abstract class User {
         this.securityAnswer = securityAnswer;
         this.securityQuestion = securityQuestion;
 
-        this.createDate = LocalDate.now();
+        this.createDate = LocalDateTime.now();
         allUsers.add(this);
     }
 
@@ -81,6 +83,38 @@ public abstract class User {
     public void commenting(int postID, String comment) {
         // new object comment
         //add id to database;
+    }
+
+    public static ArrayList<User> getAllUsers() {
+        return allUsers;
+    }
+
+    public static void setAllUsers(ArrayList<User> allUsers) {
+        User.allUsers = allUsers;
+    }
+
+    public int getNumberID() {
+        return numberID;
+    }
+
+    public void setNumberID(int numberID) {
+        this.numberID = numberID;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public Boolean getIsNormal() {
+        return isNormal;
+    }
+
+    public void setIsNormal(Boolean normal) {
+        isNormal = normal;
     }
 
     public void posting() {
@@ -135,7 +169,7 @@ public abstract class User {
         return groupsID;
     }
 
-    public LocalDate getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
@@ -187,7 +221,7 @@ public abstract class User {
         this.groupsID = groupsID;
     }
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 

@@ -1,15 +1,15 @@
 package models;
 
-import enums.Security;
-
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public abstract class User {
     public static ArrayList<User> allUsers = new ArrayList<>(); // not needed that much
 
-    int id;
+    int numberID;
     String username;
+    String userID;
     private String password;
     ArrayList<Integer> followersID;
     ArrayList<Integer> followingsID;
@@ -26,48 +26,51 @@ public abstract class User {
         this.suggestionsID = suggestionsID;
     }
 
-    LocalDate createDate;
+    LocalDateTime createDate;
 
     String Bio;
 
     String securityAnswer;
     Integer securityQuestion;
 
+    Boolean isNormal ; // actually boolean
 
     private static int mainID = 0;
 
-    public User(String username, String password, String securityAnswer, Integer securityQuestion) {
+    public User(String userID, String username, String password, String securityAnswer, Integer securityQuestion) {
 
-        this.id = mainID++;
-
+       // this.id = mainID++;
+        this.userID = userID;
         this.username = username;
         this.password = password;
         this.securityAnswer = securityAnswer;
         this.securityQuestion = securityQuestion;
 
-        this.createDate = LocalDate.now();
+        this.createDate = LocalDateTime.now();
         allUsers.add(this);
     }
 
-    public static User getUserByUsername(String username) {
-        for (User user : User.allUsers) {
-            if (user.username.equals(username)) {
-                return user;
-            }
-
-        }
-        return null;
-    }
-
-    public static User getUserByID(int id) {
-        for (User user :
-                User.allUsers) {
-            if (user.id == id) {
-                return user;
-            }
-        }
-        return null;
-    }
+//
+//
+//    public static User getUserByUsername(String username) {
+//        for (User user : User.allUsers) {
+//            if (user.username.equals(username)) {
+//                return user;
+//            }
+//
+//        }
+//        return null;
+//    }
+//
+//    public static User findUserByUserNumberID(int id) {
+//        for (User user :
+//                User.allUsers) {
+//            if (user.id == id) {
+//                return user;
+//            }
+//        }
+//        return null;
+//    }
 
     public void follow(int followingID) {
         //add id to database;
@@ -80,6 +83,38 @@ public abstract class User {
     public void commenting(int postID, String comment) {
         // new object comment
         //add id to database;
+    }
+
+    public static ArrayList<User> getAllUsers() {
+        return allUsers;
+    }
+
+    public static void setAllUsers(ArrayList<User> allUsers) {
+        User.allUsers = allUsers;
+    }
+
+    public int getNumberID() {
+        return numberID;
+    }
+
+    public void setNumberID(int numberID) {
+        this.numberID = numberID;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public Boolean getIsNormal() {
+        return isNormal;
+    }
+
+    public void setIsNormal(Boolean normal) {
+        isNormal = normal;
     }
 
     public void posting() {
@@ -103,7 +138,7 @@ public abstract class User {
 
 
     public int getId() {
-        return id;
+        return numberID;
     }
 
     public String getUsername() {
@@ -134,7 +169,7 @@ public abstract class User {
         return groupsID;
     }
 
-    public LocalDate getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
@@ -155,7 +190,7 @@ public abstract class User {
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.numberID = id;
     }
 
     public void setUsername(String username) {
@@ -186,7 +221,7 @@ public abstract class User {
         this.groupsID = groupsID;
     }
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
@@ -204,5 +239,13 @@ public abstract class User {
 
     public static void setMainID(int mainID) {
         User.mainID = mainID;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", userID='" + userID + '\'' +
+                '}';
     }
 }

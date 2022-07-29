@@ -8,6 +8,7 @@ public class Post {
     int postID;
     User sender;
 
+    Boolean isAdPost = false ;
     /*
     int imageID;
     int voiceID;
@@ -26,6 +27,15 @@ public class Post {
 
     public ArrayList<Comment> getComments() {
         return comments;
+    }
+
+    public Boolean getAdPost() {
+
+        return isAdPost;
+    }
+
+    public void setAdPost(Boolean adPost) {
+        isAdPost = adPost;
     }
 
     public void setComments(ArrayList<Comment> comments) {

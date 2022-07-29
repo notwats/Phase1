@@ -1,5 +1,6 @@
 package controller;
 import database.DBGetter;
+import database.UserDB;
 import enums.Message;
 import models.BusinessAcc;
 import models.NormalAcc;
@@ -34,11 +35,11 @@ public class WelcomeController extends Controller {
 
        if (isNormal){
            NormalAcc nwUser= new NormalAcc(userID ,username , password , answerS , questionNum );
-           //NormalAcc.list.add(nwUser);
+           UserDB.addUser(nwUser);
        }
        else {
            BusinessAcc nwUser = new BusinessAcc( userID ,username, password, answerS, questionNum );
-           //BusinessAcc.list.add(nwUser);
+           UserDB.addUser(nwUser);
        }
         return Message.SUCCESS;
     }
@@ -65,5 +66,7 @@ public class WelcomeController extends Controller {
     public void handleChangingPass(String username, String password) {
         User user = DBGetter.findUserByUserID(username);
         user.setPassword(password);
+        UserDB.updateUser(user);
+
     }
 }

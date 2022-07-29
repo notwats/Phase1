@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BusinessAcc extends User {
-    public static ArrayList<BusinessAcc> list;
 
 
     public HashMap<LocalDate, Integer> profileViews = new HashMap<>();
 
 
-    public BusinessAcc(String username, String password, String securityAnswer, Integer securityQuestion) {
-        super(username, password, securityAnswer, securityQuestion);
-        BusinessAcc.list.add(this);
+    public BusinessAcc(String userID,String username, String password, String securityAnswer, Integer securityQuestion) {
+        super(userID ,username, password, securityAnswer, securityQuestion);
+        isNormal=false;
     }
 }

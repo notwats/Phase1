@@ -4,12 +4,12 @@ import controller.MainProfileController;
 import enums.Message;
 import view.MainMenu;
 import view.Menu;
+import view.ShowPost;
 
 public class PostsEdit {
 
 
     public static void run(){
-
 
         System.out.println("enter the number of post if you want edit it or type back");
       String postNum= Menu.getChoice() ;

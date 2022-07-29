@@ -1,6 +1,6 @@
 package models;
 
-import database.ConnectionLink;
+import database.DBGetter;
 
 import java.util.Date;
 
@@ -32,7 +32,7 @@ public class Message {
     public void edit(){}
 
     public void show(){
-        User user = ConnectionLink.findUserByUserNumberID(senderID);
+        User user = DBGetter.findUserByUserNumberID(senderID);
         System.out.println(user.username+" : " +messageText);
     } //graphic function
 
