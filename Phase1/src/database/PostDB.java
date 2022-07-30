@@ -16,12 +16,12 @@ public class PostDB extends DBGetter {
 
     public static ArrayList<Post> getFollowingsPost(Integer userID){
         ArrayList<Post> ret= new ArrayList<>();
-        ArrayList<User> following= UserDB.getFollowings(userID);
+        ArrayList<Integer> following= UserDB.getFollowings(userID);
         try {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
-            for (User uu : following) {
-               ArrayList<Post> usersPosts= getPostByUserID(uu.getNumberID());
+            for (Integer uuID : following) {
+               ArrayList<Post> usersPosts= getPostByUserID(uuID);
                ret.addAll(usersPosts);
             }
         }

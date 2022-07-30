@@ -61,16 +61,15 @@ public class UserDB {
        }
     }
 
-    public static ArrayList<User> getFollowings(Integer userID){
-        ArrayList<User> following= new ArrayList<>();
+    public static ArrayList<Integer> getFollowings(Integer userID){
+        ArrayList<Integer> following= new ArrayList<>();
         try {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
             String query = "select * form followership where is_following_id = " + userID + ";" ;
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
-                User uu = DBGetter.findUserByUserNumberID(rs.getInt(2));
-                following.add(uu);
+                following.add(rs.getInt(2));
             }
         }
         catch (SQLException e) {
@@ -82,23 +81,20 @@ public class UserDB {
     }
 
 
-    public static ArrayList<User> getFollowers(Integer userID){
-        ArrayList<User> followers= new ArrayList<>();
+    public static ArrayList<Integer> getFollowers(Integer userID){
+        ArrayList<Integer> followers= new ArrayList<>();
         try {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
             String query = "select * form followership where is_followed_id = " + userID + ";" ;
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
-                User uu = DBGetter.findUserByUserNumberID(rs.getInt(1));
-                followers.add(uu);
+                followers.add(rs.getInt(1));
             }
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
         return followers;
-
-
     }
 }

@@ -36,22 +36,29 @@ public class DBGetter {
             Connection connection = DBInfo.getConnection();
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM `user` WHERE user_number_id = " + senderID +";\n");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `user` WHERE user_number_id = " + senderID + ";\n");
             if (!resultSet.next()) {
                 return null;
             }
-            if (resultSet.getInt("type")==1){
-            user = new NormalAcc(resultSet.getString("user_id"),
-                    resultSet.getString("username"),
-                    resultSet.getString("password"),
-                    resultSet.getString("security_answer"),
-                    resultSet.getInt("security_num"));}
-            else {
+            if (resultSet.getInt("type") == 1) {
+                user = new NormalAcc(resultSet.getString("user_id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("password"),
+                        resultSet.getString("security_answer"),
+                        resultSet.getInt("security_num"));
+                user.setFollowersID(UserDB.getFollowers(user.getNumberID()));
+                user.setFollowingsID(UserDB.getFollowings(user.getNumberID()));
+                user.setPosts(PostDB.getPostByUserID(user.getNumberID()));
+
+            } else {
                 user = new BusinessAcc(resultSet.getString("user_id"),
                         resultSet.getString("username"),
                         resultSet.getString("password"),
                         resultSet.getString("security_answer"),
                         resultSet.getInt("security_num"));
+                user.setFollowersID(UserDB.getFollowers(user.getNumberID()));
+                user.setFollowingsID(UserDB.getFollowings(user.getNumberID()));
+                user.setPosts(PostDB.getPostByUserID(user.getNumberID()));
 
                 // other businesss
             }
@@ -71,17 +78,17 @@ public class DBGetter {
             Connection connection = DBInfo.getConnection();
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM `user` WHERE user_id= '" + userID +"';\n");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `user` WHERE user_id= '" + userID + "';\n");
             if (!resultSet.next()) {
                 return null;
             }
-            if (resultSet.getInt("type")==1){
+            if (resultSet.getInt("type") == 1) {
                 user = new NormalAcc(resultSet.getString("user_id"),
                         resultSet.getString("username"),
                         resultSet.getString("password"),
                         resultSet.getString("security_answer"),
-                        resultSet.getInt("security_num"));}
-            else {
+                        resultSet.getInt("security_num"));
+            } else {
                 user = new BusinessAcc(resultSet.getString("user_id"),
                         resultSet.getString("username"),
                         resultSet.getString("password"),
@@ -348,7 +355,6 @@ public class DBGetter {
 
         return messages;
     }
-
 
 
 }
