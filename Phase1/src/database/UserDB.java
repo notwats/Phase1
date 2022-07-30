@@ -1,10 +1,13 @@
 package database;
 
+import models.Comment;
 import models.NormalAcc;
+import models.Post;
 import models.User;
 
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import static database.DBInfo.getConnection;
 import static database.DBInfo.username;
@@ -56,7 +59,46 @@ public class UserDB {
        } catch (Exception e) {
            e.printStackTrace();
        }
+    }
+
+    public static ArrayList<User> getFollowings(Integer userID){
+        ArrayList<User> following= new ArrayList<>();
+        try {
+            Connection con = DBInfo.getConnection();
+            Statement st = con.createStatement();
+            String query = "select * form followership where is_following_id = " + userID + ";" ;
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                User uu = DBGetter.findUserByUserNumberID(rs.getInt(2));
+                following.add(uu);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return following;
+
 
     }
 
+
+    public static ArrayList<User> getFollowers(Integer userID){
+        ArrayList<User> followers= new ArrayList<>();
+        try {
+            Connection con = DBInfo.getConnection();
+            Statement st = con.createStatement();
+            String query = "select * form followership where is_followed_id = " + userID + ";" ;
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                User uu = DBGetter.findUserByUserNumberID(rs.getInt(1));
+                followers.add(uu);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return followers;
+
+
+    }
 }

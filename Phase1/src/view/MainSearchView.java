@@ -16,6 +16,9 @@ public class MainSearchView {
     public static void run() {
         boolean bool = true;
         while (bool) {
+            // show ad post ezzzzzz
+            // recomendatinsss
+
             showOptions();
             String choice = Menu.getChoice();
 

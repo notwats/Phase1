@@ -36,15 +36,25 @@ public class DBGetter {
             Connection connection = DBInfo.getConnection();
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM `user` WHERE user_number_id = " + senderID);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `user` WHERE user_number_id = " + senderID +";\n");
             if (!resultSet.next()) {
                 return null;
             }
+            if (resultSet.getInt("type")==1){
             user = new NormalAcc(resultSet.getString("user_id"),
                     resultSet.getString("username"),
                     resultSet.getString("password"),
                     resultSet.getString("security_answer"),
-                    resultSet.getInt("security_num"));
+                    resultSet.getInt("security_num"));}
+            else {
+                user = new BusinessAcc(resultSet.getString("user_id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("password"),
+                        resultSet.getString("security_answer"),
+                        resultSet.getInt("security_num"));
+
+                // other businesss
+            }
             user.setId(senderID);
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,21 +68,28 @@ public class DBGetter {
     public static User findUserByUserID(String userID) {
         User user = null;
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/finaldb", "root", "");
-
+            Connection connection = DBInfo.getConnection();
             Statement statement = connection.createStatement();
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM `user` WHERE user_id= '" + userID +"';\n");
             if (!resultSet.next()) {
                 return null;
             }
+            if (resultSet.getInt("type")==1){
+                user = new NormalAcc(resultSet.getString("user_id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("password"),
+                        resultSet.getString("security_answer"),
+                        resultSet.getInt("security_num"));}
+            else {
+                user = new BusinessAcc(resultSet.getString("user_id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("password"),
+                        resultSet.getString("security_answer"),
+                        resultSet.getInt("security_num"));
 
-            user = new NormalAcc(userID,
-                    resultSet.getString("username"),
-                    resultSet.getString("password"),
-                    resultSet.getString("security_answer"),
-                    resultSet.getInt("security_num"));
-
+                // other businesss
+            }
             user.setId(resultSet.getInt("user_number_id"));
 
         } catch (Exception e) {

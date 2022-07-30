@@ -42,7 +42,6 @@ public class Settings extends Menu {
                 case "0", "back" -> bool=false;
                 default -> {
                     System.out.println(Message.INVALID_CHOICE);
-                    this.run();
                 }
             }
         }
