@@ -139,7 +139,7 @@ public class WelcomeMenu extends Menu {
         return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
     }
 
-    private Message validatePassword(String password, String repeatedPassword) {
+    public Message validatePassword(String password, String repeatedPassword) {
         if (!password.equals(repeatedPassword))
             return Message.MISMATCH_PASSWORD;
         if (password.length() < 8)

@@ -20,6 +20,7 @@ public class ShowPost extends Menu {
 
         boolean bool = true;
         while (bool) {
+            System.out.println("-----"+currentPost.getContext()+"-----");
             this.showOptions();
             String choice = getChoice();
             switch (choice) {
@@ -28,11 +29,9 @@ public class ShowPost extends Menu {
                 case "0", "back" -> bool = false;
                 default -> System.out.println(Message.INVALID_CHOICE);
             }
-
             // 1--> bio , username , followings , followers , posts' num
             // 2--> follow , message , suggestion
             // 3-->
-
         }
     }
 

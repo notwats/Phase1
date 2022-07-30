@@ -1,6 +1,4 @@
 package models;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -11,12 +9,13 @@ public abstract class User {
     String username;
     String userID;
     private String password;
-    ArrayList<Integer> followersID;
-    ArrayList<Integer> followingsID;
-    ArrayList<Integer> postsID;
-    ArrayList<Integer> chatsID;
-    ArrayList<Integer> groupsID;
-    ArrayList<Integer> suggestionsID;
+    ArrayList<Integer> followersID= new ArrayList<>();
+    ArrayList<Integer> followingsID= new ArrayList<>();
+    ArrayList<Integer> postsID= new ArrayList<>();
+    ArrayList<Integer> chatsID= new ArrayList<>();
+    ArrayList<Integer> groupsID= new ArrayList<>();
+    ArrayList<Integer> suggestionsID; // ???
+    ArrayList<Integer> blockedUsersID;
 
     public ArrayList<Integer> getSuggestionsID() {
         return suggestionsID;

@@ -46,4 +46,17 @@ public class UserDB {
             e.printStackTrace();
         }
     }
+
+    public static void deleteUser(User user) {
+       try {
+           Connection con = DBInfo.getConnection();
+           Statement st = con.createStatement();
+           st.execute("delete from `user` where user_id = '" + user.getUserID()+"';");
+           con.close();
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+
+    }
+
 }

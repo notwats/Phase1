@@ -36,7 +36,7 @@ public class MainMenu extends Menu{
                 case "2", "chats" -> MainChatsView.getInstance().run();
                 case "3", "posts" -> {}//this.posts();
                 case "4", "search" -> MainSearchView.run();
-                case "5", "exit" -> bool = false;
+                case "5", "logout" -> bool = false;
                 default -> System.out.println(Message.INVALID_CHOICE);
 
             }
@@ -51,7 +51,7 @@ public class MainMenu extends Menu{
                 2. chats\s
                 3. posts\s
                 4. search\s
-                5. exit
+                5. logout
                 """);
     }
 }
