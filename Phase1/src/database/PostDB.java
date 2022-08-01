@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -39,7 +41,9 @@ public class PostDB extends DBGetter {
         try {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
-            st.executeQuery("INSERT INTO post( sender_id, text, creation_time, type)  VALUES( "+post.getSender().getUserID()+",'"+post.getContext()+"',"+post.getCreationDate()+","+post.getAdPost()+")");
+            st.executeQuery("INSERT INTO post( sender_id, text, creation_time, type)  VALUES( "
+                    +post.getSender().getUserID()+",'"+post.getContext()
+                    + "',"+post.getCreationDate()+","+post.getAdPost()+")");
 
         }
         catch (SQLException e){
@@ -64,7 +68,7 @@ public class PostDB extends DBGetter {
                 //    ps.setViews(rs.getInt(7));
                 //    ps.setComments(rs.getInt(8));
                 ps.setComments(getCommentByPostID(ps.getPostID()));
-                ps.setCreationDate(LocalDateTime.parse(rs.getString("creation_time")));
+   //             ps.setCreationDate(new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString("creation_time")));
 
             }
 
@@ -139,7 +143,7 @@ public class PostDB extends DBGetter {
             //    ps.setViews(rs.getInt(7));
             //    ps.setComments(rs.getInt(8));
             ps.setComments(getCommentByPostID(ps.getPostID()));
-            ps.setCreationDate(LocalDateTime.parse(rs.getString("creation_time")));
+ //           ps.setCreationDate(LocalDateTime.parse(rs.getString("creation_time")));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -147,15 +151,19 @@ public class PostDB extends DBGetter {
         return ps;
     }
 
-    public static void deletePost(Post post) throws SQLException {
-        Connection con = DBInfo.getConnection();
+    public static void deletePost(Integer postid) {
+     try {
+         Connection con = DBInfo.getConnection();
         Statement st = con.createStatement();
-        st.execute("delete from post where post_id = " + post.getPostID());
-        st.execute("delete from comment where post_id = " + post.getPostID());
-        st.execute("delete from post_reaction where post_id = " + post.getPostID());
-        st.execute("delete from post_view where post_id = " + post.getPostID());
+        st.execute("delete from post where post_id = " + postid);
+        st.execute("delete from comment where post_id = " + postid);
+        st.execute("delete from post_reaction where post_id = " + postid);
+        st.execute("delete from post_view where post_id = " + postid);
         st.close();
-        con.close();
+        con.close();}
+     catch (SQLException e) {
+         e.printStackTrace();
+     }
     }
 
     public static void updatePost(Post post) {

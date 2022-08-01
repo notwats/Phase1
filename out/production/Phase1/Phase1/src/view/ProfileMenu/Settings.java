@@ -52,8 +52,8 @@ public class Settings extends Menu {
     protected void showOptions() {
         System.out.println("enter one of the options");
         System.out.println("1. change info"); //
-        System.out.println("2. notifications"); // block mute/
-        System.out.println("3. make your account private"); //
+     //   System.out.println("2. notifications"); // block mute/
+    //    System.out.println("3. make your account private"); //
         System.out.println("4. delete account"); //
         System.out.println("0. back  (Profile)"); // back button
         // notifications

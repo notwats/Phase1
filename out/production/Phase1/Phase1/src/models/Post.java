@@ -2,6 +2,7 @@ package models;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Post {
 
@@ -63,6 +64,14 @@ public class Post {
         return sender;
     }
 
+    public Boolean getNormal() {
+        return isNormal;
+    }
+
+    public void setNormal(Boolean normal) {
+        isNormal = normal;
+    }
+
     public void setSender(User sender) {
         this.sender = sender;
     }
@@ -87,7 +96,7 @@ public class Post {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 

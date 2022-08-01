@@ -39,7 +39,9 @@ public class PostDB extends DBGetter {
         try {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
-            st.executeQuery("INSERT INTO post( sender_id, text, creation_time, type)  VALUES( "+post.getSender().getUserID()+",'"+post.getContext()+"',"+post.getCreationDate()+","+post.getAdPost()+")");
+            st.executeQuery("INSERT INTO post( sender_id, text, creation_time, type)  VALUES( "
+                    +post.getSender().getUserID()+",'"+post.getContext()
+                    + "',"+post.getCreationDate()+","+post.getAdPost()+")");
 
         }
         catch (SQLException e){
