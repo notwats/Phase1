@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
+
+import static database.DBInfo.getConnection;
 
 public class UpdateDB {
 
@@ -48,14 +51,11 @@ public class UpdateDB {
         LocalDateTime now = LocalDateTime.now();
 
         try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
+            Connection con = getConnection();
+            String query = "INSERT INTO private_chat(first_user_id, second_user_id) VALUES( " + firstID +", "+secondID+" )";
+            con.createStatement().execute(query);
 
-            Statement statement = connection.createStatement();
-
-            statement.executeQuery("INSERT INTO private_chat VALUES(" + firstID +", "+ secondID  +", "+ dtf.format(now) + ")");
-
-
-
+            con.close();
 
         } catch (Exception e){
             e.printStackTrace();
@@ -121,12 +121,17 @@ public class UpdateDB {
         LocalDateTime now = LocalDateTime.now();
 
         try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
+            Connection con = getConnection();
+            String query1 = "INSERT INTO `group`(group_id, group_name, group_admin_id) VALUES( '" + groupID +"', '"+groupName+"', "+adminID+")";
+            con.createStatement().execute(query1);
 
-            Statement statement = connection.createStatement();
+            int groupNumberID = Objects.requireNonNull(DBGetter.findGroupByGroupID(groupID)).getGroupNumberID();
 
-            statement.executeQuery("INSERT INTO `group`(group_id, group_name, group_admin_id) VALUES(" + groupID +", "+groupName+", "+adminID+")");
-            statement.executeQuery("INSERT INTO membership(group_id, user_id, join_time) VALUES(" + groupID +", " + adminID +", " + dtf.format(now) +")");
+            String query2 = "INSERT INTO membership(group_number_id, user_number_id) VALUES( " + groupNumberID +", " + adminID +" )";
+
+
+            con.createStatement().execute(query2);
+            con.close();
         } catch (Exception e){
             e.printStackTrace();
         }

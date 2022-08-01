@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class MainChatsView extends MainMenu {
     private static MainChatsView instance = null;
 
-    private MainChatsController controller;
+    private final MainChatsController controller = new MainChatsController();
 
     private static void setInstance(MainChatsView instance) {
         MainChatsView.instance = instance;
@@ -92,8 +92,10 @@ public class MainChatsView extends MainMenu {
         for (int i = 0; i < chats.size(); i++) {
             if(choice == chats.get(i).getUser1ID() || choice == chats.get(i).getUser2ID() || i == choice){
                 User friend = DBGetter.findUserByUserNumberID(choice);
+                assert friend != null;
                 controller.handleDeletePrivateChat(loggedInUser.getId(), friend.getId());
                 System.out.println("chat with " + friend.getUsername() + "was deleted successfully" );
+                return;
             }
         }
 
@@ -132,14 +134,23 @@ public class MainChatsView extends MainMenu {
             System.out.println(i +". " +groupNames.get(i).getGroupName());
         }
 
-        String choice = getChoice();
+        boolean bool = true;
 
-        for (int i = 0; i < groupNames.size(); i++) {
-            if(choice.equals(groupNames.get(i).getGroupName()) || i == Integer.parseInt(choice)){
-                Group group = groupNames.get(i);
-                controller.handleDeleteGroup(group, loggedInUser.getId());
-                System.out.println("group "+ groupNames.get(i).getGroupName()  + " deleted successfully");
-                break;
+        while(bool) {
+            String choice = getChoice();
+
+            for (int i = 0; i < groupNames.size(); i++) {
+                try {
+                    if (choice.equals(groupNames.get(i).getGroupName()) || i == Integer.parseInt(choice)) {
+                        Group group = groupNames.get(i);
+                        controller.handleDeleteGroup(group, loggedInUser.getId());
+                        System.out.println("group " + groupNames.get(i).getGroupName() + " deleted successfully");
+                        bool = false;
+                        break;
+                    }
+                } catch (Exception NumberFormatException) {
+                    System.out.println("Invalid Choice");
+                }
             }
         }
 
@@ -148,6 +159,10 @@ public class MainChatsView extends MainMenu {
     private void showPrivate() {
         ArrayList<Personal> chats = controller.handleShowPrivateChats(loggedInUser.getId());
 
+        if(chats == null){
+            System.out.println("You Have No Chats. Please Make Some!");
+            return;
+        }
         for (int i = 0; i < chats.size(); i++) {
             if(chats.get(i).getUser1ID() == loggedInUser.getId())
                 System.out.println(i +". " + chats.get(i).getUser2ID());
@@ -168,6 +183,7 @@ public class MainChatsView extends MainMenu {
                 PrivateChatView.friend = friend;
                 PrivateChatView.user = loggedInUser;
                 PrivateChatView.run();
+                assert friend != null;
                 System.out.println("chat with " + friend.getUsername() + "was deleted successfully" );
             }
         }
@@ -201,8 +217,8 @@ public class MainChatsView extends MainMenu {
                 which kind of chat do you want \s
                 1.private chats\s
                 2. groups\s
-                3. add or remove private chat\s
-                4. add or remove group\s
+                3. add or remove group\s
+                4. add or remove private chat\s
                 5. return to main menu""");
     }
 }
