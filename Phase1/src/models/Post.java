@@ -8,10 +8,11 @@ public class Post {
     int postID;
     User sender;
 
-    Boolean isAdPost = false ;
+    Boolean isNormal = true ;
     /*
     int imageID;
     int voiceID;
+
     int audioID;
      */
     int likeNumber;
@@ -31,11 +32,11 @@ public class Post {
 
     public Boolean getAdPost() {
 
-        return isAdPost;
+        return isNormal;
     }
 
     public void setAdPost(Boolean adPost) {
-        isAdPost = adPost;
+        isNormal = adPost;
     }
 
     public void setComments(ArrayList<Comment> comments) {

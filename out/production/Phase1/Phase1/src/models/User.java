@@ -16,7 +16,7 @@ public abstract class User {
     ArrayList<Integer> postsID;
     ArrayList<Integer> chatsID;
     ArrayList<Integer> groupsID;
-    ArrayList<Integer> suggestionsID;
+    ArrayList<Integer> suggestionsID; // ???
 
     public ArrayList<Integer> getSuggestionsID() {
         return suggestionsID;

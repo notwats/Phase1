@@ -5,7 +5,7 @@ import view.ChatsMenu.MainChatsView;
 import view.ProfileMenu.MainProfileView;
 
 // where user can choose 4 option!?
-public class MainMenu extends Menu{
+public class MainMenu extends Menu {
 
 
     private static MainMenu instance = null;
@@ -27,16 +27,20 @@ public class MainMenu extends Menu{
     @Override
     public void run() {
         boolean bool = true;
-        while(bool) {
+        while (bool) {
             this.showOptions();
             String choice = getChoice();
 
             switch (choice) {
                 case "1", "profile" -> MainProfileView.getInstance().run();
                 case "2", "chats" -> MainChatsView.getInstance().run();
-                case "3", "posts" -> {}//this.posts();
+                case "3", "posts" -> {
+                }//this.posts();
                 case "4", "search" -> MainSearchView.run();
-                case "5", "exit" -> bool = false;
+                case "0", "logout" -> {
+                    bool = false;
+                    WelcomeMenu.getInstance().run();
+                }
                 default -> System.out.println(Message.INVALID_CHOICE);
 
             }
@@ -51,7 +55,7 @@ public class MainMenu extends Menu{
                 2. chats\s
                 3. posts\s
                 4. search\s
-                5. exit
+                0. logout
                 """);
     }
 }

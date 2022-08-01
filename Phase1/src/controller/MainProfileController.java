@@ -1,5 +1,9 @@
 package controller;
 
+import database.UserDB;
+import models.User;
+import view.WelcomeMenu;
+
 public class MainProfileController extends Controller {
     //singleton
     private static MainProfileController instance = null;
@@ -22,11 +26,20 @@ public class MainProfileController extends Controller {
 
 
     public static String showInfo() {
-        String info = "hi";
+        String info = "userID: " + loggedInUser.getUserID() +
+                "\n" + "username: " + loggedInUser.getUsername() //+
+      //          "\n" + "followers num : " + loggedInUser.getFollowersID().size() +
+     //           "\n" + " followings num : " + loggedInUser.getFollowingsID().size()
+                  ;
+        // bio
+
         return info;
     }
 
     public static void deleteAcc() {
+        UserDB.deleteUser(loggedInUser);
+        System.out.println("account deleted successfully");
+        WelcomeMenu.getInstance().run();
     }
 
     public static void makePrivate() {
@@ -35,7 +48,7 @@ public class MainProfileController extends Controller {
     public static void notif() {
     }
 
-    public static void changeInfo() {
+    public static void changeInfo(User loggedInUser) {
     }
 
     public static void deletePost(String postNum) {

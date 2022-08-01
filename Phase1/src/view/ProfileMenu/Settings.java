@@ -27,26 +27,24 @@ public class Settings extends Menu {
 
     @Override
     public void run() {
-        this.showOptions();
-        String choice = this.getChoice();
+        boolean bool = true;
+        while(bool) {
+            this.showOptions();
+            String choice = getChoice();
 
-        if ("1".equals(choice) || "info".equals(choice)) {
-            MainProfileController.changeInfo();
-        } else if ("2".equals(choice) || "notification".equals(choice)) {
-            MainProfileController.notif();
-        } else if ("3".equals(choice) || "private".equals(choice)) {
-            MainProfileController.makePrivate();
-        }else if ("4".equals(choice) || "delete".equals(choice)) {
-            MainProfileController.deleteAcc();
-        }else if ("5".equals(choice) || "back".equals(choice)) {
-            MainProfileView.getInstance().run();
-        }else {
-            System.out.println(Message.INVALID_CHOICE);
-            this.run();
+            switch (choice) {
+                case "1", "info" -> changeInfo.run();
+                case "2", "notification" -> MainProfileController.notif();
+                case "3", "private" -> MainProfileController.makePrivate();
+                case "4", "delete" ->{
+                        bool=false;
+                        MainProfileController.deleteAcc(); }
+                case "0", "back" -> bool=false;
+                default -> {
+                    System.out.println(Message.INVALID_CHOICE);
+                }
+            }
         }
-        // 1--> bio , username  , userID , pass , ...
-        // 2--> log out , private account,
-        // 3-->
     }
 
 
@@ -57,7 +55,7 @@ public class Settings extends Menu {
         System.out.println("2. notifications"); // block mute/
         System.out.println("3. make your account private"); //
         System.out.println("4. delete account"); //
-        System.out.println("5. back  (Profile)"); // back button
+        System.out.println("0. back  (Profile)"); // back button
         // notifications
 
     }

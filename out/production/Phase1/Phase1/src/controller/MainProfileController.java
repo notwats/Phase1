@@ -1,5 +1,7 @@
 package controller;
 
+import database.UserDB;
+
 public class MainProfileController extends Controller {
     //singleton
     private static MainProfileController instance = null;
@@ -22,11 +24,19 @@ public class MainProfileController extends Controller {
 
 
     public static String showInfo() {
-        String info = "hi";
+        String info = "userID: " + loggedInUser.getUserID() +
+                "\n" + "username: " + loggedInUser.getUsername() //+
+      //          "\n" + "followers num : " + loggedInUser.getFollowersID().size() +
+     //           "\n" + " followings num : " + loggedInUser.getFollowingsID().size()
+                  ;
+        // bio
+
         return info;
     }
 
     public static void deleteAcc() {
+        UserDB.deleteUser(loggedInUser);
+
     }
 
     public static void makePrivate() {

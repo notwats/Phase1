@@ -34,22 +34,22 @@ public class MainProfileView extends MainMenu {
 
     @Override
     public void run() {
-        this.showOptions();
-        String choice = getChoice();
+        boolean bool = true;
+        while(bool) {
+            this.showOptions();
+            String choice = getChoice();
 
-        if ("1".equals(choice) || "info".equals(choice)) {
-            this.showInfo();
-        } else if ("2".equals(choice) || "settings".equals(choice)) {
-            settings.run();
-        } else if ("3".equals(choice) || "all posts".equals(choice)) {
-            this.allPosts();
-        } else if ("4".equals(choice) || "new post".equals(choice)) {
-            this.newPost();
-        } else if ("5".equals(choice) || "back".equals(choice)) {
-           MainMenu.getInstance().run();
-        } else {
-            System.out.println(Message.INVALID_CHOICE);
-            this.run();
+            switch (choice) {
+                case "1", "info" -> showInfo();
+                case "2", "settings" -> settings.run();
+                case "3", "all posts" -> this.allPosts();
+                case "4", "new post" -> this.newPost();
+                case "0", "back" -> bool = false;
+                default -> {
+                    System.out.println(Message.INVALID_CHOICE);
+                    this.run();
+                }
+            }
         }
         // 1--> bio , username , followings , followers , posts' num
         // 2--> log out , private account,
@@ -75,7 +75,7 @@ public class MainProfileView extends MainMenu {
         System.out.println("2. settings"); //
         System.out.println("3. all posts"); //down
         System.out.println("4. new post"); // plus
-        System.out.println("5. back  (Main Menu)"); // back button
+        System.out.println("0. back  (Main Menu)"); // back button
     }
 
 
