@@ -190,8 +190,7 @@ public class UpdateDB {
         // have to include time of sending the message too
 
         try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
-
+            Connection connection = DBInfo.getConnection();
             Statement statement = connection.createStatement();
             if(forwardedFromID == -1 && repliedToID == -1 )
                 statement.executeQuery("INSERT INTO group_message( sender_id, group_id, text, creation_time, is_replied)  VALUES( "+senderID+","+groupID+","+message+","+senderID+","+creationDate+","+groupID+", FALSE)");

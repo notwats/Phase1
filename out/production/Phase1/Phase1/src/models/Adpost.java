@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class Adpost extends Post {
 
     public Adpost(){
-        isAdPost=true;
+        isNormal=false;
     }
 
     public HashMap<LocalDate, Integer> likesPerday = new HashMap<>();

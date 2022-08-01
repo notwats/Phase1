@@ -1,10 +1,13 @@
 package database;
 
+import models.Comment;
 import models.NormalAcc;
+import models.Post;
 import models.User;
 
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import static database.DBInfo.getConnection;
 import static database.DBInfo.username;
@@ -56,7 +59,50 @@ public class UserDB {
        } catch (Exception e) {
            e.printStackTrace();
        }
+    }
+
+    public static ArrayList<Integer> getFollowings(Integer userID){
+        ArrayList<Integer> following= new ArrayList<>();
+        try {
+            Connection con = DBInfo.getConnection();
+            Statement st = con.createStatement();
+            String query = "select * form followership where is_following_id = " + userID + ";" ;
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                following.add(rs.getInt(2));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return following;
+
 
     }
 
+
+    public static ArrayList<Integer> getFollowers(Integer userID){
+        ArrayList<Integer> followers= new ArrayList<>();
+        try {
+            Connection con = DBInfo.getConnection();
+            Statement st = con.createStatement();
+            String query = "select * form followership where is_followed_id = " + userID + ";" ;
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                followers.add(rs.getInt(1));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return followers;
+    }
+
+    public static void unFollow(User loggedInUser, User currentProfile) {
+
+    }
+
+    public static void follow(User loggedInUser, User currentProfile) {
+
+    }
 }

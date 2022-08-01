@@ -46,6 +46,7 @@ public class PostDB extends DBGetter {
             e.printStackTrace();
         }
     }
+
     public static ArrayList<Post> getPostByUserID(Integer sender_id) {
         ArrayList<Post> ret = new ArrayList<>();
         try {
@@ -98,7 +99,7 @@ public class PostDB extends DBGetter {
         return ret;
     }
 
-    private static Comment getCommentByCommentID(int commentID) {
+    public static Comment getCommentByCommentID(int commentID) {
         Comment cc = null;
      try {
          Connection con = DBInfo.getConnection();
@@ -188,6 +189,25 @@ public class PostDB extends DBGetter {
             e.printStackTrace();
         }
     }
+
+    public static void updateComment(Comment comment) {
+        try {
+            Connection con = DBInfo.getConnection();
+            Statement st = con.createStatement();
+            // post table
+            st.execute("update comment set `text` = '" + comment.getCommentText() + "' where comment_id = " + comment.getCommentID() + ";");
+            st.execute("update comment set `like_num` = '" + comment.getLikeNumber() + "' where comment_id = " + comment.getCommentID() + ";");
+
+            //comment table
+            // post reaction table
+//another method
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static void deleteComment(Post post) {
         try {

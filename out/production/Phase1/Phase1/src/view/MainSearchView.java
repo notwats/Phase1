@@ -16,6 +16,9 @@ public class MainSearchView {
     public static void run() {
         boolean bool = true;
         while (bool) {
+            // show ad post ezzzzzz
+            // recomendatinsss
+
             showOptions();
             String choice = Menu.getChoice();
 
@@ -24,7 +27,10 @@ public class MainSearchView {
                     String userid = Menu.getInput("write userID");
                     User wanted = MainSearchController.searchAccounts(userid);
                     if (wanted != null) {
-                        System.out.println(wanted);
+                        System.out.println(wanted.getUsername());
+                    }
+                    else {
+                        System.out.println("there's no user");
                     }
                     System.out.println("1. select");
                     System.out.println("2. back (search menu)");
@@ -81,8 +87,8 @@ public class MainSearchView {
     public static void showOptions() {
         System.out.println("enter one of the options");
         System.out.println("1. search for accounts"); // up
-        System.out.println("2. search for groups");
-        System.out.println("3. search for tags");
+ //       System.out.println("2. search for groups");
+ //       System.out.println("3. search for tags");
         // System.out.println("2. s"); // recent search :)
         // System.out.println("3. a"); // adPosts / suggestions
         System.out.println("4. back  (Main Menu)"); // back button

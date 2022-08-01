@@ -1,12 +1,17 @@
 package models;
 
+import database.DBGetter;
+import database.PostDB;
+
+import java.util.StringTokenizer;
+
 public class Comment {
     int commentID;
     //int postID;
-    Post post;
-    User sender;
+    Integer postID;
+    Integer senderID;
     int likeNumber;
-    Comment repliedTo = null; // it can be null
+    Integer repliedToID = null; // nothing default
     //------
     String commentText;
 
@@ -18,20 +23,20 @@ public class Comment {
         this.commentID = commentID;
     }
 
-    public Post getPost() {
-        return post;
+    public Integer getPostID() {
+        return postID;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setPostID(Integer post) {
+        this.postID = post;
     }
 
-    public User getSender() {
-        return sender;
+    public Integer getSender() {
+        return senderID;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
+    public void setSender(Integer sender) {
+        this.senderID = sender;
     }
 
     public int getLikeNumber() {
@@ -42,12 +47,12 @@ public class Comment {
         this.likeNumber = likeNumber;
     }
 
-    public Comment getRepliedTo() {
-        return repliedTo;
+    public Integer getRepliedTo() {
+        return repliedToID;
     }
 
-    public void setRepliedTo(Comment repliedTo) {
-        this.repliedTo = repliedTo;
+    public void setRepliedTo(Integer repliedTo) {
+        this.repliedToID = repliedTo;
     }
 
     public String getCommentText() {
@@ -71,5 +76,21 @@ public class Comment {
     }
 
     public void delete() {
+    }
+
+
+    @Override
+    public String toString() {
+
+        StringBuilder ret = new StringBuilder();
+        if (repliedToID != null) {
+            ret.append("in replied to " + PostDB.getCommentByCommentID(repliedToID).getCommentText() + "\n");
+        }
+        ret.append(DBGetter.findUserByUserNumberID(this.senderID).getUsername() + " : \n");
+        ret.append(commentText + "\n");
+
+        ret.append(likeNumber + " user like this comment");
+
+        return ret.toString();
     }
 }

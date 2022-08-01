@@ -2,6 +2,7 @@ package controller;
 
 import database.UserDB;
 import models.User;
+import view.Menu;
 import view.WelcomeMenu;
 
 public class MainProfileController extends Controller {
@@ -26,8 +27,8 @@ public class MainProfileController extends Controller {
 
 
     public static String showInfo() {
-        String info = "userID: " + loggedInUser.getUserID() +
-                "\n" + "username: " + loggedInUser.getUsername() //+
+        String info = "userID: " + Menu.loggedInUser.getUserID() +
+                "\n" + "username: " + Menu.loggedInUser.getUsername() //+
       //          "\n" + "followers num : " + loggedInUser.getFollowersID().size() +
      //           "\n" + " followings num : " + loggedInUser.getFollowingsID().size()
                   ;
@@ -37,7 +38,7 @@ public class MainProfileController extends Controller {
     }
 
     public static void deleteAcc() {
-        UserDB.deleteUser(loggedInUser);
+        UserDB.deleteUser(Menu.loggedInUser);
         System.out.println("account deleted successfully");
         WelcomeMenu.getInstance().run();
     }
@@ -49,6 +50,8 @@ public class MainProfileController extends Controller {
     }
 
     public static void changeInfo(User loggedInUser) {
+        UserDB.updateUser(loggedInUser);
+        System.out.println("changed successfully");
     }
 
     public static void deletePost(String postNum) {
