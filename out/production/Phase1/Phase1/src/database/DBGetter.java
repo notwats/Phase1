@@ -36,32 +36,15 @@ public class DBGetter {
             Connection connection = DBInfo.getConnection();
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM `user` WHERE user_number_id = " + senderID + ";\n");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `user` WHERE user_number_id = " + senderID);
             if (!resultSet.next()) {
                 return null;
             }
-            if (resultSet.getInt("type") == 1) {
-                user = new NormalAcc(resultSet.getString("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("security_answer"),
-                        resultSet.getInt("security_num"));
-                user.setFollowersID(UserDB.getFollowers(user.getNumberID()));
-                user.setFollowingsID(UserDB.getFollowings(user.getNumberID()));
-                user.setPosts(PostDB.getPostByUserID(user.getNumberID()));
-
-            } else {
-                user = new BusinessAcc(resultSet.getString("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("security_answer"),
-                        resultSet.getInt("security_num"));
-                user.setFollowersID(UserDB.getFollowers(user.getNumberID()));
-                user.setFollowingsID(UserDB.getFollowings(user.getNumberID()));
-                user.setPosts(PostDB.getPostByUserID(user.getNumberID()));
-
-                // other businesss
-            }
+            user = new NormalAcc(resultSet.getString("user_id"),
+                    resultSet.getString("username"),
+                    resultSet.getString("password"),
+                    resultSet.getString("security_answer"),
+                    resultSet.getInt("security_num"));
             user.setId(senderID);
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,28 +58,21 @@ public class DBGetter {
     public static User findUserByUserID(String userID) {
         User user = null;
         try {
-            Connection connection = DBInfo.getConnection();
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
+
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM `user` WHERE user_id= '" + userID + "';\n");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `user` WHERE user_id= '" + userID +"';\n");
             if (!resultSet.next()) {
                 return null;
             }
-            if (resultSet.getInt("type") == 1) {
-                user = new NormalAcc(resultSet.getString("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("security_answer"),
-                        resultSet.getInt("security_num"));
-            } else {
-                user = new BusinessAcc(resultSet.getString("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("security_answer"),
-                        resultSet.getInt("security_num"));
 
-                // other businesss
-            }
+            user = new NormalAcc(userID,
+                    resultSet.getString("username"),
+                    resultSet.getString("password"),
+                    resultSet.getString("security_answer"),
+                    resultSet.getInt("security_num"));
+
             user.setId(resultSet.getInt("user_number_id"));
 
         } catch (Exception e) {
@@ -113,24 +89,38 @@ public class DBGetter {
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
 
-            Statement statement = connection.createStatement();
+            Statement statement1 = connection.createStatement();
+            Statement statement2 = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM membership WHERE user_id = " + memberID);
+            ResultSet resultSet = statement1.executeQuery("SELECT * FROM membership WHERE user_number_id = " + memberID);
+
+            ArrayList<Integer> groupNumberIDs = new ArrayList<>();
 
             while (resultSet.next()) {
-                ResultSet groupSet = statement.executeQuery("SELECT * FROM `group` WHERE group_id = " + resultSet.getString("group_id"));
-                Group newGroup = new Group();
-                newGroup.setGroupNumberID(Integer.parseInt(groupSet.getString("group_number_id")));
-                newGroup.setGroupID(groupSet.getString("group_id"));
-                newGroup.setGroupName(groupSet.getString("group_name"));
-                newGroup.setGroupAdminID(Integer.parseInt(groupSet.getString("group_admin_id")));
-                newGroup.setGroupName(groupSet.getString("group_name"));
-                groups.add(newGroup);
+                groupNumberIDs.add(resultSet.getInt("group_number_id"));
+
             }
+
+            for (Integer groupNumberID:
+                 groupNumberIDs) {
+                ResultSet groupSet = statement2.executeQuery("SELECT * FROM `group` WHERE group_number_id = " + groupNumberID );
+                if(groupSet != null && groupSet.next()) {
+                    Group newGroup = new Group();
+                    System.out.println(groupSet.getInt("group_number_id"));
+                    newGroup.setGroupNumberID(groupSet.getInt("group_number_id"));
+                    newGroup.setGroupID(groupSet.getString("group_id"));
+                    newGroup.setGroupName(groupSet.getString("group_name"));
+                    newGroup.setGroupAdminID(groupSet.getInt("group_admin_id"));
+                    newGroup.setGroupName(groupSet.getString("group_name"));
+                    groups.add(newGroup);
+                }
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        System.out.println(groups.size());
         return groups;
     }
 
@@ -195,38 +185,48 @@ public class DBGetter {
             Statement statement = connection.createStatement();
 
             ResultSet groupSet = statement.executeQuery("SELECT * FROM `group` WHERE group_number_id = " + groupNumberID);
-            group = new Group();
-            group.setGroupNumberID(groupNumberID);
-            group.setGroupID(groupSet.getString("group_id"));
-            group.setGroupName(groupSet.getString("group_name"));
-            group.setGroupAdminID(Integer.parseInt(groupSet.getString("group_admin_id")));
-            group.setGroupName(groupSet.getString("group_name"));
 
+            if(groupSet != null && groupSet.next()) {
+                group = new Group();
+                group.setGroupNumberID(groupNumberID);
+                group.setGroupID(groupSet.getString("group_id"));
+                group.setGroupName(groupSet.getString("group_name"));
+                group.setGroupAdminID(groupSet.getInt("group_admin_id"));
+                group.setGroupName(groupSet.getString("group_name"));
+            } else{
+                return null;
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
 
         return group;
     }
 
     public static Group findGroupByGroupID(String groupID) {
-        Group group = null;
+        Group group;
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
 
             Statement statement = connection.createStatement();
 
-            ResultSet groupSet = statement.executeQuery("SELECT * FROM `group` WHERE group_id = " + groupID);
-            group = new Group();
-            group.setGroupID(groupID);
-            group.setGroupName(groupSet.getString("group_name"));
-            group.setGroupAdminID(Integer.parseInt(groupSet.getString("group_admin_id")));
-            group.setGroupName(groupSet.getString("group_name"));
+            ResultSet groupSet = statement.executeQuery("SELECT * FROM `group` WHERE group_id = '" + groupID+"'") ;
 
+            group = new Group();
+            if(groupSet != null && groupSet.next()) {
+                group.setGroupID(groupID);
+                group.setGroupName(groupSet.getString("group_name"));
+                group.setGroupAdminID(Integer.parseInt(groupSet.getString("group_admin_id")));
+                group.setGroupNumberID(groupSet.getInt("group_number_id"));
+            } else{
+                return null;
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
 
         return group;
@@ -240,14 +240,15 @@ public class DBGetter {
 
             ResultSet groupSet = statement.executeQuery("SELECT * FROM `group` WHERE group_id = " + groupNumberID + "AND user_id = " + senderID);
 
-            return groupSet.wasNull();
+            if (groupSet != null && groupSet.next())
+                return true;
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return true;
+        return false;
     }
 
 
@@ -260,14 +261,15 @@ public class DBGetter {
             ResultSet groupSet = statement.executeQuery("SELECT * FROM block_list WHERE blocked_id = " + blockedID + "AND blocked_by_id = " + blocker);
 
             // if the set is empty it means that no one is blocked
-            return !groupSet.wasNull();
+            if (groupSet != null && groupSet.next())
+                return true;
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return true;
+        return false;
     }
 
     public static boolean checkMembership(int memberID, int groupNumberID) {
@@ -277,9 +279,10 @@ public class DBGetter {
 
             Statement statement = connection.createStatement();
 
-            ResultSet groupSet = statement.executeQuery("SELECT * FROM membership WHERE group_id = " + groupNumberID + "AND user_id = " + memberID);
+            ResultSet groupSet = statement.executeQuery("SELECT * FROM membership WHERE group_number_id = " + groupNumberID + "AND user_number_id = " + memberID);
 
-            return !groupSet.wasNull();
+            if (groupSet != null && groupSet.next())
+                return true;
 
 
         } catch (Exception e) {
@@ -294,9 +297,12 @@ public class DBGetter {
 
             Statement statement = connection.createStatement();
 
-            ResultSet privateSet1 = statement.executeQuery("SELECT * FROM private_chat WHERE first_user_id = " + firstID + "AND second_user_id = " + secondID);
-            ResultSet privateSet2 = statement.executeQuery("SELECT * FROM private_chat WHERE first_user_id = " + secondID + "AND second_user_id = " + firstID);
-            return !(privateSet1.wasNull() && privateSet2.wasNull());
+            ResultSet privateSet1 = statement.executeQuery("SELECT * FROM private_chat WHERE first_user_id = " + firstID + " AND second_user_id = " + secondID);
+            if(privateSet1.next())
+                return true;
+            ResultSet privateSet2 = statement.executeQuery("SELECT * FROM private_chat WHERE first_user_id = " + secondID + " AND second_user_id = " + firstID);
+            if(privateSet2.next())
+                return true;
 
 
         } catch (Exception e) {
@@ -314,10 +320,11 @@ public class DBGetter {
 
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM private_chat WHERE first_id = " + numberID + "OR second_id =" + numberID);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM private_chat WHERE first_user_id = " + numberID + " OR second_user_id = " + numberID);
 
             while (resultSet.next()) {
-                ResultSet chatSet = statement.executeQuery("SELECT * FROM `group` WHERE group_id = " + resultSet.getString("group_id"));
+
+                ResultSet chatSet = statement.executeQuery("SELECT * FROM private_chat WHERE first_user_id = " + numberID + " OR second_user_id = " + numberID);
                 Personal personal = new Personal(Integer.parseInt(chatSet.getString("first_user_id")), Integer.parseInt(chatSet.getString("second_user_id")), chatSet.getString("creation_date"));
 
                 chats.add(personal);
@@ -355,6 +362,7 @@ public class DBGetter {
 
         return messages;
     }
+
 
 
 }
