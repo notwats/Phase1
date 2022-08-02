@@ -1,18 +1,14 @@
 package database;
 
-import jdk.jfr.StackTrace;
 import models.Comment;
 import models.Post;
-import models.User;
 // add post creation date not sure
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PostDB extends DBGetter {
 
@@ -31,7 +27,7 @@ public class PostDB extends DBGetter {
             e.printStackTrace();
         }
 
-        // sort compare collection
+        Collections.sort(ret);
 
         return ret;
     }
@@ -43,7 +39,7 @@ public class PostDB extends DBGetter {
             Statement st = con.createStatement();
             st.executeQuery("INSERT INTO post( sender_id, text, creation_time, type)  VALUES( "
                     +post.getSender().getUserID()+",'"+post.getContext()
-                    + "',"+post.getCreationDate()+","+post.getAdPost()+")");
+                    + "',"+post.getCreationDate()+","+((post.getIsNormal()) ? "1" : "0")+")");
 
         }
         catch (SQLException e){

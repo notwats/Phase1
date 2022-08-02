@@ -2,12 +2,10 @@ package view;
 
 import controller.MainScrolingController;
 import database.PostDB;
-import database.UserDB;
 import enums.Message;
 import models.Comment;
 import models.Post;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class ShowPost extends Menu {
@@ -16,7 +14,7 @@ public class ShowPost extends Menu {
 
     public ShowPost(Post post) {
         this.currentPost = post;
-        if (post.getAdPost()) {
+        if (!post.getIsNormal()) {
             System.out.println("!!!Ad!!!");
         }
     }

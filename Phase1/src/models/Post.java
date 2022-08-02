@@ -3,7 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Post {
+public class Post implements Comparable<Post> {
 
     int postID;
     User sender;
@@ -30,15 +30,6 @@ public class Post {
         return comments;
     }
 
-    public Boolean getAdPost() {
-
-        return isNormal;
-    }
-
-    public void setAdPost(Boolean adPost) {
-        isNormal = adPost;
-    }
-
     public void setComments(ArrayList<Comment> comments) {
         this.comments = comments;
     }
@@ -63,11 +54,11 @@ public class Post {
         return sender;
     }
 
-    public Boolean getNormal() {
+    public Boolean getIsNormal() {
         return isNormal;
     }
 
-    public void setNormal(Boolean normal) {
+    public void setIsNormal(Boolean normal) {
         isNormal = normal;
     }
 
@@ -107,12 +98,11 @@ public class Post {
         this.tags = tags;
     }
 
-    public void forward(){}
-    public void edit(){}
-    public void reaction(){}
-    public void view(){}
-    public void delete(){}
-    public void report(){}
-    public void comment(){}
+
+    @Override
+    public int compareTo(Post post) {
+        int compareId = post.getPostID();
+        return this.postID - compareId;
+    }
 }
 

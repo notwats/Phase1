@@ -1,15 +1,10 @@
 package controller;
 
-import database.DBGetter;
 import database.PostDB;
 import database.UserDB;
-import models.Adpost;
 import models.Post;
 import models.User;
-import view.Menu;
 import view.WelcomeMenu;
-
-import javax.xml.crypto.Data;
 
 import java.util.Date;
 
@@ -88,7 +83,7 @@ public class MainProfileController extends Controller {
         post.setContext(context);
         Date dateOfNow = new Date();
         post.setCreationDate(dateOfNow);
-        post.setNormal(loggedInUser.getNormal());
+        post.setIsNormal(loggedInUser.getIsNormal());
         PostDB.addPost(post);
         System.out.println("Post created successfully");
     }

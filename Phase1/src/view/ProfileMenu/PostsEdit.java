@@ -22,29 +22,39 @@ public class PostsEdit {
         boolean bool = true;
         while (bool) {
 
-            System.out.println("enter the number of post if you want edit it or type back");
+            System.out.println("enter the number of post to select it or type back");
             String postNum = Menu.getChoice();
             if (postNum.equalsIgnoreCase("back")) {
-               bool=false;
+                bool = false;
             } else {
                 showOptions();
                 String choice = Menu.getChoice();
 
-                if ("1".equals(choice) || "delete".equals(choice)) {
-                    MainProfileController.deletePost(posts.get(Integer.parseInt(postNum)).getPostID());
-                } else if ("2".equals(choice) || "edit".equals(choice)) {
-                String context = getInput("enter new post context");
-                       MainProfileController.changePost(posts.get(Integer.parseInt(postNum)).getPostID(),context );
-                } else {
-                    System.out.println(Message.INVALID_CHOICE);
-                    PostsEdit.run();
+                switch (choice) {
+                    case "1", "delete" -> MainProfileController.deletePost(posts.get(Integer.parseInt(postNum)).getPostID());
+                    case "2", "edit" -> {
+                        String context = getInput("enter new post context");
+                        MainProfileController.changePost(posts.get(Integer.parseInt(postNum)).getPostID(), context);
+                        break;
+                    }
+                    case "3", "stats" -> {
+
+
+                    }
+                    default -> {
+                        System.out.println(Message.INVALID_CHOICE);
+                        PostsEdit.run();
+                    }
                 }
             }
         }
     }
 
     private static void showOptions() {
-        System.out.println("1- delete the post");
-        System.out.println("2- change the context");
+        System.out.println("1. delete");
+        System.out.println("2. edit the context");
+        if (!loggedInUser.getIsNormal()) {
+            System.out.println("3. show stats");
+        }
     }
 }
