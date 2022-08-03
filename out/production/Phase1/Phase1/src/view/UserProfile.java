@@ -17,17 +17,21 @@ import java.util.ArrayList;
 public class UserProfile extends Menu {
 
     private User currentProfile;
+    private UserProfileController controller;
 
     public UserProfile(String userID) {
         this.currentProfile = DBGetter.findUserByUserID(userID);
+        controller= new UserProfileController(currentProfile);
     }
 
     public UserProfile(User user) {
         currentProfile = user;
+        controller= new UserProfileController(currentProfile);
     }
 
     public UserProfile(int id) {
         this.currentProfile = DBGetter.findUserByUserNumberID(id);
+        controller= new UserProfileController(currentProfile);
     }
 
     @Override
@@ -37,24 +41,17 @@ public class UserProfile extends Menu {
         while (bool) {
             this.showOptions();
             String choice = getChoice();
-            if ("1".equals(choice) || "show user info".equals(choice)) {
-                this.showUserInfo();
-            } else if ("2".equals(choice) || "operations".equals(choice)) {
-                this.operations();
-            } else if ("3".equals(choice) || "posts".equals(choice)) {
-                this.posts();
-            } else if ("4".equals(choice) || "others".equals(choice)) {
-                this.others();
-            } else if ("5".equals(choice) || "back".equals(choice)) {
-                bool = false;
-            } else {
-                System.out.println(Message.INVALID_CHOICE);
+            switch (choice) {
+                case "1", "show user info" -> this.showUserInfo();
+                case "2", "operations" -> this.operations();
+                case "3", "posts" -> this.posts();
+                case "4", "others" -> this.others();
+                case "5", "back" -> bool = false;
+                default -> System.out.println(Message.INVALID_CHOICE);
             }
-
             // 1--> bio , username , followings , followers , posts' num
             // 2--> follow , message , suggestion
             // 3-->
-
         }
     }
 
@@ -86,26 +83,33 @@ public class UserProfile extends Menu {
         } else {
             System.out.print("you are not follower of this account");
         }
-        System.out.println("posts = " + currentProfile.getPostsID().size());
+        System.out.println("posts = " + currentProfile.getPosts().size());
     }
 
     private void operations() {
-        System.out.println("enter one of the options");
-        System.out.println("1. Follow");
-        System.out.println("2. Message");
-        System.out.println("3. Show suggestion");
 
-        String choice = getChoice();
+        boolean bool = true;
+        while (bool) {
+            System.out.println("enter one of the options");
+            if (!isFollower())
+                System.out.println("1. Follow");
+            else
+                System.out.println("1. UnFollow");
+            System.out.println("2. Message");
+            System.out.println("3. Show suggestion");
+            System.out.println("0. back");
 
-        if ("1".equals(choice) || "follow".equals(choice)) {
-            this.follow();
-        } else if ("2".equals(choice) || "message".equals(choice)) {
-            this.messageUser();
-        } else if ("3".equals(choice) || "show suggestion".equals(choice)) {
-            this.showSuggestions();
-        } else {
-            System.out.println(Message.INVALID_CHOICE);
-            this.operations();
+            String choice = getChoice();
+
+            switch (choice) {
+                case "1", "follow" -> controller.followHandle() ;
+                case "2", "message" -> this.messageUser();
+                case "3", "show suggestion" -> this.showSuggestions();
+                case "0", "back" -> bool = false;
+                default -> {
+                    System.out.println(Message.INVALID_CHOICE);
+                }
+            }
         }
     }
 
@@ -151,7 +155,6 @@ public class UserProfile extends Menu {
 
     private boolean isFollower() {
         return currentProfile.getFollowersID().contains(Menu.getLoggedInUser().getId());
-
     }
 
     private void follow() {

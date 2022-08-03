@@ -39,13 +39,19 @@ public class PostDB extends DBGetter {
         try {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
-            st.executeQuery("INSERT INTO post( sender_id, text, creation_time, type)  VALUES( "+post.getSender().getUserID()+",'"+post.getContext()+"',"+post.getCreationDate()+","+post.getAdPost()+")");
+            st.executeQuery("INSERT INTO post( sender_id, text, creation_time, type)  VALUES( "
+                    +post.getSender().getUserID()+",'"+post.getContext()
+                    + "',"+post.getCreationDate()+","+post.getAdPost()+")");
+
 
         }
         catch (SQLException e){
             e.printStackTrace();
         }
     }
+
+
+
     public static ArrayList<Post> getPostByUserID(Integer sender_id) {
         ArrayList<Post> ret = new ArrayList<>();
         try {
@@ -98,7 +104,9 @@ public class PostDB extends DBGetter {
         return ret;
     }
 
-    private static Comment getCommentByCommentID(int commentID) {
+
+     static Comment getCommentByCommentID(int commentID) {
+
         Comment cc = null;
      try {
          Connection con = DBInfo.getConnection();
@@ -188,6 +196,27 @@ public class PostDB extends DBGetter {
             e.printStackTrace();
         }
     }
+
+
+    public static void updateComment(Comment comment) {
+        try {
+            Connection con = DBInfo.getConnection();
+            Statement st = con.createStatement();
+            // post table
+            st.execute("update comment set `text` = '" + comment.getCommentText() + "' where comment_id = " + comment.getCommentID() + ";");
+            st.execute("update comment set `like_num` = '" + comment.getLikeNumber() + "' where comment_id = " + comment.getCommentID() + ";");
+
+            //comment table
+            // post reaction table
+//another method
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     public static void deleteComment(Post post) {
         try {

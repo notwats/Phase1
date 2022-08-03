@@ -44,7 +44,7 @@ public class MainProfileView extends MainMenu {
                 case "2", "settings" -> settings.run();
                 case "3", "all posts" -> this.allPosts();
                 case "4", "new post" -> this.newPost();
-                case "5", "back" -> bool = false;
+                case "0", "back" -> bool = false;
                 default -> {
                     System.out.println(Message.INVALID_CHOICE);
                     this.run();
@@ -75,7 +75,7 @@ public class MainProfileView extends MainMenu {
         System.out.println("2. settings"); //
         System.out.println("3. all posts"); //down
         System.out.println("4. new post"); // plus
-        System.out.println("5. back  (Main Menu)"); // back button
+        System.out.println("0. back  (Main Menu)"); // back button
     }
 
 

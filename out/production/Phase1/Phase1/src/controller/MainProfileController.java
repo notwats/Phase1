@@ -1,8 +1,20 @@
 package controller;
 
+import database.DBGetter;
+import database.PostDB;
 import database.UserDB;
+import models.Adpost;
+import models.Post;
 import models.User;
+import view.Menu;
 import view.WelcomeMenu;
+
+import javax.xml.crypto.Data;
+
+import java.util.Date;
+
+import static view.Menu.loggedInUser;
+
 
 public class MainProfileController extends Controller {
     //singleton
@@ -28,9 +40,9 @@ public class MainProfileController extends Controller {
     public static String showInfo() {
         String info = "userID: " + loggedInUser.getUserID() +
                 "\n" + "username: " + loggedInUser.getUsername() //+
-      //          "\n" + "followers num : " + loggedInUser.getFollowersID().size() +
-     //           "\n" + " followings num : " + loggedInUser.getFollowingsID().size()
-                  ;
+                //          "\n" + "followers num : " + loggedInUser.getFollowersID().size() +
+                //           "\n" + " followings num : " + loggedInUser.getFollowingsID().size()
+                ;
         // bio
 
         return info;
@@ -49,20 +61,32 @@ public class MainProfileController extends Controller {
     }
 
     public static void changeInfo(User loggedInUser) {
+        UserDB.updateUser(loggedInUser);
+        System.out.println("changed successfully");
     }
 
     public static void deletePost(String postNum) {
+
     }
 
     public static void changePost(String postNum) {
+
     }
 
 
     public void showAllPost() {
+        
     }
 
     public static void handleNewPost(String context) {
-
+        Post post = new Post();
+        post.setSender(loggedInUser);
+        post.setContext(context);
+        Date dateOfNow = new Date();
+        post.setCreationDate(dateOfNow);
+        post.setNormal(loggedInUser.getNormal());
+        PostDB.addPost(post);
+        System.out.println("Post created successfully");
     }
 
 }

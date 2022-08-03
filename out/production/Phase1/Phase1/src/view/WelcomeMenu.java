@@ -177,7 +177,7 @@ public class WelcomeMenu extends Menu {
         if (message == Message.SUCCESS) {
             System.out.println("Logged in successfully");
             setLoggedInUser(DBGetter.findUserByUserID(userID));
-            Controller.setLoggedInUser(DBGetter.findUserByUserID(userID));
+          //  Controller.setLoggedInUser(DBGetter.findUserByUserID(userID));
             MainMenu.getInstance().run(); //aval mire to mainmenu safhe profile
         } else {
             System.out.println(message);

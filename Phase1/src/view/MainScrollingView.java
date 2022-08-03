@@ -1,19 +1,18 @@
 package view;
 
-import controller.MainProfileController;
 import database.PostDB;
 import enums.Message;
 import models.Post;
-import view.ProfileMenu.changeInfo;
 
 import java.util.ArrayList;
 
 import static view.Menu.loggedInUser;
 
 // adPost
-public class MainScrolingView {
+public class MainScrollingView {
 
     static ArrayList<Post> allFollowingsPosts = PostDB.getFollowingsPost(loggedInUser.getNumberID());
+
     static Integer whichPost = 0;
 
     public static void run() {
@@ -22,6 +21,9 @@ public class MainScrolingView {
         while (bool) {
 
             // show ad post ezzzzzz
+            if (!allFollowingsPosts.get(whichPost).getIsNormal()){
+                System.out.println("----AD----");
+            }
             System.out.println(allFollowingsPosts.get(whichPost).getContext());
             showOptions();
             String choice = Menu.getChoice();
@@ -43,6 +45,6 @@ public class MainScrolingView {
     static void showOptions() {
         System.out.println("1. select");
         System.out.println("2. next");
-        System.out.println("0. back");
+        System.out.println("0. back (main menu)");
     }
 }

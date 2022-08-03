@@ -1,9 +1,9 @@
 package models;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class Post {
+public class Post implements Comparable<Post> {
 
     int postID;
     User sender;
@@ -19,7 +19,7 @@ public class Post {
 
     String context; // main for phase 1
 
-    LocalDateTime creationDate;
+    Date creationDate;
     ArrayList<Comment> comments= new ArrayList<>();
     ArrayList<User> likedUsers= new ArrayList<>();
 
@@ -28,15 +28,6 @@ public class Post {
 
     public ArrayList<Comment> getComments() {
         return comments;
-    }
-
-    public Boolean getAdPost() {
-
-        return isNormal;
-    }
-
-    public void setAdPost(Boolean adPost) {
-        isNormal = adPost;
     }
 
     public void setComments(ArrayList<Comment> comments) {
@@ -63,6 +54,14 @@ public class Post {
         return sender;
     }
 
+    public Boolean getIsNormal() {
+        return isNormal;
+    }
+
+    public void setIsNormal(Boolean normal) {
+        isNormal = normal;
+    }
+
     public void setSender(User sender) {
         this.sender = sender;
     }
@@ -83,11 +82,11 @@ public class Post {
         this.context = context;
     }
 
-    public LocalDateTime getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -99,12 +98,11 @@ public class Post {
         this.tags = tags;
     }
 
-    public void forward(){}
-    public void edit(){}
-    public void reaction(){}
-    public void view(){}
-    public void delete(){}
-    public void report(){}
-    public void comment(){}
+
+    @Override
+    public int compareTo(Post post) {
+        int compareId = post.getPostID();
+        return this.postID - compareId;
+    }
 }
 

@@ -97,4 +97,12 @@ public class UserDB {
         }
         return followers;
     }
+
+    public static void unFollow(User loggedInUser, User currentProfile) {
+
+    }
+
+    public static void follow(User loggedInUser, User currentProfile) {
+
+    }
 }

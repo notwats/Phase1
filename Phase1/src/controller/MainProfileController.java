@@ -1,8 +1,14 @@
 package controller;
 
+import database.PostDB;
 import database.UserDB;
+import models.Post;
 import models.User;
 import view.WelcomeMenu;
+
+import java.util.Date;
+
+import static view.Menu.loggedInUser;
 
 public class MainProfileController extends Controller {
     //singleton
@@ -28,9 +34,9 @@ public class MainProfileController extends Controller {
     public static String showInfo() {
         String info = "userID: " + loggedInUser.getUserID() +
                 "\n" + "username: " + loggedInUser.getUsername() //+
-      //          "\n" + "followers num : " + loggedInUser.getFollowersID().size() +
-     //           "\n" + " followings num : " + loggedInUser.getFollowingsID().size()
-                  ;
+                //          "\n" + "followers num : " + loggedInUser.getFollowersID().size() +
+                //           "\n" + " followings num : " + loggedInUser.getFollowingsID().size()
+                ;
         // bio
 
         return info;
@@ -49,20 +55,36 @@ public class MainProfileController extends Controller {
     }
 
     public static void changeInfo(User loggedInUser) {
+        UserDB.updateUser(loggedInUser);
+        System.out.println("changed successfully");
     }
 
-    public static void deletePost(String postNum) {
+    public static void deletePost(Integer postID) {
+        PostDB.deletePost(postID);
+        System.out.println("post deleted successfully");
     }
 
-    public static void changePost(String postNum) {
+    public static void changePost(Integer postID, String context) {
+
+        Post wanted = PostDB.getPostByPostID(postID);
+        wanted.setContext(context);
+        PostDB.updatePost(wanted);
+        System.out.println("post edited successfully");
     }
 
 
-    public void showAllPost() {
-    }
+    // public void showAllPost() {
+
+    //  }
 
     public static void handleNewPost(String context) {
-
+        Post post = new Post();
+        post.setSender(loggedInUser);
+        post.setContext(context);
+        Date dateOfNow = new Date();
+        post.setCreationDate(dateOfNow);
+        post.setIsNormal(loggedInUser.getIsNormal());
+        PostDB.addPost(post);
+        System.out.println("Post created successfully");
     }
-
 }

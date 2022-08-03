@@ -1,12 +1,19 @@
 package models;
 
+import database.DBGetter;
+import database.PostDB;
+
+import java.util.StringTokenizer;
+
 public class Comment {
     int commentID;
     //int postID;
     Integer postID;
     Integer senderID;
     int likeNumber;
+
     Integer repliedToID = null ; // nothing default
+
     //------
     String commentText;
 
@@ -71,5 +78,21 @@ public class Comment {
     }
 
     public void delete() {
+    }
+
+
+    @Override
+    public String toString() {
+
+        StringBuilder ret = new StringBuilder();
+        if (repliedToID != null) {
+            ret.append("in replied to " + PostDB.getCommentByCommentID(repliedToID).getCommentText() + "\n");
+        }
+        ret.append(DBGetter.findUserByUserNumberID(this.senderID).getUsername() + " : \n");
+        ret.append(commentText + "\n");
+
+        ret.append(likeNumber + " user like this comment");
+
+        return ret.toString();
     }
 }

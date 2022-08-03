@@ -2,6 +2,8 @@ package view.ProfileMenu;
 
 import controller.MainProfileController;
 import database.DBGetter;
+import database.UserDB;
+
 import enums.Message;
 import view.Menu;
 import view.WelcomeMenu;
@@ -10,9 +12,10 @@ import static view.Menu.*;
 
 public class changeInfo {
 
-    public static void run(){
+
+    public static void run() {
         boolean bool = true;
-        while(bool) {
+        while (bool) {
             showOptions();
             String choice = getChoice();
 
@@ -36,6 +39,7 @@ public class changeInfo {
                         String username= getInput("enter username: ");
                         loggedInUser.setUsername(username);
                          }
+
                 case "3", "password" -> {
                     String password = getInput("enter new password");
                     String repeatedPassword = getInput("repeat password");

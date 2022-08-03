@@ -8,12 +8,16 @@ import view.ProfileMenu.changeInfo;
 
 import java.util.ArrayList;
 
+import java.util.Collections;
+
 import static view.Menu.loggedInUser;
 
 // adPost
 public class MainScrolingView {
 
     static ArrayList<Post> allFollowingsPosts = PostDB.getFollowingsPost(loggedInUser.getNumberID());
+
+
     static Integer whichPost = 0;
 
     public static void run() {
