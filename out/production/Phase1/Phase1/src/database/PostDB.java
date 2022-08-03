@@ -43,11 +43,14 @@ public class PostDB extends DBGetter {
                     +post.getSender().getUserID()+",'"+post.getContext()
                     + "',"+post.getCreationDate()+","+post.getAdPost()+")");
 
+
         }
         catch (SQLException e){
             e.printStackTrace();
         }
     }
+
+
 
     public static ArrayList<Post> getPostByUserID(Integer sender_id) {
         ArrayList<Post> ret = new ArrayList<>();
@@ -101,7 +104,9 @@ public class PostDB extends DBGetter {
         return ret;
     }
 
-    public static Comment getCommentByCommentID(int commentID) {
+
+     static Comment getCommentByCommentID(int commentID) {
+
         Comment cc = null;
      try {
          Connection con = DBInfo.getConnection();
@@ -192,6 +197,7 @@ public class PostDB extends DBGetter {
         }
     }
 
+
     public static void updateComment(Comment comment) {
         try {
             Connection con = DBInfo.getConnection();
@@ -209,6 +215,7 @@ public class PostDB extends DBGetter {
             e.printStackTrace();
         }
     }
+
 
 
     public static void deleteComment(Post post) {

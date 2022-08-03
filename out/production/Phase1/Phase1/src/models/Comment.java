@@ -11,7 +11,9 @@ public class Comment {
     Integer postID;
     Integer senderID;
     int likeNumber;
-    Integer repliedToID = null; // nothing default
+
+    Integer repliedToID = null ; // nothing default
+
     //------
     String commentText;
 
@@ -48,7 +50,7 @@ public class Comment {
     }
 
     public Integer getRepliedTo() {
-        return repliedToID;
+        return repliedToID ;
     }
 
     public void setRepliedTo(Integer repliedTo) {

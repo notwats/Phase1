@@ -7,6 +7,7 @@ import models.Post;
 import view.ProfileMenu.changeInfo;
 
 import java.util.ArrayList;
+
 import java.util.Collections;
 
 import static view.Menu.loggedInUser;
@@ -15,6 +16,7 @@ import static view.Menu.loggedInUser;
 public class MainScrolingView {
 
     static ArrayList<Post> allFollowingsPosts = PostDB.getFollowingsPost(loggedInUser.getNumberID());
+
 
     static Integer whichPost = 0;
 

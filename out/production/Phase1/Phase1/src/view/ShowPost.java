@@ -1,12 +1,12 @@
 package view;
 
+
 import controller.MainScrolingController;
 import database.PostDB;
 import database.UserDB;
 import enums.Message;
 import models.Comment;
 import models.Post;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -35,6 +35,9 @@ public class ShowPost extends Menu {
                 case "0", "back" -> bool = false;
                 default -> System.out.println(Message.INVALID_CHOICE);
             }
+            // 1--> bio , username , followings , followers , posts' num
+            // 2--> follow , message , suggestion
+            // 3-->
         }
     }
 
@@ -57,6 +60,7 @@ public class ShowPost extends Menu {
             System.out.println("select a comment to reply or edit or like");
             System.out.println("0. back");
             String choice = getChoice();
+
             switch (choice) {
                 case "1", "add" -> this.addComment();
                 case "2", "select" -> this.selection();
@@ -100,7 +104,6 @@ public class ShowPost extends Menu {
             String context = getInput("enter new context: ");
             comment.setCommentText(context);
             PostDB.updateComment(comment);
-
         }
 
     }

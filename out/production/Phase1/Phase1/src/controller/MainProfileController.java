@@ -15,6 +15,7 @@ import java.util.Date;
 
 import static view.Menu.loggedInUser;
 
+
 public class MainProfileController extends Controller {
     //singleton
     private static MainProfileController instance = null;
