@@ -32,16 +32,16 @@ public class Settings extends Menu {
             this.showOptions();
             String choice = getChoice();
 
-            //   switch (choice) {
             switch (choice) {
-                case "1", "info" -> MainProfileController.changeInfo();
+                case "1", "info" -> changeInfo.run();
                 case "2", "notification" -> MainProfileController.notif();
                 case "3", "private" -> MainProfileController.makePrivate();
-                case "4", "delete" -> MainProfileController.deleteAcc();
-                case "5", "back" -> bool=false;
+                case "4", "delete" ->{
+                        bool=false;
+                        MainProfileController.deleteAcc(); }
+                case "0", "back" -> bool=false;
                 default -> {
                     System.out.println(Message.INVALID_CHOICE);
-                    this.run();
                 }
             }
         }
@@ -55,7 +55,7 @@ public class Settings extends Menu {
         System.out.println("2. notifications"); // block mute/
         System.out.println("3. make your account private"); //
         System.out.println("4. delete account"); //
-        System.out.println("5. back  (Profile)"); // back button
+        System.out.println("0. back  (Profile)"); // back button
         // notifications
 
     }
