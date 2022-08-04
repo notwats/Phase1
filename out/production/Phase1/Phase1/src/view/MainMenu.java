@@ -34,8 +34,7 @@ public class MainMenu extends Menu {
             switch (choice) {
                 case "1", "profile" -> MainProfileView.getInstance().run();
                 case "2", "chats" -> MainChatsView.getInstance().run();
-                case "3", "posts" -> {
-                }//this.posts();
+                case "3", "posts" -> MainScrollingView.run();
                 case "4", "search" -> MainSearchView.run();
                 case "0", "logout" -> {
                     bool = false;

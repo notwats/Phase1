@@ -98,9 +98,15 @@ public class UserDB {
         return followers;
     }
 
-
     public static void unFollow(User loggedInUser, User currentProfile) {
-
+        try {
+            Connection con = DBInfo.getConnection();
+            Statement st = con.createStatement();
+            //st.execute("delete from `followship` where user_id = '" + user.getUserID()+"';");
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void follow(User loggedInUser, User currentProfile) {
