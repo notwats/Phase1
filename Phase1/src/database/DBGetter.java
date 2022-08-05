@@ -132,7 +132,6 @@ public class DBGetter {
                 ResultSet groupSet = statement2.executeQuery("SELECT * FROM `group` WHERE group_number_id = " + groupNumberID );
                 if(groupSet != null && groupSet.next()) {
                     Group newGroup = new Group();
-                    System.out.println(groupSet.getInt("group_number_id"));
                     newGroup.setGroupNumberID(groupSet.getInt("group_number_id"));
                     newGroup.setGroupID(groupSet.getString("group_id"));
                     newGroup.setGroupName(groupSet.getString("group_name"));
@@ -157,7 +156,7 @@ public class DBGetter {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM group_message WHERE group_id = " + groupID + " ORDER BY creation_date");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM group_message WHERE group_id = " + groupID + " ORDER BY creation_time");
 
             while (resultSet.next()) {
                 int senderID = Integer.parseInt(resultSet.getString("sender_id"));
@@ -259,7 +258,7 @@ public class DBGetter {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
-            ResultSet groupSet = statement.executeQuery("SELECT * FROM `group` WHERE group_id = " + groupNumberID + "AND user_id = " + senderID);
+            ResultSet groupSet = statement.executeQuery("SELECT * FROM ban_list WHERE group_id = " + groupNumberID + " AND user_id = " + senderID);
 
             if (groupSet != null && groupSet.next())
                 return true;
@@ -298,7 +297,7 @@ public class DBGetter {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
-            ResultSet groupSet = statement.executeQuery("SELECT * FROM membership WHERE group_number_id = " + groupNumberID + "AND user_number_id = " + memberID);
+            ResultSet groupSet = statement.executeQuery("SELECT * FROM membership WHERE group_number_id = " + groupNumberID + " AND user_number_id = " + memberID);
 
             if (groupSet != null && groupSet.next())
                 return true;

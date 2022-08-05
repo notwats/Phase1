@@ -183,14 +183,15 @@ public class UpdateDB {
     public static void messageCreationInGroup(String message, int senderID, int groupID, Date creationDate, int forwardedFromID, int repliedToID){
 
         // have to include time of sending the message too
-
+        
         try{
-            Connection connection = DBInfo.getConnection();
-            Statement statement = connection.createStatement();
+            Connection con = getConnection();
             if(forwardedFromID == -1 && repliedToID == -1 )
-                statement.execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, is_replied)  VALUES( "+senderID+","+groupID+","+message+","+senderID+","+creationDate+","+groupID+", FALSE)");
+
+                con.createStatement().execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, is_replied)  VALUES( "+senderID+","+groupID+","+message+","+senderID+","+creationDate+","+groupID+", FALSE)");
             else
-                statement.execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, forwarded_from, replied_to, is_replied)  VALUES( "+senderID+","+groupID+","+message+","+senderID+","+creationDate+","+groupID+","+forwardedFromID+","+repliedToID +", true)");
+                con.createStatement().execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, forwarded_from, replied_to, is_replied)  VALUES( "+senderID+","+groupID+","+message+","+senderID+","+creationDate+","+groupID+","+forwardedFromID+","+repliedToID +", true)");
+
 
         } catch (Exception e){
             e.printStackTrace();
