@@ -31,14 +31,9 @@ public class WelcomeController extends Controller {
             return Message.USER_EXIST;
         }
 
-       if (isNormal){
-           NormalAcc nwUser= new NormalAcc(userID ,username , password , answerS , questionNum );
-           UserDB.addUser(nwUser);
-       }
-       else {
-           BusinessAcc nwUser = new BusinessAcc( userID ,username, password, answerS, questionNum );
-           UserDB.addUser(nwUser);
-       }
+        User nwUser= new User(userID ,username , password , answerS , questionNum , isNormal);
+        UserDB.addUser(nwUser);
+
         return Message.SUCCESS;
     }
 
