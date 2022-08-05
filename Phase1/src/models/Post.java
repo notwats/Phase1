@@ -6,7 +6,7 @@ import java.util.Date;
 public class Post implements Comparable<Post> {
 
     int postID;
-    User sender;
+    Integer senderid;
 
     Boolean isNormal = true ;
     /*
@@ -50,8 +50,8 @@ public class Post implements Comparable<Post> {
         this.postID = postID;
     }
 
-    public User getSender() {
-        return sender;
+    public Integer getSender() {
+        return senderid;
     }
 
     public Boolean getIsNormal() {
@@ -62,8 +62,8 @@ public class Post implements Comparable<Post> {
         isNormal = normal;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
+    public void setSender(Integer sender) {
+        this.senderid = sender;
     }
 
     public int getLikeNumber() {

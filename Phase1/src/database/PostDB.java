@@ -38,7 +38,7 @@ public class PostDB extends DBGetter {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
             st.execute("INSERT INTO post( sender_id, text, creation_time, type)  VALUES( "
-                    +post.getSender().getUserID()+",'"+post.getContext()
+                    +post.getSender() +",'"+post.getContext()
                     + "',"+post.getCreationDate()+","+((post.getIsNormal()) ? "1" : "0")+")");
 
         }
@@ -58,7 +58,7 @@ public class PostDB extends DBGetter {
             while (rs.next()) { // each post
                 Post ps = new Post();
                 ps.setPostID(rs.getInt("post_id"));
-                ps.setSender(DBGetter.findUserByUserNumberID(rs.getInt(2)));
+                ps.setSender(rs.getInt(2));
                 //  ps.setRepliedPost(getPostbyPostID(rs.getLong(5)));
                 //     ps.setLikes(rs.getInt(6));
                 //    ps.setViews(rs.getInt(7));
@@ -123,7 +123,7 @@ public class PostDB extends DBGetter {
 
 
     public static Post getPostByPostID(Integer post_id) {
-        Post ps = null;
+        Post ps = new Post();
         try {
             Connection connection = DBInfo.getConnection();
             Statement statement = connection.createStatement();
@@ -133,7 +133,7 @@ public class PostDB extends DBGetter {
                 return null;
             }
             ps.setPostID(rs.getInt("post_id"));
-            ps.setSender(DBGetter.findUserByUserNumberID(rs.getInt(2)));
+            ps.setSender(rs.getInt(2));
             //  ps.setRepliedPost(getPostbyPostID(rs.getLong(5)));
             //     ps.setLikes(rs.getInt(6));
             //    ps.setViews(rs.getInt(7));
