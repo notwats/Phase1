@@ -9,10 +9,10 @@ public class Main {
 
     public static void main(String[] args) {
         WelcomeMenu welcomeMenu = WelcomeMenu.getInstance();
-        welcomeMenu.run();
-//        setLoggedInUser(DBGetter.findUserByUserID("ghlmu"));
+     //   welcomeMenu.run();
+        setLoggedInUser(DBGetter.findUserByUserID("ghlmu"));
 //        MainChatsView mainChatsView = new MainChatsView();
-//        mainChatsView.run();
+        MainMenu.getInstance().run();
 
     }
 

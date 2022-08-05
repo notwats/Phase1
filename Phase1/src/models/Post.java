@@ -1,5 +1,7 @@
 package models;
 
+import database.DBGetter;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,7 +10,7 @@ public class Post implements Comparable<Post> {
     int postID;
     Integer senderid;
 
-    Boolean isNormal = true ;
+    Boolean isNormal = true;
     /*
     int imageID;
     int voiceID;
@@ -20,8 +22,8 @@ public class Post implements Comparable<Post> {
     String context; // main for phase 1
 
     Date creationDate;
-    ArrayList<Comment> comments= new ArrayList<>();
-    ArrayList<User> likedUsers= new ArrayList<>();
+    ArrayList<Comment> comments = new ArrayList<>();
+    ArrayList<User> likedUsers = new ArrayList<>();
 
 
     ArrayList<Tag> tags;
@@ -104,5 +106,19 @@ public class Post implements Comparable<Post> {
         int compareId = post.getPostID();
         return this.postID - compareId;
     }
-}
 
+    @Override
+    public String toString() {
+
+        StringBuilder ret = new StringBuilder();
+        if (!isNormal){
+            ret.append("---ad---");
+        }
+
+   ret.append(DBGetter.findUserByUserNumberID(senderid).getUserID()+": \n");
+        ret.append(context);
+
+   return String.valueOf(ret);
+    }
+
+}

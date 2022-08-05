@@ -17,6 +17,7 @@ public class MainScrollingView {
 
     public static void run() {
 
+        if (allFollowingsPosts.size()!=0){
         boolean bool = true;
         while (bool) {
 
@@ -39,6 +40,10 @@ public class MainScrollingView {
                 default -> System.out.println(Message.INVALID_CHOICE);
             }
 
+        }
+        }
+        else {
+            System.out.println("No post to show");
         }
     }
 

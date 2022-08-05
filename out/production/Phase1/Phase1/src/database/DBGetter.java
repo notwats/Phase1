@@ -31,7 +31,6 @@ public class DBGetter {
     public static void showPrivateChats(ArrayList<String> chats) {
         //\
     }
-
     public static User findUserByUserNumberID(int senderID) {
         User user = null;
         try {
@@ -48,14 +47,16 @@ public class DBGetter {
                     resultSet.getString("password"),
                     resultSet.getString("security_answer"),
                     resultSet.getInt("security_num") , resultSet.getInt("type"));
+
             user.setFollowersID(UserDB.getFollowers(user.getNumberID()));
             user.setFollowingsID(UserDB.getFollowings(user.getNumberID()));
             user.setPosts(PostDB.getPostByUserID(user.getNumberID()));
 
-
+        //    user.setProfileImage(resultSet.getString("profile_image"));
             // other businesss
 
             user.setId(senderID);
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,22 +87,20 @@ public class DBGetter {
             user.setFollowersID(UserDB.getFollowers(user.getNumberID()));
             user.setFollowingsID(UserDB.getFollowings(user.getNumberID()));
 
-            System.out.println("getuserby are you ok");
-            System.out.println("id"+user.getNumberID());
             user.setPosts(PostDB.getPostByUserID(user.getNumberID()));
 
+
+        //    user.setProfileImage(resultSet.getString("profile_image"));
             // other businesss
 
-            user.setId(resultSet.getInt("user_number_id"));
-
+            //  user.setId(resultSet.getInt("user_number_id"));
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return user;
     }
-
-
 
 
     public static ArrayList<Group> findGroupsWithMemberID(int memberID) {

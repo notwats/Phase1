@@ -9,6 +9,7 @@ import view.Menu;
 import view.ShowPost;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static view.Menu.*;
 
@@ -17,8 +18,12 @@ public class PostsEdit {
 
     public static void run() {
 
+        System.out.println("id" + loggedInUser.getNumberID());
+        System.out.println(loggedInUser.getPosts().size());
         ArrayList<Post> posts = PostDB.getPostByUserID(loggedInUser.getNumberID());
+        Collections.sort(posts);
         showArray(posts);
+        if (posts.size()!=0){
         boolean bool = true;
         while (bool) {
 
@@ -48,6 +53,8 @@ public class PostsEdit {
                 }
             }
         }
+        }
+        else System.out.println("you don't have any post");
     }
 
     private static void showOptions() {
