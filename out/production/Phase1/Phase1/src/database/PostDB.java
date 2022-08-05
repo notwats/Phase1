@@ -37,7 +37,7 @@ public class PostDB extends DBGetter {
         try {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
-            st.executeQuery("INSERT INTO post( sender_id, text, creation_time, type)  VALUES( "
+            st.execute("INSERT INTO post( sender_id, text, creation_time, type)  VALUES( "
                     +post.getSender().getUserID()+",'"+post.getContext()
                     + "',"+post.getCreationDate()+","+((post.getIsNormal()) ? "1" : "0")+")");
 
@@ -52,7 +52,7 @@ public class PostDB extends DBGetter {
         try {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
-            String query = "select * form post where sender_id = " + sender_id;
+            String query = "select * from post where sender_id = " + sender_id;
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) { // each post
@@ -80,7 +80,7 @@ public class PostDB extends DBGetter {
     try {
         Connection con = DBInfo.getConnection();
         Statement st = con.createStatement();
-        String query = "select * form comment where post_id = " + post_id;
+        String query = "select * from comment where post_id = " + post_id;
         ResultSet rs = st.executeQuery(query);
         while (rs.next()) {
             Comment cc = new Comment();
@@ -104,7 +104,7 @@ public class PostDB extends DBGetter {
      try {
          Connection con = DBInfo.getConnection();
          Statement st = con.createStatement();
-         String query = "select * form comment where comment_id = " + commentID;
+         String query = "select * from comment where comment_id = " + commentID;
          ResultSet rs = st.executeQuery(query);
 
          cc.setCommentID(rs.getInt(1));
@@ -185,7 +185,7 @@ public class PostDB extends DBGetter {
             Statement statement = con.createStatement();
             // post table
 
-            statement.executeQuery("INSERT INTO comment( sender_id, post_id, text ,replied_comment_id )  VALUES( " + comment.getSender() + "," + comment.getPostID() + "," + comment.getCommentText() +","+ comment.getRepliedTo() +")");
+            statement.execute("INSERT INTO comment( sender_id, post_id, text ,replied_comment_id )  VALUES( " + comment.getSender() + "," + comment.getPostID() + "," + comment.getCommentText() +","+ comment.getRepliedTo() +")");
 
             con.close();
 

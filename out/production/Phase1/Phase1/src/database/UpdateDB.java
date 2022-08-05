@@ -151,7 +151,7 @@ public class UpdateDB {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
-            statement.execute("UPDATE group SET group_name = " + newName +"WHERE group_number_id = " + groupNumberID);
+            statement.execute("UPDATE group SET group_name = '" + newName +"' WHERE group_number_id = " + groupNumberID);
         } catch (Exception e){
             e.printStackTrace();
         }

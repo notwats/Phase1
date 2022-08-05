@@ -204,12 +204,12 @@ public class MainChatsView extends MainMenu {
             String choice = getChoice();
             try {
                 for (int i = 0; i < groupNames.size(); i++) {
-                    System.out.println(choice);
-                    System.out.println(Integer.parseInt(choice) + 1);
+                   // System.out.println(choice);
+                   // System.out.println(Integer.parseInt(choice) + 1);
                     if (choice.equals(groupNames.get(i).getGroupName()) || i + 1 == Integer.parseInt(choice)) {
-                        System.out.println(Integer.parseInt(choice) + 1);
+                    //    System.out.println(Integer.parseInt(choice) + 1);
                         Group group = groupNames.get(i);
-                        System.out.println(group.getGroupNumberID() + "  " +group.getGroupName());
+                      //  System.out.println(group.getGroupNumberID() + "  " +group.getGroupName());
                         if (controller.handleEnteringGroup(group, loggedInUser.getId()))
                             GroupView.run(group);
                         else {
