@@ -45,7 +45,7 @@ public class GroupView {
         }
         int choice;
         try {
-           choice = Integer.parseInt(Menu.getChoice());
+            choice = Integer.parseInt(Menu.getChoice());
         } catch(Exception NumberFormatException){
             System.out.println("invalid input");
             return;

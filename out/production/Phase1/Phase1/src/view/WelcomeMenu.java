@@ -54,15 +54,15 @@ public class WelcomeMenu extends Menu {
 
     public void run() {
         boolean bool = true;
-        while(bool) {
+        while (bool) {
             this.showOptions();
 
             String choice = getChoice();
             switch (choice) {
                 case "1", "register" -> this.registerOptions();
                 case "2", "login" -> this.login();
-                case "3", "exit" ->{
-
+                case "3", "exit" -> {
+                    System.exit(0);
                 }
                 default -> System.out.println(Message.INVALID_CHOICE);
             }
@@ -72,7 +72,7 @@ public class WelcomeMenu extends Menu {
 
     private void registerOptions() {
         boolean bool = true;
-        while(bool) {
+        while (bool) {
             System.out.println("enter register as 1. business account or 2. normal account ");
             String choice = getChoice();
 
@@ -93,16 +93,14 @@ public class WelcomeMenu extends Menu {
 
     private void register(Boolean isNormal) {
         String userID = null;
-        boolean bool= true;
-        while (bool){
-             userID= getInput("enter userID");
-            if (DBGetter.findUserByUserID(userID)!= null){
+        boolean bool = true;
+        while (bool) {
+            userID = getInput("enter userID");
+            if (DBGetter.findUserByUserID(userID) != null) {
                 System.out.println("this userID exist try something else pls");
-            }
-            else if(userID==null){
+            } else if (userID == null) {
                 System.out.println("userID can't be null");
-            }
-            else bool=false;
+            } else bool = false;
         }
         String username = getInput("enter username");
         String password = getInput("enter password");
@@ -114,7 +112,7 @@ public class WelcomeMenu extends Menu {
         } else {
             Integer questionNum = Security.randomQuestion();
             String answerS = getInput(Security.values()[questionNum].toString());
-            message = this.controller.handleRegistration(userID , username, password, repeatedPassword, questionNum , answerS, isNormal);
+            message = this.controller.handleRegistration(userID, username, password, repeatedPassword, questionNum, answerS, isNormal);
             if (message != Message.SUCCESS) {
                 System.out.println(message);
                 register(isNormal);
@@ -176,7 +174,7 @@ public class WelcomeMenu extends Menu {
         if (message == Message.SUCCESS) {
             System.out.println("Logged in successfully");
             setLoggedInUser(DBGetter.findUserByUserID(userID));
-          //  Controller.setLoggedInUser(DBGetter.findUserByUserID(userID));
+            //  Controller.setLoggedInUser(DBGetter.findUserByUserID(userID));
             MainMenu.getInstance().run(); //aval mire to mainmenu safhe profile
         } else {
             System.out.println(message);

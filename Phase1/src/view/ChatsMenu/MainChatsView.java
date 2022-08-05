@@ -130,6 +130,8 @@ public class MainChatsView extends MainMenu {
     private void groupDelete() {
         ArrayList<Group> groupNames = controller.handleShowGroups(loggedInUser.getId());
 
+        if(groupNames.size() == 0)
+            return;
         for (int i = 0; i < groupNames.size(); i++) {
             System.out.println(i +". " +groupNames.get(i).getGroupName());
         }
@@ -141,6 +143,7 @@ public class MainChatsView extends MainMenu {
 
             for (int i = 0; i < groupNames.size(); i++) {
                 try {
+
                     if (choice.equals(groupNames.get(i).getGroupName()) || i == Integer.parseInt(choice)) {
                         Group group = groupNames.get(i);
                         controller.handleDeleteGroup(group, loggedInUser.getId());
@@ -193,22 +196,34 @@ public class MainChatsView extends MainMenu {
         ArrayList<Group> groupNames = controller.handleShowGroups(loggedInUser.getId());
 
         for (int i = 0; i < groupNames.size(); i++) {
-            System.out.println(i +". " +groupNames.get(i).getGroupName());
+            System.out.println((i+1) +". " +groupNames.get(i).getGroupName());
         }
 
-        String choice = getChoice();
-
-        for (int i = 0; i < groupNames.size(); i++) {
-            if(choice.equals(groupNames.get(i).getGroupName()) || i == Integer.parseInt(choice)){
-                Group group = groupNames.get(i);
-                if(controller.handleEnteringGroup(group, loggedInUser.getId()))
-                    GroupView.run(group);
-                else {
-                    System.out.println("you either left this group or have been removed from it");
-                    break;
+        boolean bool = true;
+        while(bool){
+            String choice = getChoice();
+            try {
+                for (int i = 0; i < groupNames.size(); i++) {
+                    System.out.println(choice);
+                    System.out.println(Integer.parseInt(choice) + 1);
+                    if (choice.equals(groupNames.get(i).getGroupName()) || i + 1 == Integer.parseInt(choice)) {
+                        System.out.println(Integer.parseInt(choice) + 1);
+                        Group group = groupNames.get(i);
+                        System.out.println(group.getGroupNumberID() + "  " +group.getGroupName());
+                        if (controller.handleEnteringGroup(group, loggedInUser.getId()))
+                            GroupView.run(group);
+                        else {
+                            System.out.println("you either left this group or have been removed from it");
+                            bool = false;
+                            break;
+                        }
+                    }
                 }
+            } catch (Exception e){
+                System.out.println(Message.INVALID_CHOICE);
             }
         }
+
     }
 
     @Override

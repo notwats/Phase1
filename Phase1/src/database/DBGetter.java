@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static database.DBInfo.getConnection;
+
 public class DBGetter {
 
 //    public static void connecting() {
@@ -112,8 +114,7 @@ public class DBGetter {
         ArrayList<Group> groups = new ArrayList<>();
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
-
+            Connection connection = getConnection();
             Statement statement1 = connection.createStatement();
             Statement statement2 = connection.createStatement();
 
@@ -153,8 +154,7 @@ public class DBGetter {
         ArrayList<GroupMessage> messages = new ArrayList<>();
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
-
+            Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM group_message WHERE group_id = " + groupID + " ORDER BY creation_date");
@@ -180,8 +180,7 @@ public class DBGetter {
     public static GroupMessage findMessageByMessageID(int messageID) {
         GroupMessage newMessage = null;
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
-
+            Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM group_message WHERE message_id = " + messageID);
@@ -205,8 +204,7 @@ public class DBGetter {
 
         Group group = null;
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
-
+            Connection connection =getConnection();
             Statement statement = connection.createStatement();
 
             ResultSet groupSet = statement.executeQuery("SELECT * FROM `group` WHERE group_number_id = " + groupNumberID);
@@ -233,8 +231,7 @@ public class DBGetter {
     public static Group findGroupByGroupID(String groupID) {
         Group group;
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
-
+            Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
             ResultSet groupSet = statement.executeQuery("SELECT * FROM `group` WHERE group_id = '" + groupID+"'") ;
@@ -259,8 +256,7 @@ public class DBGetter {
 
     public static boolean banCheck(int groupNumberID, int senderID) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
-
+            Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
             ResultSet groupSet = statement.executeQuery("SELECT * FROM `group` WHERE group_id = " + groupNumberID + "AND user_id = " + senderID);
@@ -279,8 +275,7 @@ public class DBGetter {
 
     public static boolean BlockedByBLocker(int blockedID, int blocker) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
-
+            Connection connection =getConnection();
             Statement statement = connection.createStatement();
 
             ResultSet groupSet = statement.executeQuery("SELECT * FROM block_list WHERE blocked_id = " + blockedID + "AND blocked_by_id = " + blocker);
@@ -300,8 +295,7 @@ public class DBGetter {
     public static boolean checkMembership(int memberID, int groupNumberID) {
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
-
+            Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
             ResultSet groupSet = statement.executeQuery("SELECT * FROM membership WHERE group_number_id = " + groupNumberID + "AND user_number_id = " + memberID);
@@ -318,8 +312,7 @@ public class DBGetter {
 
     public static boolean checkPrivateChat(int firstID, int secondID) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
-
+            Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
             ResultSet privateSet1 = statement.executeQuery("SELECT * FROM private_chat WHERE first_user_id = " + firstID + " AND second_user_id = " + secondID);
@@ -341,8 +334,7 @@ public class DBGetter {
         ArrayList<Personal> chats = new ArrayList<>();
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
-
+            Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM private_chat WHERE first_user_id = " + numberID + " OR second_user_id = " + numberID);
@@ -365,8 +357,7 @@ public class DBGetter {
         ArrayList<PrivateMessage> messages = new ArrayList<>();
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "inthelight");
-
+            Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
             ResultSet resultSet = statement.executeQuery("SELECT * FROM group_message WHERE sender_id = " + id1 + " ORDER BY creation_date");
