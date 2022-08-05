@@ -54,7 +54,13 @@ public class MainChatsController  extends Controller{
             return;
         }
 
+        if(receiver.getId() == senderID){
+            System.out.println("you can't message yourself! :))");
+            return;
+        }
+
         UpdateDB.createPrivateChat(receiver.getId(), senderID);
+        System.out.println("successfully made the private chat");
     }
 
     public ArrayList<Personal> handleShowPrivateChats(int numberID) {
@@ -66,6 +72,7 @@ public class MainChatsController  extends Controller{
     }
 
     public void handleDeletePrivateChat(int id1, int id2) {
+
         if(id1 == id2){
             System.out.println("you can't have a chat with yourself");
             return;
@@ -76,5 +83,6 @@ public class MainChatsController  extends Controller{
         }
 
         UpdateDB.deletePrivateChat(id1, id2);
+        System.out.println("chat was deleted successfully");
     }
 }

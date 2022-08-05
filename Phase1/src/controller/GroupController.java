@@ -40,24 +40,27 @@ public class GroupController extends Controller{
             return;
         }
 
-        if( DBGetter.findGroupByGroupID(groupID) != null){
+        if( DBGetter.findGroupByGroupID(newGroupID) != null){
             System.out.println("this groupID is taken");
             return;
         }
 
 
         UpdateDB.changeGroupID(groupNumberID, newGroupID);
-
+        System.out.println("ID changed successfully");
     }
 
     public void handleSendMessage(String message, int senderID, int groupNumberID, Date dateOfNow, int i, int inReplyTo) {
         // ban check
         if(DBGetter.banCheck(groupNumberID, senderID)){
             System.out.println("you're banned from sending a message in this chat");
+            return;
         }
 
 
         UpdateDB.messageCreationInGroup(message, senderID, groupNumberID, dateOfNow, i, inReplyTo );
+        System.out.println("your message is sent:" +
+                message);
     }
 
     public void handleAddMember(String memberID, Group group, int adminID) {
@@ -82,6 +85,7 @@ public class GroupController extends Controller{
         }
 
         UpdateDB.addMemberToGroup(group.getGroupNumberID(), newMember.getId());
+        System.out.println("user successfully added to group");
     }
 
     public void handleRemoveMember(String memberID, Group group, int adminID) {
@@ -101,6 +105,7 @@ public class GroupController extends Controller{
         }
 
         UpdateDB.removeMemberFromGroup(newMember.getId(), group);
+        System.out.println("user successfully removed from group");
     }
 
     public void handleBanMember(String memberID, Group group, int adminID) {
@@ -124,6 +129,7 @@ public class GroupController extends Controller{
             return;
         }
         UpdateDB.banMemberInGroup(newMember.getId(), group);
+        System.out.println("user successfully banned from sending messages in group");
     }
 
     public void handleUnbanMember(String memberID, Group group, int adminID) {

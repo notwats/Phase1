@@ -20,10 +20,10 @@ public class GroupView {
         GroupView.group = group;
         boolean bool = true;
 
+
         while(bool && group != null) {
             showOptions();
             String choice = Menu.getChoice();
-
             switch (choice) {
                 case "1", "send message" -> sendMessage(-1);
                 case "2", "check group profile" -> checkGroupProfile();
@@ -35,9 +35,15 @@ public class GroupView {
     }
 
     private static void selectMessage() {
-        System.out.println("please enter the number of the selected message");
+
         ArrayList<GroupMessage> messages = DBGetter.findGroupMessagesByGroupID(group.getGroupNumberID());
         int counter = 0;
+        if(messages.size() == 0){
+            System.out.println("there isn't any message");
+            return;
+        }
+
+        System.out.println("please enter the number of the selected message");
         for(GroupMessage message : messages){
             counter++;
             System.out.print(counter + " ");
@@ -156,7 +162,6 @@ public class GroupView {
         String memberID = Menu.getInput("who do you want to ban in the group? (Enter ID)");
 
         controller.handleBanMember(memberID, group, loggedInUser.getId());
-        System.out.println("user successfully banned from sending messages in group");
     }
 
     private static void unbanMember(){
@@ -170,14 +175,12 @@ public class GroupView {
         String memberID = Menu.getInput("who do you want to remove from the group? (Enter ID)");
 
         controller.handleRemoveMember(memberID, group, loggedInUser.getId());
-        System.out.println("user successfully removed from group");
     }
 
     private static void addMember() {
         String memberID = Menu.getInput("who do you want to add to the group? (Enter ID)");
 
         controller.handleAddMember(memberID, group, loggedInUser.getId());
-        System.out.println("user successfully added to group");
     }
 
     protected static void showOptions() {
@@ -195,8 +198,6 @@ public class GroupView {
         String message = Menu.getInput("Message");
         Date dateOfNow = new Date();
         controller.handleSendMessage(message, loggedInUser.getId(), group.getGroupNumberID(), dateOfNow, -1, inReplyTo);
-        System.out.println("your message is sent:" +
-                message);
     }
 
     private static void sendForwardedMessage(Group group, GroupMessage  message){
