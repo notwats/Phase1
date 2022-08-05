@@ -14,6 +14,8 @@ public class Main {
         MainChatsView mainChatsView = new MainChatsView();
         mainChatsView.run();
 
+        WelcomeMenu welcomeMenu = WelcomeMenu.getInstance();
+        welcomeMenu.run();
     }
 
 }
