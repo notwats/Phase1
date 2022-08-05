@@ -62,8 +62,7 @@ public class WelcomeMenu extends Menu {
                 case "1", "register" -> this.registerOptions();
                 case "2", "login" -> this.login();
                 case "3", "exit" ->{
-                    Menu.getScanner().close();
-                    bool = false;
+
                 }
                 default -> System.out.println(Message.INVALID_CHOICE);
             }
