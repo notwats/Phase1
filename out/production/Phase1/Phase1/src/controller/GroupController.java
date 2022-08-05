@@ -17,7 +17,7 @@ public class GroupController extends Controller{
 
 
     public void handleGroupNameChange(String groupName, int groupNumberID, String newName) {
-        if(newName.length() <= 25){
+        if(newName.length() >= 25){
             System.out.println("group name is too long");
             return;
         }
@@ -31,7 +31,7 @@ public class GroupController extends Controller{
     }
 
     public void handleGroupIDChange(int groupNumberID, String groupID, String newGroupID) {
-        if(newGroupID.length() <= 25){
+        if(newGroupID.length() >= 25){
             System.out.println("group id is too long");
             return;
         }

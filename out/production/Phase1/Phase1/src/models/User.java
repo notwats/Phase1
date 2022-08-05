@@ -74,14 +74,6 @@ public abstract class User {
         //add id to database;
     }
 
-    public Boolean getNormal() {
-        return isNormal;
-    }
-
-    public void setNormal(Boolean normal) {
-        isNormal = normal;
-    }
-
     public ArrayList<Post> getPosts() {
         return posts;
     }

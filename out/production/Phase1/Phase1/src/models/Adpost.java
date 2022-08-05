@@ -4,8 +4,9 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Adpost extends Post {
-
+    boolean isAdPost;
     public Adpost(){
+        isAdPost=true;
         isNormal=false;
     }
 
