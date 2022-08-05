@@ -2,8 +2,6 @@ package controller;
 import database.DBGetter;
 import database.UserDB;
 import enums.Message;
-import models.BusinessAcc;
-import models.NormalAcc;
 import models.User;
 import view.Menu;
 

@@ -1,8 +1,10 @@
 package models;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public abstract class User {
+public class User {
     public static ArrayList<User> allUsers = new ArrayList<>(); // not needed that much
 
     int numberID;
@@ -20,6 +22,9 @@ public abstract class User {
     ArrayList<Integer> groupsID= new ArrayList<>();
     ArrayList<Integer> suggestionsID; // ???
     ArrayList<Integer> blockedUsersID;
+    //business acc
+    public HashMap<LocalDate, Integer> profileViews = new HashMap<>();
+
 
     public ArrayList<Integer> getSuggestionsID() {
         return suggestionsID;
@@ -35,15 +40,24 @@ public abstract class User {
 
 //    private static int mainID = 0;
 
-    public User(String userID, String username, String password, String securityAnswer, Integer securityQuestion) {
+    public User(Integer userNumberId , String userID, String username, String password, String securityAnswer, Integer securityQuestion , Integer type) {
 
-       // this.id = mainID++;
+        this.numberID=userNumberId;
+        // this.id = mainID++;
         this.userID = userID;
         this.username = username;
         this.password = password;
         this.securityAnswer = securityAnswer;
         this.securityQuestion = securityQuestion;
-
+        if (type==1){
+            isNormal=true;
+        }
+        else if (type==0){
+            isNormal=false;
+        }
+        else {
+            System.out.println("error in type user db");
+        }
         this.createDate = LocalDateTime.now();
         allUsers.add(this);
     }

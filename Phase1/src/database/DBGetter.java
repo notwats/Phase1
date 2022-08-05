@@ -42,28 +42,19 @@ public class DBGetter {
             if (!resultSet.next()) {
                 return null;
             }
-            if (resultSet.getInt("type") == 1) {
-                user = new NormalAcc(resultSet.getString("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("security_answer"),
-                        resultSet.getInt("security_num"));
-                user.setFollowersID(UserDB.getFollowers(user.getNumberID()));
-                user.setFollowingsID(UserDB.getFollowings(user.getNumberID()));
-                user.setPosts(PostDB.getPostByUserID(user.getNumberID()));
 
-            } else {
-                user = new BusinessAcc(resultSet.getString("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("security_answer"),
-                        resultSet.getInt("security_num"));
-                user.setFollowersID(UserDB.getFollowers(user.getNumberID()));
-                user.setFollowingsID(UserDB.getFollowings(user.getNumberID()));
-                user.setPosts(PostDB.getPostByUserID(user.getNumberID()));
+            user = new User( senderID ,resultSet.getString("user_id"),
+                    resultSet.getString("username"),
+                    resultSet.getString("password"),
+                    resultSet.getString("security_answer"),
+                    resultSet.getInt("security_num") , resultSet.getInt("type"));
+            user.setFollowersID(UserDB.getFollowers(user.getNumberID()));
+            user.setFollowingsID(UserDB.getFollowings(user.getNumberID()));
+            user.setPosts(PostDB.getPostByUserID(user.getNumberID()));
 
-                // other businesss
-            }
+
+            // other businesss
+
             user.setId(senderID);
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,21 +76,22 @@ public class DBGetter {
             if (!resultSet.next()) {
                 return null;
             }
-            if (resultSet.getInt("type") == 1) {
-                user = new NormalAcc(resultSet.getString("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("security_answer"),
-                        resultSet.getInt("security_num"));
-            } else {
-                user = new BusinessAcc(resultSet.getString("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("security_answer"),
-                        resultSet.getInt("security_num"));
 
-                // other businesss
-            }
+            user = new User( resultSet.getInt("user_number_id") ,resultSet.getString("user_id"),
+                    resultSet.getString("username"),
+                    resultSet.getString("password"),
+                    resultSet.getString("security_answer"),
+                    resultSet.getInt("security_num") , resultSet.getInt("type"));
+
+            user.setFollowersID(UserDB.getFollowers(user.getNumberID()));
+            user.setFollowingsID(UserDB.getFollowings(user.getNumberID()));
+
+            System.out.println("getuserby are you ok");
+            System.out.println("id"+user.getNumberID());
+            user.setPosts(PostDB.getPostByUserID(user.getNumberID()));
+
+            // other businesss
+
             user.setId(resultSet.getInt("user_number_id"));
 
         } catch (Exception e) {
@@ -108,6 +100,8 @@ public class DBGetter {
 
         return user;
     }
+
+
 
 
     public static ArrayList<Group> findGroupsWithMemberID(int memberID) {
