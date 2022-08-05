@@ -15,13 +15,16 @@ import static database.DBInfo.getConnection;
 public class UpdateDB {
 
     public static void messageCreationInPrivateChat(String message, int userID, int friendID, Date creationDate, int forwardedFromID, int repliedToID) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
         try{
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
             if(forwardedFromID == -1 && repliedToID == -1 )
-                statement.execute("INSERT INTO private_message( sender_id, receiver_id, text, creation_time, is_replied)  VALUES( "+userID+","+friendID+","+message+","+creationDate+", FALSE)");
+                statement.execute("INSERT INTO private_message( sender_id, receiver_id, text, creation_time, is_replied)  VALUES( "+userID+","+friendID+","+message+",'"+now.format(dtf)+"', FALSE)");
             else
-                statement.execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, forwarded_from, replied_to, is_replied)  VALUES( "+userID+","+friendID+","+message+","+creationDate+","+forwardedFromID+","+repliedToID+", TRUE)");
+                statement.execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, forwarded_from, replied_to, is_replied)  VALUES( "+userID+","+friendID+","+message+",'"+now.format(dtf)+"',"+forwardedFromID+","+repliedToID+", TRUE)");
 
         } catch (Exception e){
             e.printStackTrace();
@@ -96,14 +99,14 @@ public class UpdateDB {
 
 
     public static void addMemberToGroup(int groupNumberID, int memberID) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
         try{
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
-            statement.executeQuery("INSERT INTO membership(group_id, user_id, join_time) VALUES(" + groupNumberID +", " + memberID +", " + dtf.format(now) +")");
+            statement.executeQuery("INSERT INTO membership(group_id, user_id, join_time) VALUES(" + groupNumberID +", " + memberID +", '" + now.format(dtf) +"')");
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -148,7 +151,7 @@ public class UpdateDB {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
-            statement.execute("UPDATE group SET group_name = " + newName +"WHERE group_number_id = " + groupNumberID);
+            statement.execute("UPDATE group SET group_name = '" + newName +"' WHERE group_number_id = " + groupNumberID);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -183,16 +186,16 @@ public class UpdateDB {
     public static void messageCreationInGroup(String message, int senderID, int groupID, Date creationDate, int forwardedFromID, int repliedToID){
 
         // have to include time of sending the message too
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
         try{
             Connection con = getConnection();
             if(forwardedFromID == -1 && repliedToID == -1 )
 
-                con.createStatement().execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, is_replied)  VALUES( "+senderID+" , "+groupID+" , '"+message+"', "+creationDate+" , FALSE)");
+                con.createStatement().execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, is_replied)  VALUES( "+senderID+" , "+groupID+" , '"+message+"', '"+now.format(dtf)+"' , FALSE)");
             else
-                con.createStatement().execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, forwarded_from, replied_to, is_replied)  VALUES( "+senderID+","+groupID+","+message+","+senderID+","+creationDate+","+groupID+","+forwardedFromID+","+repliedToID +", true)");
+                con.createStatement().execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, forwarded_from, replied_to, is_replied)  VALUES( "+senderID+","+groupID+","+message+","+senderID+",'"+now.format(dtf)+"',"+groupID+","+forwardedFromID+","+repliedToID +", true)");
 
 
         } catch (Exception e){
@@ -211,4 +214,5 @@ public class UpdateDB {
             e.printStackTrace();
         }
     }
+
 }

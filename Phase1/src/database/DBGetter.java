@@ -145,7 +145,7 @@ public class DBGetter {
             e.printStackTrace();
         }
 
-        System.out.println(groups.size());
+     //   System.out.println(groups.size());
         return groups;
     }
 

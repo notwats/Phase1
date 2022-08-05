@@ -25,6 +25,7 @@ public class MainChatsController  extends Controller{
         }
 
         UpdateDB.createGroup(groupID, groupName, adminID);
+        System.out.println("created successfully");
     }
 
     public void handleDeleteGroup(Group group, int userID) {

@@ -40,7 +40,7 @@ public class GroupController extends Controller{
             return;
         }
 
-        if( DBGetter.findGroupByGroupNumberID(groupNumberID) != null){
+        if( DBGetter.findGroupByGroupID(groupID) != null){
             System.out.println("this groupID is taken");
             return;
         }

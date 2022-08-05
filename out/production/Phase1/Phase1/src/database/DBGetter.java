@@ -145,7 +145,7 @@ public class DBGetter {
             e.printStackTrace();
         }
 
-        System.out.println(groups.size());
+     //   System.out.println(groups.size());
         return groups;
     }
 
@@ -156,7 +156,7 @@ public class DBGetter {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM group_message WHERE group_id = " + groupID + " ORDER BY creation_date");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM group_message WHERE group_id = " + groupID + " ORDER BY creation_time");
 
             while (resultSet.next()) {
                 int senderID = Integer.parseInt(resultSet.getString("sender_id"));
@@ -258,7 +258,7 @@ public class DBGetter {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
-            ResultSet groupSet = statement.executeQuery("SELECT * FROM `group` WHERE group_id = " + groupNumberID + " AND user_id = " + senderID);
+            ResultSet groupSet = statement.executeQuery("SELECT * FROM ban_list WHERE group_id = " + groupNumberID + " AND user_id = " + senderID);
 
             if (groupSet != null && groupSet.next())
                 return true;
