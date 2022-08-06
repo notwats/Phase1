@@ -1,10 +1,12 @@
 package view;
 
 import controller.MainScrolingController;
+import database.DBGetter;
 import database.PostDB;
 import enums.Message;
 import models.Comment;
 import models.Post;
+import models.User;
 
 import java.util.ArrayList;
 
@@ -37,18 +39,40 @@ public class ShowPost extends Menu {
     }
 
     private void likes() {
-        if (currentPost.getLikedUsers().contains(loggedInUser)) {
-            System.out.println("you have liked this post already");
-        } else {
-            currentPost.getLikedUsers().add(loggedInUser);
-            currentPost.setLikeNumber(currentPost.getLikedUsers().size());
-            PostDB.addLike(currentPost.getPostID() , loggedInUser.getNumberID());
-            System.out.println("liked");
+        ArrayList<User> likedUsers= new ArrayList<>();
+        for (Integer id: currentPost.getLikedUsersid()){
+            likedUsers.add(DBGetter.findUserByUserNumberID(id));
+        }
+        showArray(likedUsers);
+        System.out.println("---------");
+        boolean bool = true;
+        while (bool) {
+            System.out.println("1. like");
+            System.out.println("0. back");
+
+            String choice = getChoice();
+            switch (choice) {
+                case "1", "like" -> {
+                    if (currentPost.getLikedUsersid().contains(loggedInUser.getNumberID())) {
+                        System.out.println("you have liked this post already");
+                    } else {
+                        currentPost.getLikedUsersid().add(loggedInUser.getNumberID());
+                        currentPost.setLikeNumber(currentPost.getLikedUsersid().size());
+                        PostDB.addLike(currentPost.getPostID() , loggedInUser.getNumberID());
+                        System.out.println("liked");
+                    }
+                }
+                case "0", "back" -> bool = false;
+                default -> System.out.println(Message.INVALID_CHOICE);
+            }
         }
     }
 
     private void showComments() {
-        ArrayList<Comment> comments = PostDB.getCommentByPostID(currentPost.getPostID());
+        ArrayList<Comment> comments = new ArrayList<>();
+        for (Integer id :PostDB.getCommentsIDByPostID(currentPost.getPostID())){
+            comments.add(PostDB.getCommentByCommentID(id));
+        }
         Menu.showArray(comments);
         boolean bool = true;
         while (bool) {
@@ -58,16 +82,16 @@ public class ShowPost extends Menu {
             String choice = getChoice();
             switch (choice) {
                 case "1", "add" -> this.addComment();
-                case "2", "select" -> this.selection();
+                case "2", "select" -> this.selection(comments);
                 case "0", "back" -> bool = false;
                 default -> System.out.println(Message.INVALID_CHOICE);
             }
         }
     }
 
-    private void selection() {
+    private void selection(ArrayList<Comment> comments) {
         Integer selectedNum = Integer.valueOf(getInput("enter the number of comment"));
-        Comment selected = PostDB.getCommentByPostID(currentPost.getPostID()).get(selectedNum);
+        Comment selected = comments.get(selectedNum);
         boolean bool = true;
         while (bool) {
             System.out.println("1. reply");
