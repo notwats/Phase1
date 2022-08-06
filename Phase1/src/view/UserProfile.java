@@ -74,14 +74,14 @@ public class UserProfile extends Menu {
         System.out.println(currentProfile.getUsername());
         System.out.println("followings = " + currentProfile.getFollowingsID().size() + " followers = " + currentProfile.getFollowingsID().size());
         if (isFollowing()) {
-            System.out.print("you are following this account");
+            System.out.println("you are following this account");
         } else {
-            System.out.print("you are not following this account");
+            System.out.println("you are not following this account");
         }
         if (isFollower()) {
-            System.out.print("you are follower of this account");
+            System.out.println("you are follower of this account");
         } else {
-            System.out.print("you are not follower of this account");
+            System.out.println("you are not follower of this account");
         }
         System.out.println("posts = " + currentProfile.getPosts().size());
     }

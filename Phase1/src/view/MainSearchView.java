@@ -33,14 +33,14 @@ public class MainSearchView {
                         System.out.println("there's no user");
                     }
                     System.out.println("1. select");
-                    System.out.println("2. back (search menu)");
+                    System.out.println("0. back (search menu)");
                     String cc = Menu.getChoice();
                     switch (cc) {
-                        case "select": {
+                        case "1" , "select": {
                           UserProfile profile= new UserProfile(wanted);
                           profile.run();
                         }
-                        case "back": {
+                        case "0","back": {
                             bool = false;
                         }
                         default:

@@ -19,13 +19,11 @@ public class PrivateChatController {
         }
 
         UpdateDB.messageCreationInPrivateChat(message, userID, friendID, dateOfNow, forwardedFrom, inReplyTo);
-        System.out.println("your message is sent : " +
-                message);
+
     }
 
-    public void handleBlockUser(int ID, int friendId) {
-        User newMember = DBGetter.findUserByUserNumberID(friendId);
-
+    public void handleBlockUser(int ID, String userID) {
+        User newMember = DBGetter.findUserByUserID(userID);
         if(newMember == null){
             System.out.println("the member id doesn't belong to any user");
             return;
@@ -37,6 +35,5 @@ public class PrivateChatController {
         }
 
         UpdateDB.blockerBlocks(ID, newMember.getId());
-        System.out.println("user blocked successfully");
     }
 }
