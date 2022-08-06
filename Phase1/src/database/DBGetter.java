@@ -32,7 +32,6 @@ public class DBGetter {
     public static void showPrivateChats(ArrayList<String> chats) {
         //\
     }
-
     public static User findUserByUserNumberID(int senderID) {
         User user = null;
         try {
@@ -43,29 +42,22 @@ public class DBGetter {
             if (!resultSet.next()) {
                 return null;
             }
-            if (resultSet.getInt("type") == 1) {
-                user = new NormalAcc(resultSet.getString("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("security_answer"),
-                        resultSet.getInt("security_num"));
-                user.setFollowersID(UserDB.getFollowers(user.getNumberID()));
-                user.setFollowingsID(UserDB.getFollowings(user.getNumberID()));
-                user.setPosts(PostDB.getPostByUserID(user.getNumberID()));
 
-            } else {
-                user = new BusinessAcc(resultSet.getString("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("security_answer"),
-                        resultSet.getInt("security_num"));
-                user.setFollowersID(UserDB.getFollowers(user.getNumberID()));
-                user.setFollowingsID(UserDB.getFollowings(user.getNumberID()));
-                user.setPosts(PostDB.getPostByUserID(user.getNumberID()));
+            user = new User( senderID ,resultSet.getString("user_id"),
+                    resultSet.getString("username"),
+                    resultSet.getString("password"),
+                    resultSet.getString("security_answer"),
+                    resultSet.getInt("security_num") , resultSet.getInt("type"));
 
-                // other businesss
-            }
+            user.setFollowersID(UserDB.getFollowers(user.getNumberID()));
+            user.setFollowingsID(UserDB.getFollowings(user.getNumberID()));
+            user.setPosts(PostDB.getPostByUserID(user.getNumberID()));
+
+        //    user.setProfileImage(resultSet.getString("profile_image"));
+            // other businesss
+
             user.setId(senderID);
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,23 +78,24 @@ public class DBGetter {
             if (!resultSet.next()) {
                 return null;
             }
-            if (resultSet.getInt("type") == 1) {
-                user = new NormalAcc(resultSet.getString("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("security_answer"),
-                        resultSet.getInt("security_num"));
-            } else {
-                user = new BusinessAcc(resultSet.getString("user_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        resultSet.getString("security_answer"),
-                        resultSet.getInt("security_num"));
 
-                // other businesss
-            }
-            user.setId(resultSet.getInt("user_number_id"));
+            user = new User( resultSet.getInt("user_number_id") ,resultSet.getString("user_id"),
+                    resultSet.getString("username"),
+                    resultSet.getString("password"),
+                    resultSet.getString("security_answer"),
+                    resultSet.getInt("security_num") , resultSet.getInt("type"));
 
+            user.setFollowersID(UserDB.getFollowers(user.getNumberID()));
+            user.setFollowingsID(UserDB.getFollowings(user.getNumberID()));
+
+            user.setPosts(PostDB.getPostByUserID(user.getNumberID()));
+
+
+        //    user.setProfileImage(resultSet.getString("profile_image"));
+            // other businesss
+
+            //  user.setId(resultSet.getInt("user_number_id"));
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

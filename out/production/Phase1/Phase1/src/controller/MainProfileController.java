@@ -79,7 +79,7 @@ public class MainProfileController extends Controller {
 
     public static void handleNewPost(String context) {
         Post post = new Post();
-        post.setSender(loggedInUser);
+        post.setSender(loggedInUser.getNumberID());
         post.setContext(context);
         Date dateOfNow = new Date();
         post.setCreationDate(dateOfNow);

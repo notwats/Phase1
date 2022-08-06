@@ -1,8 +1,5 @@
 package database;
 
-import models.Comment;
-import models.NormalAcc;
-import models.Post;
 import models.User;
 
 import java.sql.*;
@@ -10,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static database.DBInfo.getConnection;
-import static database.DBInfo.username;
 
 public class UserDB {
 
@@ -66,7 +62,7 @@ public class UserDB {
         try {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
-            String query = "select * form followership where is_following_id = " + userID + ";" ;
+            String query = "select * from followship where is_following_id = " + userID + ";" ;
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 following.add(rs.getInt(2));
@@ -86,7 +82,7 @@ public class UserDB {
         try {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
-            String query = "select * form followership where is_followed_id = " + userID + ";" ;
+            String query = "select * from followship where is_followed_id = " + userID + ";" ;
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 followers.add(rs.getInt(1));

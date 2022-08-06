@@ -224,6 +224,7 @@ public class MainChatsView extends MainMenu {
             String choice = getChoice();
             try {
                 for (int i = 0; i < groupNames.size(); i++) {
+
                     if (choice.equals(groupNames.get(i).getGroupName()) || i + 1 == Integer.parseInt(choice)) {
                         Group group = groupNames.get(i);
                         if (controller.handleEnteringGroup(group, loggedInUser.getId())) {

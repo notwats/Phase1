@@ -42,7 +42,7 @@ public abstract class Menu {
            return;
        }
         for (int i=0 ; i< list.size();i++){
-            System.out.println("i. "+ list.get(i));
+            System.out.println(i+". " + list.get(i));
         }
     } // and select...
 

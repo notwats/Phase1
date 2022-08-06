@@ -41,6 +41,7 @@ public class GroupController extends Controller{
         }
 
         if( DBGetter.findGroupByGroupID(newGroupID) != null){
+
             System.out.println("this groupID is taken");
             return;
         }
