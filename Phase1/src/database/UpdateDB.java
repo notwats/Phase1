@@ -25,7 +25,7 @@ public class UpdateDB {
                 statement.execute("INSERT INTO private_message( sender_id, receiver_id, text, creation_time, is_replied)  VALUES( "+userID+","+friendID+","+message+",'"+now.format(dtf)+"', FALSE)");
             else
                 statement.execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, forwarded_from, replied_to, is_replied)  VALUES( "+userID+","+friendID+","+message+",'"+now.format(dtf)+"',"+forwardedFromID+","+repliedToID+", TRUE)");
-
+connection.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -40,7 +40,7 @@ public class UpdateDB {
 
             statement.execute("DELETE FROM TABLE private_chat WHERE first_user_id_1 =" + id1 +"AND second_user_id ="+ id2 );
             statement.execute("DELETE FROM TABLE private_chat WHERE first_user_id_1 =" + id2 +"AND second_user_id ="+ id1 );
-
+            connection.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -69,6 +69,7 @@ public class UpdateDB {
             Statement statement = connection.createStatement();
 
             statement.execute("INSERT INTO ban_list VALUES( " + group.getGroupNumberID() + ", " + memberID + ")");
+            connection.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -79,7 +80,9 @@ public class UpdateDB {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
 
+
             statement.execute("DELETE FROM ban_list WHERE group_id =" + group.getGroupNumberID() +"AND user_id =" + memberID);
+            connection.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -92,6 +95,7 @@ public class UpdateDB {
             Statement statement = connection.createStatement();
 
             statement.execute("DELETE FROM membership WHERE group_id =" + group.getGroupNumberID() +"AND user_id =" + memberID);
+            connection.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -107,6 +111,7 @@ public class UpdateDB {
             Statement statement = connection.createStatement();
 
             statement.executeQuery("INSERT INTO membership(group_id, user_id, join_time) VALUES(" + groupNumberID +", " + memberID +", '" + now.format(dtf) +"')");
+            connection.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -141,6 +146,7 @@ public class UpdateDB {
 
             statement.execute("DELETE FROM `group` WHERE group_number_id = " + groupNumberID);
             statement.execute("DELETE FROM membership WHERE group_number_id = " + groupNumberID);
+            connection.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -152,6 +158,7 @@ public class UpdateDB {
             Statement statement = connection.createStatement();
 
             statement.execute("UPDATE group SET group_name = '" + newName +"' WHERE group_number_id = " + groupNumberID);
+            connection.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -163,7 +170,7 @@ public class UpdateDB {
             Statement statement = connection.createStatement();
 
             statement.execute("UPDATE group SET group_id = " + newGroupID + " WHERE group_number_id = " + groupNumberID);
-
+            connection.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -176,7 +183,7 @@ public class UpdateDB {
             Statement statement = connection.createStatement();
 
             statement.execute("UPDATE  group_message SET `text` = " + editedText + " WHERE message_id = " + messageID);
-
+            connection.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -197,7 +204,7 @@ public class UpdateDB {
             else
                 con.createStatement().execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, forwarded_from, replied_to, is_replied)  VALUES( "+senderID+","+groupID+","+message+","+senderID+",'"+now.format(dtf)+"',"+groupID+","+forwardedFromID+","+repliedToID +", true)");
 
-
+            con.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -209,7 +216,7 @@ public class UpdateDB {
             Statement statement = connection.createStatement();
 
    //         statement.executeQuery("INSERT INTO block_list( sender_id, group_id, text, creation_time, is_replied)  VALUES( "+senderID+","+groupID+","+message+","+senderID+","+creationDate+","+groupID+", FALSE)");
-
+            connection.close();
         } catch (Exception e){
             e.printStackTrace();
         }
