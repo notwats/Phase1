@@ -133,7 +133,7 @@ public class DBGetter {
                     groups.add(newGroup);
                 }
             }
-
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -161,6 +161,7 @@ public class DBGetter {
 
                 messages.add(newMessage);
             }
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -185,6 +186,7 @@ public class DBGetter {
                 Date creationDate = resultSet.getDate("creation_date");
                 newMessage = new GroupMessage(groupID, senderID, messageID, resultSet.getString("text"), inReplyTo, creationDate, forwardedFrom);
             }
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -211,7 +213,7 @@ public class DBGetter {
             } else{
                 return null;
             }
-
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -237,7 +239,7 @@ public class DBGetter {
             } else{
                 return null;
             }
-
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -256,7 +258,7 @@ public class DBGetter {
             if (groupSet != null && groupSet.next())
                 return true;
 
-
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -276,7 +278,7 @@ public class DBGetter {
             if (groupSet != null && groupSet.next())
                 return true;
 
-
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -295,7 +297,7 @@ public class DBGetter {
             if (groupSet != null && groupSet.next())
                 return true;
 
-
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -314,7 +316,7 @@ public class DBGetter {
             if(privateSet2.next())
                 return true;
 
-
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -338,6 +340,7 @@ public class DBGetter {
 
                 chats.add(personal);
             }
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -364,6 +367,7 @@ public class DBGetter {
 
                 //             messages.add(newMessage);
             }
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

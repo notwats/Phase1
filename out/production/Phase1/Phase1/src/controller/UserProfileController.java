@@ -24,12 +24,12 @@ public class UserProfileController extends Controller {
 
     public void followHandle() {
         if (isFollower()) {
-            UserDB.unFollow(loggedInUser, currentProfile);
+            UserDB.unFollow(loggedInUser.getNumberID(), currentProfile.getNumberID());
             loggedInUser.getFollowingsID().remove(currentProfile.getNumberID());
             currentProfile.getFollowersID().remove(loggedInUser.getNumberID());
             System.out.println("unfollowed successfully");
         } else {
-            UserDB.follow(loggedInUser, currentProfile);
+            UserDB.follow(loggedInUser.getNumberID(), currentProfile.getNumberID());
             loggedInUser.getFollowingsID().add(currentProfile.getNumberID());
             currentProfile.getFollowersID().add(loggedInUser.getNumberID());
             System.out.println("followed successfully");

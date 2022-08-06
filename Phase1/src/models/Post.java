@@ -13,42 +13,22 @@ public class Post implements Comparable<Post> {
     Integer senderid;
 
     Boolean isNormal = true;
-    /*
-    int imageID;
-    int voiceID;
 
-    int audioID;
-     */
     int likeNumber;
 
     String context; // main for phase 1
 
     Date creationDate;
-    ArrayList<Comment> comments = new ArrayList<>();
-    ArrayList<User> likedUsers = new ArrayList<>();
+    ArrayList<Integer> commentsid = new ArrayList<>();
+    ArrayList<Integer> likedUsersid = new ArrayList<>();
 
 
-    public HashMap<LocalDate, Integer> likesPerday = new HashMap<>();
-    public HashMap<LocalDate, Integer> viewsPerday = new HashMap<>();
+    public ArrayList<Date> likesDate = new ArrayList<>();
+    public ArrayList<Date> viewsDate = new ArrayList<>();
 
 
     ArrayList<Tag> tags;
 
-    public ArrayList<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(ArrayList<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public ArrayList<User> getLikedUsers() {
-        return likedUsers;
-    }
-
-    public void setLikedUsers(ArrayList<User> likedUsers) {
-        this.likedUsers = likedUsers;
-    }
 
     public int getPostID() {
         return postID;
@@ -106,6 +86,53 @@ public class Post implements Comparable<Post> {
         this.tags = tags;
     }
 
+    public Integer getSenderid() {
+        return senderid;
+    }
+
+    public void setSenderid(Integer senderid) {
+        this.senderid = senderid;
+    }
+
+    public Boolean getNormal() {
+        return isNormal;
+    }
+
+    public void setNormal(Boolean normal) {
+        isNormal = normal;
+    }
+
+    public ArrayList<Integer> getCommentsid() {
+        return commentsid;
+    }
+
+    public void setCommentsid(ArrayList<Integer> commentsid) {
+        this.commentsid = commentsid;
+    }
+
+    public ArrayList<Integer> getLikedUsersid() {
+        return likedUsersid;
+    }
+
+    public void setLikedUsersid(ArrayList<Integer> likedUsersid) {
+        this.likedUsersid = likedUsersid;
+    }
+
+    public ArrayList<Date> getLikesDate() {
+        return likesDate;
+    }
+
+    public void setLikesDate(ArrayList<Date> likesDate) {
+        this.likesDate = likesDate;
+    }
+
+    public ArrayList<Date> getViewsDate() {
+        return viewsDate;
+    }
+
+    public void setViewsDate(ArrayList<Date> viewsDate) {
+        this.viewsDate = viewsDate;
+    }
 
     @Override
     public int compareTo(Post post) {

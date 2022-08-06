@@ -69,15 +69,10 @@ public class UserProfile extends Menu {
         if (currentProfile.getBio() != null) {
             System.out.println(currentProfile.getBio());
         } else {
-            System.out.println("I have no bio :_\" ");
+            System.out.println("I have no bio :\" ");
         }
         System.out.println(currentProfile.getUsername());
-        System.out.println("followings = " + currentProfile.getFollowingsID().size() + " followers = " + currentProfile.getFollowingsID().size());
-        if (isFollowing()) {
-            System.out.println("you are following this account");
-        } else {
-            System.out.println("you are not following this account");
-        }
+        System.out.println("followings = " + currentProfile.getFollowingsID().size() + " followers = " + currentProfile.getFollowersID().size());
         if (isFollower()) {
             System.out.println("you are follower of this account");
         } else {
@@ -121,11 +116,12 @@ public class UserProfile extends Menu {
         boolean bool = true;
         while (bool) {
             Menu.showArray(posts);
+            System.out.println("------------");
             System.out.println("1. select");
-            System.out.println("2. back (user profile)");
+            System.out.println("0. back (user profile)");
             String cc = Menu.getChoice();
             switch (cc) {
-                case "select": {
+                case "1","select"-> {
                     Integer num = Integer.valueOf(getInput("enter the number of the post"));
                     if (num > posts.size()) {
                         System.out.println(Message.INVALID_CHOICE);
@@ -135,10 +131,10 @@ public class UserProfile extends Menu {
                         showPost.run();
                     }
                 }
-                case "back": {
+                case "0","back"-> {
                     bool = false;
                 }
-                default:
+                default->
                     System.out.println(Message.INVALID_CHOICE);
             }
         }

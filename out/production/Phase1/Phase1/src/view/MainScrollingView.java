@@ -25,7 +25,7 @@ public class MainScrollingView {
             if (!allFollowingsPosts.get(whichPost).getIsNormal()){
                 System.out.println("----AD----");
             }
-            System.out.println(allFollowingsPosts.get(whichPost).getContext());
+            System.out.println(allFollowingsPosts.get(whichPost));
             showOptions();
             String choice = Menu.getChoice();
 
@@ -34,8 +34,13 @@ public class MainScrollingView {
                     ShowPost showPost = new ShowPost(allFollowingsPosts.get(whichPost));
                     showPost.run();
                 }
-                case "2", "next" -> whichPost += 1;
-
+                case "2", "next" -> {
+if (whichPost<allFollowingsPosts.size()-1)
+                    whichPost += 1;
+else {
+    System.out.println("you've seen all posts");
+    whichPost = 0;
+}           }
                 case "0", "back" -> bool = false;
                 default -> System.out.println(Message.INVALID_CHOICE);
             }

@@ -94,18 +94,26 @@ public class UserDB {
         return followers;
     }
 
-    public static void unFollow(User loggedInUser, User currentProfile) {
+    public static void unFollow(Integer loggedInUser, Integer currentProfile) {
         try {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
-            //st.execute("delete from `followship` where user_id = '" + user.getUserID()+"';");
+           st.execute("delete from `followship` where is_following_id = "+ loggedInUser+ " and is_followed_id= "+ currentProfile );
             con.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void follow(User loggedInUser, User currentProfile) {
-
+    public static void follow(Integer loggedInUser, Integer currentProfile) {
+        try {
+            Connection con = DBInfo.getConnection();
+            Statement st = con.createStatement();
+            st.execute("INSERT INTO followship( is_following_id , is_followed_id )  VALUES( "
+                   +loggedInUser+"," +currentProfile  + ")");
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

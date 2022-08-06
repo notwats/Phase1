@@ -24,7 +24,7 @@ public class ShowPost extends Menu {
 
         boolean bool = true;
         while (bool) {
-            System.out.println("-----" + currentPost.getContext() + "-----");
+            System.out.println("-----" + currentPost + "-----");
             this.showOptions();
             String choice = getChoice();
             switch (choice) {
@@ -42,8 +42,9 @@ public class ShowPost extends Menu {
         } else {
             currentPost.getLikedUsers().add(loggedInUser);
             currentPost.setLikeNumber(currentPost.getLikedUsers().size());
+            PostDB.addLike(currentPost.getPostID() , loggedInUser.getNumberID());
+            System.out.println("liked");
         }
-        PostDB.updatePost(currentPost);
     }
 
     private void showComments() {
@@ -51,8 +52,8 @@ public class ShowPost extends Menu {
         Menu.showArray(comments);
         boolean bool = true;
         while (bool) {
-            System.out.println("add comment");
-            System.out.println("select a comment to reply or edit or like");
+            System.out.println("1. add comment");
+            System.out.println("2. select a comment to reply or edit or like");
             System.out.println("0. back");
             String choice = getChoice();
             switch (choice) {
@@ -109,6 +110,7 @@ public class ShowPost extends Menu {
         cc.setPostID(currentPost.getPostID());
         cc.setCommentText(commentText);
         cc.setSender(loggedInUser.getId());
+        cc.setRepliedTo(null);
         MainScrolingController.addComment(cc);
         System.out.println("comment added successfully");
     }

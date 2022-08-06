@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 public class PostDB extends DBGetter {
 
@@ -199,7 +200,7 @@ con.close();
             Statement statement = con.createStatement();
             // post table
 
-            statement.execute("INSERT INTO comment( sender_id, post_id, text ,replied_comment_id )  VALUES( " + comment.getSender() + "," + comment.getPostID() + "," + comment.getCommentText() + "," + comment.getRepliedTo() + ")");
+            statement.execute("INSERT INTO comment( sender_id, post_id, text ,replied_comment_id )  VALUES( " + comment.getSender() + "," + comment.getPostID() + ",'" + comment.getCommentText() + "'," + comment.getRepliedTo() + ")");
 
             con.close();
 
@@ -244,29 +245,14 @@ con.close();
         }
     }
 
-    public static void addLike(Post post) {
+    public static void addLike(Integer postid , Integer reacterid) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
         try {
             Connection con = DBInfo.getConnection();
-            Statement st = con.createStatement();
-            // post table
-            st.execute("update post set `text` = '" + post.getContext() + "' where post_id = " + post.getPostID() + ";");
+            Statement statement = con.createStatement();
 
-            //comment table
-            // post reaction table
-//another method
-            con.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void removeLike(Post post) {
-        try {
-            Connection con = DBInfo.getConnection();
-            Statement st = con.createStatement();
-            // post table
-            st.execute("update post_reaction set `text` = '" + post.getContext() + "' where post_id = " + post.getPostID() + ";");
+            statement.execute("INSERT INTO post_reaction(post_id, reacter_id , date )  VALUES( " + postid + "," + reacterid + ",'" + now.format(dtf) + "')");
 
             con.close();
 
@@ -274,22 +260,16 @@ con.close();
             e.printStackTrace();
         }
     }
-
-    // ad post??
-    public static void newView(Post post) {
+    // ad post...
+    public static void newView(Integer postid) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
         try {
             Connection con = DBInfo.getConnection();
-            Statement st = con.createStatement();
-            // post table
-            //           st.execute("insert into post_view values(NULL," +
-//                "'" + post.getText().toString() + "','" +
-//                "" + post.getCreationDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "', " +
-//                "" + post.getSender().getId() + ", "
-//                + (post.getRepliedPost() != null ? Long.toString(post.getRepliedPost().getId()) : "0") + ", 0, 0, 0)");
-//
-            //comment table
-            // post reaction table
-//another method
+            Statement statement = con.createStatement();
+
+            statement.execute("INSERT INTO post_reaction(post_id , view_date )  VALUES( " + postid + ",'" + now.format(dtf) + "')");
+
             con.close();
 
         } catch (SQLException e) {
