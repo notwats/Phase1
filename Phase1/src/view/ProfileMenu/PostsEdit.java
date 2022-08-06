@@ -18,8 +18,6 @@ public class PostsEdit {
 
     public static void run() {
 
-        System.out.println("id" + loggedInUser.getNumberID());
-        System.out.println(loggedInUser.getPosts().size());
         ArrayList<Post> posts = PostDB.getPostByUserID(loggedInUser.getNumberID());
         Collections.sort(posts);
         showArray(posts);

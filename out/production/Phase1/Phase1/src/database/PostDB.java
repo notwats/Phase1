@@ -67,6 +67,12 @@ public class PostDB extends DBGetter {
                 //    ps.setComments(rs.getInt(8));
                 //   ps.setComments(getCommentByPostID(ps.getPostID()));
                 //             ps.setCreationDate(new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString("creation_time")));
+
+
+
+                // phaseeeeeeeee 111111111111111 no imageeeeee
+
+               if (ps.getContext().length()!=0)
                 ret.add(ps);
             }
             con.close();
@@ -116,13 +122,12 @@ public class PostDB extends DBGetter {
             cc.setLikeNumber(rs.getInt(4));
             cc.setRepliedTo(rs.getInt(5));
             cc.setCommentText(rs.getString(6));
-
+con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return cc;
     }
-
 
     public static Post getPostByPostID(Integer post_id) {
         Post ps = new Post();
@@ -136,18 +141,24 @@ public class PostDB extends DBGetter {
             }
             ps.setPostID(rs.getInt("post_id"));
             ps.setSender(rs.getInt(2));
+            ps.setContext(rs.getString(3));
+            // creation time
+            ps.setCreationDate(rs.getDate(4));
+            ps.setIsNormal(rs.getInt(5) != 0);
             //  ps.setRepliedPost(getPostbyPostID(rs.getLong(5)));
             //     ps.setLikes(rs.getInt(6));
             //    ps.setViews(rs.getInt(7));
-            //    ps.setComments(rs.getInt(8));
-            ps.setComments(getCommentByPostID(ps.getPostID()));
-            //           ps.setCreationDate(LocalDateTime.parse(rs.getString("creation_time")));
 
+            ps.setComments(getCommentByPostID(ps.getPostID()));
+        //    ps.setImageAddress(rs.getString("media"));
+            //           ps.setCreationDate(LocalDateTime.parse(rs.getString("creation_time")));
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return ps;
     }
+
 
     public static void deletePost(Integer postid) {
         try {
