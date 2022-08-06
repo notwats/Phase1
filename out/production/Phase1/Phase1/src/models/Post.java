@@ -2,10 +2,8 @@ package models;
 
 import database.DBGetter;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 public class Post implements Comparable<Post> {
 
@@ -26,10 +24,6 @@ public class Post implements Comparable<Post> {
     Date creationDate;
     ArrayList<Comment> comments = new ArrayList<>();
     ArrayList<User> likedUsers = new ArrayList<>();
-
-
-    public HashMap<LocalDate, Integer> likesPerday = new HashMap<>();
-    public HashMap<LocalDate, Integer> viewsPerday = new HashMap<>();
 
 
     ArrayList<Tag> tags;
@@ -110,7 +104,7 @@ public class Post implements Comparable<Post> {
     @Override
     public int compareTo(Post post) {
         int compareId = post.getPostID();
-        return -this.postID + compareId;
+        return this.postID - compareId;
     }
 
     @Override

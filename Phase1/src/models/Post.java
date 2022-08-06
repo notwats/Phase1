@@ -2,10 +2,8 @@ package models;
 
 import database.DBGetter;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 public class Post implements Comparable<Post> {
 
@@ -137,7 +135,7 @@ public class Post implements Comparable<Post> {
     @Override
     public int compareTo(Post post) {
         int compareId = post.getPostID();
-        return -this.postID + compareId;
+        return this.postID - compareId;
     }
 
     @Override

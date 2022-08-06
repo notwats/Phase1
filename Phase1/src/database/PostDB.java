@@ -28,7 +28,6 @@ public class PostDB extends DBGetter {
                 ArrayList<Post> usersPosts = getPostByUserID(uuID);
                 ret.addAll(usersPosts);
             }
-            ret.addAll(getPostByUserID(userID)); // +bara khodesh :/
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,12 +65,6 @@ public class PostDB extends DBGetter {
 
             while (rs.next()) { // each post
                 Post ps = getPostByPostID(rs.getInt("post_id"));
-                //  ps.setRepliedPost(getPostbyPostID(rs.getLong(5)));
-                //     ps.setLikes(rs.getInt(6));
-                //    ps.setViews(rs.getInt(7));
-                //    ps.setComments(rs.getInt(8));
-                //   ps.setComments(getCommentByPostID(ps.getPostID()));
-                //             ps.setCreationDate(new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString("creation_time")));
 
 
                 // phaseeeeeeeee 111111111111111 no imageeeeee
@@ -119,12 +112,15 @@ public class PostDB extends DBGetter {
             cc.setLikeNumber(rs.getInt(4));
             cc.setRepliedTo(rs.getInt(5));
             cc.setCommentText(rs.getString(6));
+
             con.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return cc;
     }
+
 
     public static Post getPostByPostID(Integer post_id) {
         Post ps = new Post();
@@ -138,24 +134,21 @@ public class PostDB extends DBGetter {
             }
             ps.setPostID(rs.getInt("post_id"));
             ps.setSender(rs.getInt(2));
-            ps.setContext(rs.getString(3));
-            // creation time
-            ps.setCreationDate(rs.getDate(4));
-            ps.setIsNormal(rs.getInt(5) != 0);
             //  ps.setRepliedPost(getPostbyPostID(rs.getLong(5)));
+
             ps.setLikedUsersid(getLikedUsersID(ps.getPostID()));
             ps.setLikesDate(getLikesDate(ps.getPostID()));
             ps.setCommentsid(getCommentsIDByPostID(ps.getPostID()));
             ps.setViewsDate(getViewsDate(ps.getPostID()));
             //    ps.setImageAddress(rs.getString("media"));
+
             //           ps.setCreationDate(LocalDateTime.parse(rs.getString("creation_time")));
-            connection.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return ps;
     }
-
 
     public static void deletePost(Integer postid) {
         try {
