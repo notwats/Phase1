@@ -24,6 +24,7 @@ public class PostDB extends DBGetter {
                 ArrayList<Post> usersPosts = getPostByUserID(uuID);
                 ret.addAll(usersPosts);
             }
+            ret.addAll(getPostByUserID(userID)); // +bara khodesh :/
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();

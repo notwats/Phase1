@@ -19,7 +19,7 @@ public class UserDB {
                     ",'" + user.getUsername() + "','" + user.getPassword() + "','" +
                     user.getCreateDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) +
                     "','" + user.getSecurityAnswer() + "'," + user.getSecurityQuestion() + ","
-                    + ((user.getIsNormal()) ? "1" : "0") + ")";
+                    + ((user.getIsNormal()) ? "1" : "0") +",NULL)";
             // System.out.println(query);
             con.createStatement().execute(query);
             con.close();
