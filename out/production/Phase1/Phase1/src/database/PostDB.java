@@ -28,6 +28,7 @@ public class PostDB extends DBGetter {
                 ArrayList<Post> usersPosts = getPostByUserID(uuID);
                 ret.addAll(usersPosts);
             }
+            ret.addAll(getPostByUserID(userID));
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,13 +100,15 @@ public class PostDB extends DBGetter {
     }
 
     public static Comment getCommentByCommentID(int commentID) {
-        Comment cc = null;
+        Comment cc = new Comment();
         try {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
-            String query = "select * from comment where comment_id = " + commentID;
+            String query = "select * from comment where comment_id = " + commentID + ";\n";
             ResultSet rs = st.executeQuery(query);
-
+            if (!rs.next()) {
+                return null;
+            }
             cc.setCommentID(rs.getInt(1));
             cc.setPostID(rs.getInt(2));
             cc.setSender(rs.getInt(3));
@@ -128,13 +131,15 @@ public class PostDB extends DBGetter {
             Connection connection = DBInfo.getConnection();
             Statement statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery("SELECT * FROM post WHERE post_id = " + post_id);
+            ResultSet rs = statement.executeQuery("SELECT * FROM post WHERE post_id = " + post_id + ";\n");
             if (!rs.next()) {
                 return null;
             }
             ps.setPostID(rs.getInt("post_id"));
             ps.setSender(rs.getInt(2));
             //  ps.setRepliedPost(getPostbyPostID(rs.getLong(5)));
+            ps.setContext(rs.getString(3));
+            ps.setIsNormal(rs.getBoolean(5));
 
             ps.setLikedUsersid(getLikedUsersID(ps.getPostID()));
             ps.setLikesDate(getLikesDate(ps.getPostID()));

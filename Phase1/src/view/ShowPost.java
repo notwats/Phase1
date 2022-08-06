@@ -70,7 +70,7 @@ public class ShowPost extends Menu {
 
     private void showComments() {
         ArrayList<Comment> comments = new ArrayList<>();
-        for (Integer id :PostDB.getCommentsIDByPostID(currentPost.getPostID())){
+        for (Integer id : PostDB.getCommentsIDByPostID(currentPost.getPostID())){
             comments.add(PostDB.getCommentByCommentID(id));
         }
         Menu.showArray(comments);

@@ -135,7 +135,7 @@ public class Post implements Comparable<Post> {
     @Override
     public int compareTo(Post post) {
         int compareId = post.getPostID();
-        return this.postID - compareId;
+        return -this.postID + compareId;
     }
 
     @Override
