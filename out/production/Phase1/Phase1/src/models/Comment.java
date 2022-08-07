@@ -84,7 +84,6 @@ public class Comment {
 
         StringBuilder ret = new StringBuilder();
         if (repliedToID != null && repliedToID!=0) {
-            System.out.println(repliedToID);
             ret.append("in replied to " + PostDB.getCommentByCommentID(repliedToID).getCommentText() + "\n");
         }
         ret.append(DBGetter.findUserByUserNumberID(this.senderID).getUsername() + " : \n");

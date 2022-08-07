@@ -45,18 +45,17 @@ public class MainChatsController  extends Controller{
 
     public void handleCreatePrivateChat(String receiverID, int senderID) {
         User receiver = DBGetter.findUserByUserID(receiverID);
-        if(receiver == null){
+        if (receiver == null) {
             System.out.println("the member id doesn't belong to any user");
-            return;
-        }
-        if(DBGetter.checkPrivateChat(receiver.getId(), senderID)){
+        } else if (DBGetter.checkPrivateChat(receiver.getId(), senderID)) {
             System.out.println("you already have a chat with this user");
-            return;
+        } else if (receiver.getId() == senderID) {
+            System.out.println("you can't message yourself! :))");
+        } else {
+            UpdateDB.createPrivateChat(receiver.getId(), senderID);
+            System.out.println("successfully made the private chat");
         }
-
-        UpdateDB.createPrivateChat(receiver.getId(), senderID);
     }
-
     public ArrayList<Personal> handleShowPrivateChats(int numberID) {
         ArrayList<Personal> chats = DBGetter.findChatsWithMemberID(numberID);
         if(chats.size() == 0){
@@ -66,15 +65,13 @@ public class MainChatsController  extends Controller{
     }
 
     public void handleDeletePrivateChat(int id1, int id2) {
-        if(id1 == id2){
+        if (id1 == id2) {
             System.out.println("you can't have a chat with yourself");
-            return;
-        }
-        if(!DBGetter.checkPrivateChat(id1, id2)){
+        } else if (!DBGetter.checkPrivateChat(id1, id2)) {
             System.out.println("you don't have a chat with this user");
-            return;
+        } else {
+            UpdateDB.deletePrivateChat(id1, id2);
+            System.out.println("chat was deleted successfully");
         }
-
-        UpdateDB.deletePrivateChat(id1, id2);
     }
 }

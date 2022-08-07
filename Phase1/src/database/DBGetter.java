@@ -346,7 +346,7 @@ public class DBGetter {
             while(resultSet.next()) {
                  senderID = Integer.parseInt(resultSet.getString("sender_id"));
                  receiverID = Integer.parseInt(resultSet.getString("receiver_id"));
-                senderID = Integer.parseInt(resultSet.getString("message_id"));
+                messageID = Integer.parseInt(resultSet.getString("message_id"));
                 if (resultSet.getString("replied_to") != null) {
                     receiverID = Integer.parseInt(resultSet.getString("replied_to"));
                 } else {

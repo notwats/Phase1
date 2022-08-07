@@ -9,6 +9,7 @@ import models.GroupMessage;
 import view.Menu;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import static view.Menu.loggedInUser;
 
@@ -33,26 +34,34 @@ public class GroupView {
             }
         }
     }
-
     private static void selectMessage() {
-        System.out.println("please enter the number of the selected message");
         ArrayList<GroupMessage> messages = DBGetter.findGroupMessagesByGroupID(group.getGroupNumberID());
         int counter = 0;
-        for(GroupMessage message : messages){
-            counter++;
-            System.out.print(counter + " ");
-            message.show();
-        }
-        int choice;
-        try {
-            choice = Integer.parseInt(Menu.getChoice());
-        } catch(Exception NumberFormatException){
-            System.out.println("invalid input");
-            return;
-        }
+        if (messages.size() == 0) {
+            System.out.println("there isn't any message");
+        } else
+            System.out.println("please enter the number of the selected message");
+            Iterator var2 = messages.iterator();
 
-        GroupMessage message = messages.get(choice);
-        boolean bool = true;
+            GroupMessage message;
+            while(var2.hasNext()) {
+                message = (GroupMessage)var2.next();
+                ++counter;
+                System.out.print(counter + " ");
+                message.show();
+            }
+
+            int choice;
+            try {
+                choice = Integer.parseInt(Menu.getChoice());
+            } catch (Exception var9) {
+                System.out.println("invalid input");
+                return;
+            }
+
+            message = (GroupMessage)messages.get(choice);
+            boolean bool = true;
+
         while(bool) {
             System.out.println("""
                     what do you wish to do ?\s
