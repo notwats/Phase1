@@ -5,11 +5,13 @@ import database.DBGetter;
 import database.UpdateDB;
 import enums.Message;
 import models.*;
+import view.MainSearchView;
 import view.Menu;
 
 import java.awt.image.MemoryImageSource;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import static view.ChatsMenu.GroupView.editMessage;
 import static view.Menu.loggedInUser;
@@ -18,6 +20,9 @@ public class PrivateChatView {
     public static User user;
     public static User friend;
     public static PrivateChatController controller = new PrivateChatController();
+    public PrivateChatView() {
+    }
+
     public static void run() {
         boolean bool = true;
         while(bool){
@@ -49,41 +54,53 @@ public class PrivateChatView {
             System.out.println("""
                     what do you want to do?\s
                     1. block user\s
-                    2. search user with id\s
-                    3. return to chat view
+                    2. return to chat view
                     """);
 
             String choice = Menu.getChoice();
 
             switch(choice){
 
-                case "1", "block user" -> {
-                    String userID = Menu.getInput("who do you want to block? (Enter ID)");
-                    controller.handleBlockUser(user.getId(), userID);
-                }
+                case "1", "block user" -> controller.handleBlockUser(user.getId(), friend.getId());
+
+                case "3", "return" -> bool=false;
+                default -> System.out.println(Message.INVALID_CHOICE);
             }
         }
 
     }
     private static void selectPrivateMessage() {
-        System.out.println("please enter the number of the selected message");
+
         ArrayList<PrivateMessage> messages = DBGetter.findPrivateMessagesWithBothMembersID(friend.getId(), user.getId());
         int counter = 0;
-        for(PrivateMessage message : messages){
-            counter++;
+        if (messages.size() == 0) {
+            System.out.println("there isn't any message");
+        }
+
+        System.out.println("please enter the number of the selected message");
+        Iterator var2 = messages.iterator();
+
+        PrivateMessage message;
+        while(var2.hasNext()) {
+            message = (PrivateMessage)var2.next();
+            ++counter;
             System.out.print(counter + " ");
             message.show(user.getId());
         }
+
         int choice;
         try {
             choice = Integer.parseInt(Menu.getChoice());
-        } catch(Exception NumberFormatException){
+        } catch (Exception var9) {
             System.out.println("invalid input");
             return;
         }
 
-        PrivateMessage message = messages.get(choice);
+        message = (PrivateMessage)messages.get(choice);
         boolean bool = true;
+
+
+
         while(bool) {
             System.out.println("""
                     what do you wish to do ?\s
@@ -107,8 +124,10 @@ public class PrivateChatView {
                 case "3", "edit message" -> {
                     String editedText = Menu.getInput("Please Enter Edited Text");
                     editMessage( editedText, message.messageID);
-                    bool = false;}
-                case "4", "discard" -> bool = false;
+                    bool = false;
+                    break;
+                }
+                case "4", "discard" ->{ bool = false; break;}
                 default -> System.out.println("invalid command");
             }
         }
@@ -126,16 +145,24 @@ public class PrivateChatView {
 
         String choice = Menu.getChoice();
 
-        for (int i = 0; i < contactNames.size(); i++) {
-            if( i == Integer.parseInt(choice) && contactNames.get(i).getUser1ID() == user.getId()){
-                User contact = DBGetter.findUserByUserNumberID(contactNames.get(i).getUser2ID());
-                sendForwardedMessage( contact, message);
+
+        try {
+            for(int i = 0; i < contactNames.size(); ++i) {
+                User contact;
+                if (i == Integer.parseInt(choice) && ((Personal)contactNames.get(i)).getUser1ID() == user.getId()) {
+                    contact = DBGetter.findUserByUserNumberID(((Personal)contactNames.get(i)).getUser2ID());
+                    sendForwardedMessage(contact, message);
+                }
+
+                if (i == Integer.parseInt(choice) || ((Personal)contactNames.get(i)).getUser2ID() == user.getId()) {
+                    contact = DBGetter.findUserByUserNumberID(((Personal)contactNames.get(i)).getUser1ID());
+                    sendForwardedMessage(contact, message);
+                }
             }
-            if( i == Integer.parseInt(choice) || contactNames.get(i).getUser2ID() == user.getId()){
-                User contact = DBGetter.findUserByUserNumberID(contactNames.get(i).getUser1ID());
-                sendForwardedMessage( contact, message);
-            }
+        } catch (Exception var5) {
+            System.out.println("not valid");
         }
+
     }
 
     private static void sendPrivateMessage(int inReplyTo) {

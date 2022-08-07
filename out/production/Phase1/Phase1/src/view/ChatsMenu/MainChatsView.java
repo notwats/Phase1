@@ -2,9 +2,9 @@ package view.ChatsMenu;
 
 import controller.MainChatsController;
 import database.DBGetter;
-import database.UpdateDB;
 import enums.Message;
 import models.Group;
+import database.UpdateDB;
 import models.Personal;
 import models.User;
 import view.MainMenu;
@@ -74,41 +74,41 @@ public class MainChatsView extends MainMenu {
     }
 
     private void privateChatDelete() {
-        ArrayList<Personal> chats = controller.handleShowPrivateChats(loggedInUser.getId());
+        ArrayList<Personal> chats = this.controller.handleShowPrivateChats(loggedInUser.getId());
 
-        for (int i = 0; i < chats.size(); i++) {
-            if(chats.get(i).getUser1ID() == loggedInUser.getId())
-                System.out.println(i + 1 +". " + chats.get(i).getUser2ID() + " " + DBGetter.findUserByUserNumberID(chats.get(i).getUser2ID()).getUsername());
-            else if(chats.get(i).getUser2ID() == loggedInUser.getId())
-                System.out.println(i + 1 +". " + chats.get(i).getUser1ID() + " " +DBGetter.findUserByUserNumberID(chats.get(i).getUser2ID()).getUsername());
-        }
         int choice;
+        for(choice = 0; choice < chats.size(); ++choice) {
+            if (((Personal)chats.get(choice)).getUser1ID() == loggedInUser.getId()) {
+                System.out.println(choice + 1 + ". " + ((Personal)chats.get(choice)).getUser2ID() + " " + DBGetter.findUserByUserNumberID(((Personal)chats.get(choice)).getUser2ID()).getUsername());
+            } else if (((Personal)chats.get(choice)).getUser2ID() == loggedInUser.getId()) {
+                System.out.println(choice + 1 + ". " + ((Personal)chats.get(choice)).getUser1ID() + " " + DBGetter.findUserByUserNumberID(((Personal)chats.get(choice)).getUser2ID()).getUsername());
+            }
+        }
+
         try {
             choice = Integer.parseInt(getChoice());
-        } catch (Exception e){
+        } catch (Exception var5) {
             System.out.println("invalid choice");
             return;
         }
 
         try {
-            for (int i = 0; i < chats.size(); i++) {
-                if (choice == chats.get(i).getUser1ID() || choice == chats.get(i).getUser2ID() || i + 1 == choice) {
-
-                    if(choice == i + 1){
-                        if(chats.get(i).getUser2ID() == loggedInUser.getId()){
-                            choice = chats.get(i).getUser1ID();
-                        } else  if(chats.get(i).getUser1ID() == loggedInUser.getId()){
-                            choice = chats.get(i).getUser2ID();
+            for(int i = 0; i < chats.size(); ++i) {
+                if (choice == ((Personal)chats.get(i)).getUser1ID() || choice == ((Personal)chats.get(i)).getUser2ID() || i + 1 == choice) {
+                    if (choice == i + 1) {
+                        if (((Personal)chats.get(i)).getUser2ID() == loggedInUser.getId()) {
+                            choice = ((Personal)chats.get(i)).getUser1ID();
+                        } else if (((Personal)chats.get(i)).getUser1ID() == loggedInUser.getId()) {
+                            choice = ((Personal)chats.get(i)).getUser2ID();
                         }
                     }
 
                     User friend = DBGetter.findUserByUserNumberID(choice);
-
-                    UpdateDB.deletePrivateChat( friend.getId(), loggedInUser.getId());
+                    UpdateDB.deletePrivateChat(friend.getId(), loggedInUser.getId());
                     return;
                 }
             }
-        } catch(Exception e){
+        } catch (Exception var6) {
             System.out.println("your choice is invalid");
         }
 
@@ -172,73 +172,76 @@ public class MainChatsView extends MainMenu {
     }
 
     private void showPrivate() {
-        ArrayList<Personal> chats = controller.handleShowPrivateChats(loggedInUser.getId());
-
-        if(chats == null || chats.size() == 0){
-            System.out.println("You Have No Chats. Please Make Some!");
-            return;
-        }
-        for (int i = 0; i < chats.size(); i++) {
-            if(chats.get(i).getUser1ID() == loggedInUser.getId())
-                System.out.println(i +". " + chats.get(i).getUser2ID());
-            else if(chats.get(i).getUser2ID() == loggedInUser.getId())
-                System.out.println(i +". " + chats.get(i).getUser1ID());
-        }
-        int choice;
-        try {
-            choice = Integer.parseInt(getChoice());
-        } catch (Exception e){
-            System.out.println("invalid choice");
-            return;
-        }
-
-        for (int i = 0; i < chats.size(); i++) {
-            if(choice == chats.get(i).getUser1ID() || choice == chats.get(i).getUser2ID() || i == choice){
-                if(i == choice){
-                    if(chats.get(i).getUser2ID() == loggedInUser.getId()){
-                        choice = chats.get(i).getUser1ID();
-                    } else if(chats.get(i).getUser1ID() == loggedInUser.getId()){
-                        choice = chats.get(i).getUser2ID();
-                    }
+        ArrayList<Personal> chats = this.controller.handleShowPrivateChats(loggedInUser.getId());
+        if (chats != null && chats.size() != 0) {
+            int choice;
+            for(choice = 0; choice < chats.size(); ++choice) {
+                if (((Personal)chats.get(choice)).getUser1ID() == loggedInUser.getId()) {
+                    System.out.println(choice + ". " + ((Personal)chats.get(choice)).getUser2ID());
+                } else if (((Personal)chats.get(choice)).getUser2ID() == loggedInUser.getId()) {
+                    System.out.println(choice + ". " + ((Personal)chats.get(choice)).getUser1ID());
                 }
-
-                User friend = DBGetter.findUserByUserNumberID(choice);
-                PrivateChatView.friend = friend;
-                PrivateChatView.user = loggedInUser;
-                PrivateChatView.run();
-                assert friend != null;
-                System.out.println("chat with " + friend.getUsername() + "was deleted successfully" );
             }
+
+            try {
+                choice = Integer.parseInt(getChoice());
+            } catch (Exception var5) {
+                System.out.println("invalid choice");
+                return;
+            }
+
+            for(int i = 0; i < chats.size(); ++i) {
+                if (choice == ((Personal)chats.get(i)).getUser1ID() || choice == ((Personal)chats.get(i)).getUser2ID() || i == choice) {
+                    if (i == choice) {
+                        if (((Personal)chats.get(i)).getUser2ID() == loggedInUser.getId()) {
+                            choice = ((Personal)chats.get(i)).getUser1ID();
+                        } else if (((Personal)chats.get(i)).getUser1ID() == loggedInUser.getId()) {
+                            choice = ((Personal)chats.get(i)).getUser2ID();
+                        }
+                    }
+
+                    User friend = DBGetter.findUserByUserNumberID(choice);
+                    PrivateChatView.friend = friend;
+                    PrivateChatView.user = loggedInUser;
+                    PrivateChatView.run();
+
+                    assert friend != null;
+
+                    System.out.println("chat with " + friend.getUsername() + "was deleted successfully");
+                }
+            }
+
+        } else {
+            System.out.println("You Have No Chats. Please Make Some!");
         }
     }
 
-    private void showGroups(){
-        ArrayList<Group> groupNames = controller.handleShowGroups(loggedInUser.getId());
-
+    private void showGroups() {
+        ArrayList<Group> groupNames = this.controller.handleShowGroups(loggedInUser.getId());
         boolean bool = true;
-        while(bool){
-            for (int i = 0; i < groupNames.size(); i++) {
-                System.out.println((i+1) +". " +groupNames.get(i).getGroupName());
+
+        while(bool) {
+            for(int i = 0; i < groupNames.size(); ++i) {
+                System.out.println(i + 1 + ". " + ((Group)groupNames.get(i)).getGroupName());
             }
 
             String choice = getChoice();
-            try {
-                for (int i = 0; i < groupNames.size(); i++) {
 
-                    if (choice.equals(groupNames.get(i).getGroupName()) || i + 1 == Integer.parseInt(choice)) {
-                        Group group = groupNames.get(i);
-                        if (controller.handleEnteringGroup(group, loggedInUser.getId())) {
-                            GroupView.run(group);
-                            bool = false;
-                        }
-                        else {
+            try {
+                for(int i = 0; i < groupNames.size(); ++i) {
+                    if (choice.equals(((Group)groupNames.get(i)).getGroupName()) || i + 1 == Integer.parseInt(choice)) {
+                        Group group = (Group)groupNames.get(i);
+                        if (!this.controller.handleEnteringGroup(group, loggedInUser.getId())) {
                             System.out.println("you either left this group or have been removed from it");
                             bool = false;
                             break;
                         }
+
+                        GroupView.run(group);
+                        bool = false;
                     }
                 }
-            } catch (Exception e){
+            } catch (Exception var6) {
                 System.out.println(Message.INVALID_CHOICE);
             }
         }
