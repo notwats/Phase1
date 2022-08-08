@@ -90,7 +90,18 @@ public class MainSearchView {
  //       System.out.println("2. search for groups");
  //       System.out.println("3. search for tags");
         // System.out.println("2. s"); // recent search :)
-        // System.out.println("3. a"); // adPosts / suggestions
+         System.out.println("3. suggestions"); // adPosts / suggestions
         System.out.println("4. back  (Main Menu)"); // back button
     }
+
+    public ArrayList<User> findSuggestion(Integer userid){
+        ArrayList<User> suggests= new ArrayList<>();
+
+
+
+
+        // sort by a number
+        return suggests;
+    }
+
 }

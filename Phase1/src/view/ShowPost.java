@@ -23,7 +23,7 @@ public class ShowPost extends Menu {
 
     @Override
     public void run() {
-
+        PostDB.newView(currentPost.getPostID());
         boolean bool = true;
         while (bool) {
             System.out.println("-----" + currentPost + "-----");
@@ -39,8 +39,8 @@ public class ShowPost extends Menu {
     }
 
     private void likes() {
-        ArrayList<User> likedUsers= new ArrayList<>();
-        for (Integer id: currentPost.getLikedUsersid()){
+        ArrayList<User> likedUsers = new ArrayList<>();
+        for (Integer id : currentPost.getLikedUsersid()) {
             likedUsers.add(DBGetter.findUserByUserNumberID(id));
         }
         showArray(likedUsers);
@@ -58,7 +58,7 @@ public class ShowPost extends Menu {
                     } else {
                         currentPost.getLikedUsersid().add(loggedInUser.getNumberID());
                         currentPost.setLikeNumber(currentPost.getLikedUsersid().size());
-                        PostDB.addLike(currentPost.getPostID() , loggedInUser.getNumberID());
+                        PostDB.addLike(currentPost.getPostID(), loggedInUser.getNumberID());
                         System.out.println("liked");
                     }
                 }
@@ -70,7 +70,7 @@ public class ShowPost extends Menu {
 
     private void showComments() {
         ArrayList<Comment> comments = new ArrayList<>();
-        for (Integer id : PostDB.getCommentsIDByPostID(currentPost.getPostID())){
+        for (Integer id : PostDB.getCommentsIDByPostID(currentPost.getPostID())) {
             comments.add(PostDB.getCommentByCommentID(id));
         }
         Menu.showArray(comments);

@@ -4,6 +4,7 @@ import controller.MainProfileController;
 import database.PostDB;
 import enums.Message;
 import models.Post;
+import models.ViewReport;
 import view.MainMenu;
 import view.Menu;
 import view.ShowPost;
@@ -34,7 +35,7 @@ public class PostsEdit {
             } else {
                 showOptions();
                 String choice = Menu.getChoice();
-
+               Post currentpost= posts.get(Integer.parseInt(postNum));
                 switch (choice) {
                     case "1", "delete" -> MainProfileController.deletePost(posts.get(Integer.parseInt(postNum)).getPostID());
                     case "2", "edit" -> {
@@ -43,7 +44,7 @@ public class PostsEdit {
                         break;
                     }
                     case "3", "stats" -> {
-
+                     //   ViewReport.sortByDay(currentpost.)
 
                     }
                     default -> {

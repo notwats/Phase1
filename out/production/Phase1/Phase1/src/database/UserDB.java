@@ -28,16 +28,15 @@ public class UserDB {
         }
     }
 
-
     public static void updateUser(User user) {
         try {
             Connection con = getConnection();
             String query = "update `user` set user_id = '" + user.getUserID() +
                     "', username = '"+ user.getUsername()+
-                    "', password = '" + user.getPassword()+
+                    "', password = '" + user.getPassword()+"' where user_number_id = " +user.getNumberID()+
 //                    "', type = " +
 //                    ((user.getIsNormal()) ? "1" : "0")+
-                    "';";
+                    ";";
             // System.out.println(query);
             con.createStatement().execute(query);
             con.close();
@@ -45,6 +44,7 @@ public class UserDB {
             e.printStackTrace();
         }
     }
+
 
     public static void deleteUser(User user) {
        try {

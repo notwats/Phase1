@@ -1,10 +1,12 @@
 package database;
 
+import models.Post;
 import models.User;
 
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static database.DBInfo.getConnection;
 
@@ -28,16 +30,15 @@ public class UserDB {
         }
     }
 
-
     public static void updateUser(User user) {
         try {
             Connection con = getConnection();
             String query = "update `user` set user_id = '" + user.getUserID() +
                     "', username = '"+ user.getUsername()+
-                    "', password = '" + user.getPassword()+
+                    "', password = '" + user.getPassword()+"' where user_number_id = " +user.getNumberID()+
 //                    "', type = " +
 //                    ((user.getIsNormal()) ? "1" : "0")+
-                    "';";
+                    ";";
             // System.out.println(query);
             con.createStatement().execute(query);
             con.close();
@@ -45,6 +46,7 @@ public class UserDB {
             e.printStackTrace();
         }
     }
+
 
     public static void deleteUser(User user) {
        try {
@@ -76,6 +78,53 @@ public class UserDB {
 
     }
 
+//
+//    public static HashMap<User , Integer> getCommonFrieands(Integer userID){
+//        ArrayList<Integer> following= getFollowings(userID);
+//        try {
+//            Connection con = DBInfo.getConnection();
+//            Statement st = con.createStatement();
+//            for (Integer friendID: following){
+//                ArrayList<Integer> friendFollowing = getFollowings(friendID);
+//            }
+//
+//            String query = "select * from followship where is_following_id = " + userID + ";" ;
+//            ResultSet rs = st.executeQuery(query);
+//            while (rs.next()) {
+//                following.add(rs.getInt(2));
+//            }
+//        }
+//        catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return following;
+//
+//// check if you have already follow the user
+//    }
+//
+//    public static HashMap<Post, Integer> getCommonAdPost(Integer userID){
+//        ArrayList<Integer> following= getFollowings(userID);
+//        try {
+//            Connection con = DBInfo.getConnection();
+//            Statement st = con.createStatement();
+//            for (Integer friendID: following){
+//                ArrayList<friendFollow>
+//
+//            }
+//
+//            String query = "select * from followship where is_following_id = " + userID + ";" ;
+//            ResultSet rs = st.executeQuery(query);
+//            while (rs.next()) {
+//                following.add(rs.getInt(2));
+//            }
+//        }
+//        catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return following;
+//
+//
+//    }
 
     public static ArrayList<Integer> getFollowers(Integer userID){
         ArrayList<Integer> followers= new ArrayList<>();
