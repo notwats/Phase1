@@ -272,15 +272,16 @@ public class PostDB extends DBGetter {
     }
 
 
-    public static ArrayList<Date> getLikesDate(Integer post_id) {
-        ArrayList<Date> ret = new ArrayList<>();
+    public static ArrayList<LocalDate> getLikesDate(Integer post_id) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        ArrayList<LocalDate> ret = new ArrayList<>();
         try {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
             String query = "select * from post_reaction where post_id = " + post_id;
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
-                ret.add(rs.getDate(3));
+                ret.add(LocalDate.from(LocalDateTime.parse(rs.getString(3), formatter)));
             }
             con.close();
         } catch (SQLException e) {
@@ -291,7 +292,7 @@ public class PostDB extends DBGetter {
 
     // ad post...
     public static void newView(Integer postid) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         try {
             Connection con = DBInfo.getConnection();
@@ -307,15 +308,16 @@ public class PostDB extends DBGetter {
     }
 
 
-    public static ArrayList<Date> getViewsDate(Integer post_id) {
-        ArrayList<Date> ret = new ArrayList<>();
+    public static ArrayList<LocalDate> getViewsDate(Integer post_id) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        ArrayList<LocalDate> ret = new ArrayList<>();
         try {
             Connection con = DBInfo.getConnection();
             Statement st = con.createStatement();
             String query = "select * from post_view where post_id = " + post_id;
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
-                ret.add(rs.getDate(2));
+                ret.add(LocalDate.from(LocalDateTime.parse(rs.getString(2), formatter)));
             }
             con.close();
         } catch (SQLException e) {

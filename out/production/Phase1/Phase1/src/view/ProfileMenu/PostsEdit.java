@@ -44,7 +44,7 @@ public class PostsEdit {
                         break;
                     }
                     case "3", "stats" -> {
-                     //   ViewReport.sortByDay(currentpost.)
+                     ArrayList<ViewReport> reports=  ViewReport.sortByDay(currentpost.getViewsDate(), currentpost.getLikesDate(), currentpost.getCreationDate());
 
                     }
                     default -> {

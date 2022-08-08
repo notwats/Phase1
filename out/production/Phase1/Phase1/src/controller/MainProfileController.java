@@ -6,6 +6,7 @@ import models.Post;
 import models.User;
 import view.WelcomeMenu;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import static view.Menu.loggedInUser;
@@ -81,7 +82,7 @@ public class MainProfileController extends Controller {
         Post post = new Post();
         post.setSender(loggedInUser.getNumberID());
         post.setContext(context);
-        Date dateOfNow = new Date();
+        LocalDate dateOfNow = LocalDate.now();
         post.setCreationDate(dateOfNow);
         post.setIsNormal(loggedInUser.getIsNormal());
         PostDB.addPost(post);

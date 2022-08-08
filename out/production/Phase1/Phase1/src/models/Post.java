@@ -2,6 +2,7 @@ package models;
 
 import database.DBGetter;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,13 +17,13 @@ public class Post implements Comparable<Post> {
 
     String context; // main for phase 1
 
-    Date creationDate;
+    LocalDate creationDate;
     ArrayList<Integer> commentsid = new ArrayList<>();
     ArrayList<Integer> likedUsersid = new ArrayList<>();
 
 
-    public ArrayList<Date> likesDate = new ArrayList<>();
-    public ArrayList<Date> viewsDate = new ArrayList<>();
+    public ArrayList<LocalDate> likesDate = new ArrayList<>();
+    public ArrayList<LocalDate> viewsDate = new ArrayList<>();
 
 
     ArrayList<Tag> tags;
@@ -68,16 +69,32 @@ public class Post implements Comparable<Post> {
         this.context = context;
     }
 
-    public Date getCreationDate() {
+    public ArrayList<Tag> getTags() {
+        return tags;
+    }
+
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
-    public ArrayList<Tag> getTags() {
-        return tags;
+    public ArrayList<LocalDate> getLikesDate() {
+        return likesDate;
+    }
+
+    public void setLikesDate(ArrayList<LocalDate> likesDate) {
+        this.likesDate = likesDate;
+    }
+
+    public ArrayList<LocalDate> getViewsDate() {
+        return viewsDate;
+    }
+
+    public void setViewsDate(ArrayList<LocalDate> viewsDate) {
+        this.viewsDate = viewsDate;
     }
 
     public void setTags(ArrayList<Tag> tags) {
@@ -116,21 +133,6 @@ public class Post implements Comparable<Post> {
         this.likedUsersid = likedUsersid;
     }
 
-    public ArrayList<Date> getLikesDate() {
-        return likesDate;
-    }
-
-    public void setLikesDate(ArrayList<Date> likesDate) {
-        this.likesDate = likesDate;
-    }
-
-    public ArrayList<Date> getViewsDate() {
-        return viewsDate;
-    }
-
-    public void setViewsDate(ArrayList<Date> viewsDate) {
-        this.viewsDate = viewsDate;
-    }
 
     @Override
     public int compareTo(Post post) {
