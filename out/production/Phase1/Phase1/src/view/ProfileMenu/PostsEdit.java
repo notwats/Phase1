@@ -45,7 +45,9 @@ public class PostsEdit {
                     }
                     case "3", "stats" -> {
                      ArrayList<ViewReport> reports=  ViewReport.sortByDay(currentpost.getViewsDate(), currentpost.getLikesDate(), currentpost.getCreationDate());
-
+for(ViewReport vv: reports){
+    System.out.println(vv);
+}
                     }
                     default -> {
                         System.out.println(Message.INVALID_CHOICE);

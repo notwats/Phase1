@@ -40,14 +40,14 @@ public class GroupMessage {
 
     public void show() {
         User user = DBGetter.findUserByUserNumberID(senderID);
-        if (inReplyTo == -1) {
+        if (inReplyTo == -1 ) {
             System.out.println(user.username + " : " + messageText);
         } else{
             GroupMessage repMessage = DBGetter.findMessageByMessageID(inReplyTo);
             if(repMessage != null )
                 System.out.println(user.username + " : " + messageText + " in rep to " + repMessage.getMessageText().substring(0, 10));
             else
-                System.out.println(user.username + " : " + messageText + " in rep to deleted message ");
+                System.out.println(user.username + " : " + messageText );
         }
     }
         //graphic function
@@ -65,5 +65,21 @@ public class GroupMessage {
     public void reaction(){}
 
     //public void pin(){}
+    @Override
+    public String toString() {
+        StringBuilder ret = new StringBuilder();
+        if (forwardedFrom!=-1 && DBGetter.findMessageByMessageID(forwardedFrom)!=null){
+            ret.append("forwarded from " + DBGetter.findMessageByMessageID(forwardedFrom).getMessageText() + " <--    " + "\n");
+
+        }
+        if ( inReplyTo!=-1 && DBGetter.findMessageByMessageID(inReplyTo)!=null) {
+            ret.append("in replied to " + DBGetter.findMessageByMessageID(inReplyTo).getMessageText() + " -->     " +"\n");
+        }
+        ret.append(DBGetter.findUserByUserNumberID(this.senderID).getUsername() + ": ");
+        ret.append(messageText );
+        //  ret.append(likeNumber + " user like this comment");
+
+        return ret.toString();
+    }
 
 }

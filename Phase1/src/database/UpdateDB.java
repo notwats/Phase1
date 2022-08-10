@@ -168,7 +168,7 @@ public class UpdateDB {
         try {
             Connection connection = DBInfo.getConnection();
             Statement statement = connection.createStatement();
-            statement.execute("UPDATE  group_message SET `text` = " + editedText + " WHERE message_id = " + messageID);
+            statement.execute("UPDATE  group_message SET `text` = '" + editedText + "' WHERE message_id = " + messageID);
         } catch (Exception var4) {
             var4.printStackTrace();
         }
@@ -184,7 +184,7 @@ public class UpdateDB {
             if (forwardedFromID == -1 && repliedToID == -1) {
                 con.createStatement().execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, is_replied)  VALUES( " + senderID + " , " + groupID + " , '" + message + "', '" + now.format(dtf) + "' , FALSE)");
             } else {
-                con.createStatement().execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, forwarded_from, replied_to, is_replied)  VALUES( " + senderID + "," + groupID + "," + message + "," + senderID + ",'" + now.format(dtf) + "'," + groupID + "," + forwardedFromID + "," + repliedToID + ", true)");
+                con.createStatement().execute("INSERT INTO group_message( sender_id, group_id, text, creation_time, forwarded_from, replied_to, is_replied)  VALUES( " + senderID + "," + groupID + ",'" + message + "','" + now.format(dtf) + "'," + forwardedFromID + "," + repliedToID + ", true)");
             }
         } catch (Exception var9) {
             var9.printStackTrace();

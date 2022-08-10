@@ -44,6 +44,6 @@ public class ViewReport {
                 "Day=" + eachDay +
                 ", viewNum=" + viewNum +
                 ", likNum=" + likNum +
-                '}';
+                '}' ;
     }
 }
